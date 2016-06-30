@@ -1,0 +1,210 @@
+.finalize-settings-windo {
+
+  .modal-dia {
+    width: 100px;
+    height: 200px;
+    padding: 0 20px;
+    color: $mid-gray;
+    margin-top: 100px;
+    display:block;
+
+  }
+
+  .modal-content {
+    border-radius: 0;
+    background-color: #336699;
+
+    .modal-header {
+      padding: 0;
+      border-bottom: none;
+    }
+
+    .modal-body {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .modal-footer {
+      border-top: none;
+    }
+
+  }
+
+  .filters-modal-header {
+    background-color: #D6D6D6;
+    color: $mid-gray-2;
+    padding: 0 15px;
+    // cursor: pointer;
+
+    .filters-label {
+      display: inline-block;
+      color: $light-blue;
+    }
+
+    .icon-container {
+      font-size: 1.5em;
+      float: right;
+      margin: 10px 0;
+      width: 21px;
+      height: 21px;
+      color: $light-blue;
+    }
+
+    .icon-image,
+    .loading-indicator {
+      vertical-align: top;
+      cursor: pointer;
+      &.not-allowed {
+        cursor: not-allowed;
+      }
+    }
+
+  }
+
+  .settings-section {
+    .layout-section-heading {
+      margin: 40px 0;
+      color: $white;
+      font-size: 1.750em;
+      font-weight: $light;
+    }
+    .checkbox {
+      margin-bottom: 0px;
+    }
+  }
+
+  .filters-table-container {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .filters-table,
+  .columns-table {
+    display: table;
+    width: 100%;
+  }
+  .filters-row,
+  .columns-row {
+    display: table-row;
+  }
+  .filter-cell,
+  .column-cell {
+    display: table-cell;
+    width: 25%;
+  }
+
+
+  .filters-section {
+
+    .filter-cell {
+      padding-bottom: 10px;
+      padding-left: 45px;
+      padding-right: 45px;
+      position: relative;
+      height: 44px;
+
+      label {
+        color: $light-gray;
+        font-weight: normal;
+        font-size: 0.750em;
+        margin: 0;
+        display: block;
+        width: 100%;
+      }
+
+      .filter-radio {
+        margin-right: 8px;
+        padding-bottom: 10px;
+      }
+
+      .filter-radio+.filter-radio {
+        display: block;
+      }
+
+      .filter-multi-drop {
+
+        button {
+          color: $white;
+          background: #3498CB; // non-style-guide color specifically per request
+          width: 100%;
+          font-size: 0.750em;
+          font-weight: $semibold;
+          border-color: transparent;
+          display: block;
+          padding-right: 10px;
+          margin-top: 10px;
+          text-align: left;
+
+          .caret {
+            position: absolute;
+            right: 5px;
+            top: 15px;
+          }
+        }
+
+        [uib-dropdown-menu] {
+          border-radius: 0;
+          width: 100%;
+          background-color: #3498CB;
+          /* TODO-- these have been used twice-- maybe make a mixin*/
+          max-height: 182px;
+          overflow-y: hidden;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
+          &:hover {
+            overflow-y: scroll;
+          }
+          /*END TODO*/
+        }
+
+        .checkbox {
+          padding-left: 10px;
+          padding-right: 10px;
+          margin-top: 1px;
+          margin-bottom: 1px;
+
+          label {
+            color: $white;
+          }
+        }
+
+        [type=checkbox] {
+          top: -2px;
+        }
+
+      }
+
+      [disabled] {
+        cursor: not-allowed;
+        opacity: 0.65;
+        pointer-events: all;
+      }
+    }
+
+
+  }
+
+  .filter-cell.form-inline select,
+  .filter-cell .filter-multi-drop {
+    width: 85%;
+    display: block;
+    margin-top: 10px;
+    border-color: transparent;
+    background: #3498CB;
+  }
+
+  .columns-display-section {
+    .column-cell {
+      label {
+        color: $light-gray;
+        font-weight: normal;
+        font-size: 12.5px;
+        margin: 0;
+      }
+      [type="checkbox"] {
+        top: 0px;
+      }
+    }
+  }
+
+}
+
