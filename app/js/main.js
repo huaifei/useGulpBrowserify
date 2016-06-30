@@ -30,5 +30,6 @@
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
         .directive('employeeFlyout',employeeFlyoutDirective);
 
-    
+    var a = 0;
+    console.log(a);  
 })();
