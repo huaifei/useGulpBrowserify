@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3 class="modal-title" style="color:#58AFE0;">Please select your settings.</h3>
+</div>
+<div class="modal-body">
+
+    <!--<select ng-model="word" ng-options="word for method in items" class="modalSelected">-->
+        <!--<option value="">&#45;&#45; to choose &#45;&#45;</option>-->
+    <!--</select>-->
+    <select ng-model="selectedOption" class="modalSelected">
+        <option ng-repeat="method in items" value="{{method}}">{{method}}</option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <span style="font-size:24px;">Now selected: <b>{{selectedOption}}</b></span>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

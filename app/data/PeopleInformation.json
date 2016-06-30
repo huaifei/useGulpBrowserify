@@ -1,0 +1,107 @@
+{
+  "employees": [
+    {
+      "name":"Sohoa Ahmed",
+      "title":"Management Consulting Analyst",
+      "salary":"1,924,233",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":10,
+      "CurrentLevel":11,
+      "CurrentZone":3
+    },
+    {
+      "name":"Yemidsi Alude",
+      "title":"Software Engineering Analyst",
+      "salary":"4,253,233",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":8,
+      "CurrentLevel":9,
+      "CurrentZone":1
+    },
+    {
+      "name":"Hussein Fabela",
+      "title":"System Developer",
+      "salary":"6,964,333",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":9,
+      "CurrentLevel":10,
+      "CurrentZone":3
+    },
+    {
+      "name":"Ajay Mahajan",
+      "title":"Tester Analyst",
+      "salary":"724,094",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":10,
+      "CurrentLevel":11,
+      "CurrentZone":3
+    },
+    {
+      "name":"Quinn Patterson",
+      "title":"Management Consulting",
+      "salary":"1,221,233",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":8,
+      "CurrentLevel":9,
+      "CurrentZone":4
+    }
+  ],
+
+  "planner": [
+    {
+      "name":"Karile Numui",
+      "title":"Software Engineering",
+      "salary":"1,551,320",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":11,
+      "CurrentLevel":12,
+      "CurrentZone":2
+    },
+    {
+      "name":"Gamie Fevet",
+      "title":"System Developer",
+      "salary":"1,780,009",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":6,
+      "CurrentLevel":7,
+      "CurrentZone":8
+    },
+    {
+      "name":"Salako Kooio",
+      "title":"Tester Analyst",
+      "salary":"1,237,764",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":8,
+      "CurrentLevel":9,
+      "CurrentZone":1
+    },
+    {
+      "name":"Ban Jamie",
+      "title":"Management Consulting Analyst",
+      "salary":"1,783,454",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":10,
+      "CurrentLevel":11,
+      "CurrentZone":3
+    },
+    {
+      "name":"Niny Sopie",
+      "title":"Management Consulting",
+      "salary":"1,355,666",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Chicago-USA",
+      "NewLevel":9,
+      "CurrentLevel":10,
+      "CurrentZone":3
+    }
+  ]
+}

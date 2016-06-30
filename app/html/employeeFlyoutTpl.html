@@ -1,0 +1,16 @@
+<div class="employee-card-flyout-menu flyout-first" ng-style="vm.positionFlyout(employeeCard)" ng-keydown="vm.handleKeyDown($event)">
+
+    <div class="flyout-item flyout-header" ng-style="vm.showOrHide()">Move to</div>
+
+    <ul class="flyout-item group-list" ng-style="vm.showOrHide()">
+        <li ng-repeat="group in vm.groups" class="flyout-item group-item" ng-click="vm.addEmployeeToGroup(employee.PeopleKey, group.ModelGroupId)" >
+            <label class="group-name">{{group.types}}</label>
+        </li>
+    </ul>
+
+    <div class="flyout-item individual-link-container flyout-last">
+        <span class="fa fa-angle-double-right color-indicator" style="color: #3399CC"></span>
+        <label class="group-name" style="color: #3399CC;cursor:pointer;">Profile Details</label>
+    </div>
+
+</div>

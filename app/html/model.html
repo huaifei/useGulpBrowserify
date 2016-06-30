@@ -1,0 +1,161 @@
+<div class="main" >
+	<div class="left_pane">
+		<!--<div class="left_pane_info">-->
+			<!--<span>Filters</span>-->
+			<!--<button ng-click="vm.showPaneContent()">click</button>-->
+		<!--</div>-->
+			<div class="left_pane_content">
+				<!--<label ng-repeat="name in vm.names" for="{{name}}" style="margin-right:10px;">-->
+					<!--<input type="radio" ng-model="the.type" ng-value="name" id="{{name}}" name="type">-->
+					<!--{{name}}-->
+				<!--</label>-->
+				<br>
+				<form>
+					<label ng-if="selected=='employees'">
+						<h2>Employees</h2>
+						<select ng-model="vm.options"
+								ng-options="options.key for options in vm.sortOptions">
+							<option value="">-- to choose --</option>
+						</select>
+
+					</label>
+					<label ng-if="selected=='planners'">
+						<h2>Planners</h2>
+						<select ng-model="vm.options"
+								ng-options="options.key for options in vm.sortOptions">
+							<option value="">-- to choose --</option>
+						</select>
+					</label>
+				</form>
+
+				<div class="employeeCard" ng-repeat="man in vm.employees | orderBy:vm.options.value" ng-if="selected=='employees'">
+					<div class="top_table">
+						<div class="top_table_cell user_cell">
+							<img ng-src="../img/anouser2.jpg">
+						</div>
+						<div class="top_table_cell">
+							<div class="employeeCard_name">{{man.name}}</div>
+							<div class="employeeCard_title">{{man.title}}</div>
+						</div>
+						<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
+						<!--<div class="btn-group flyOut_trigger" style="z-index: 10000;" uib-dropdown>-->
+							<!--<button type="button" class="btn btn-danger" uib-dropdown-toggle>-->
+								<!--<span class="caret"></span>-->
+								<!--<span class="sr-only">Split button!</span>-->
+							<!--</button>-->
+							<!--<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">-->
+								<!--<li role="menuitem">Action</li>-->
+								<!--<li role="menuitem">Anothe</li>-->
+								<!--<li role="menuitem">Something</li>-->
+								<!--<li role="menuitem">Separ</li>-->
+							<!--</ul>-->
+						<!--</div>-->
+
+					</div>
+					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
+						<div class="salary_table">
+							<div class="salary_table_cell">
+								<p class="employeeCard_salary">Salary</p>
+							</div>
+							<div class="salary_table_cell">
+								<div class="salary_slider_cell">
+									<div class="emp_scale_line"></div>
+								</div>
+							</div>
+							<div class="salary_table_cell" ng-click="vm.flip($index)">
+								<span class="front_flip_cell">></span>
+							</div>
+						</div>
+						<div class="employeeCard_feedback">Extraordinary Achievement</div>
+					</div>
+					<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
+						<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
+							<span><</span>
+						</div>
+						<div class="salary_table_cell salary_and_location">
+							<span>{{man.salary}}</span>
+							<span>{{man.salaryTitle}}</span>
+							<span>{{man.location}}</span>
+						</div>
+						<div class="salary_table_cell levels_and_zone">
+							<span>New Level:{{man.NewLevel}}</span>
+							<span>Current Level:{{man.CurrentLevel}}</span>
+							<span>Current Zone:{{man.CurrentZone}}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="employeeCard" ng-repeat="man in vm.planner | orderBy:vm.options.value" ng-if="selected=='planners'">
+
+					<div class="top_table">
+						<div class="top_table_cell user_cell">
+							<img ng-src="../img/anouser2.jpg">
+						</div>
+						<div class="top_table_cell">
+							<div class="employeeCard_name">{{man.name}}</div>
+							<div class="employeeCard_title">{{man.title}}</div>
+						</div>
+						<span class="flyOut_trigger">...</span>
+					</div>
+					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
+						<div class="salary_table">
+							<div class="salary_table_cell">
+								<p class="employeeCard_salary">Salary</p>
+							</div>
+							<div class="salary_table_cell">
+								<div class="salary_slider_cell">
+									<div class="emp_scale_line"></div>
+								</div>
+							</div>
+							<div class="salary_table_cell" ng-click="vm.flip($index)">
+								<span class="front_flip_cell">></span>
+							</div>
+						</div>
+						<div class="employeeCard_feedback">Extraordinary Achievement</div>
+					</div>
+					<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
+						<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
+							<span><</span>
+						</div>
+						<div class="salary_table_cell salary_and_location">
+							<span>{{man.salary}}</span>
+							<span>{{man.salaryTitle}}</span>
+							<span>{{man.location}}</span>
+						</div>
+						<div class="salary_table_cell levels_and_zone">
+							<span>New Level:{{man.NewLevel}}</span>
+							<span>Current Level:{{man.CurrentLevel}}</span>
+							<span>Current Zone:{{man.CurrentZone}}</span>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+	</div>
+
+	<div class="right_pane">
+		<!--<span ng-click="vm.clickShowName($event)" ng-show="vm.inputName" class="every_name">Click to input name here.</span>-->
+		<!--<input type="text" value="vm.add_name" ng-blur="vm.clickToHideName()"  ng-model="vm.add_name" ng-show="!vm.inputName" style="width:170px;">-->
+		<input type="text" value="vm.add_name" ng-model="vm.add_name" style="width:170px;">
+		<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
+		<br>
+		<div ng-repeat="everyName in vm.show_name">
+			<div class="show_name_box">
+				<span class="every_name">{{everyName.types}}</span>
+				<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove" style="margin-left:30px;cursor:pointer"></span>
+				<span>{{everyName.contents}}</span>
+			</div>
+		</div>
+
+
+		<!--<div class="wrapperDIV">-->
+				<!--<a >contents</a>-->
+				<!--<a >contents</a>-->
+				<!--<a >contents</a>-->
+		<!--</div>-->
+
+
+	</div>
+</div>
