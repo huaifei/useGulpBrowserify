@@ -17,7 +17,6 @@ var gulp = require('gulp'),
 //         .pipe(gulp.dest('./'));
 // });
 
-
 //-----------------------------------------------
 
 var global = {
@@ -48,14 +47,6 @@ gulp.task('watch',function () {
 gulp.task('default',function () {
     gulp.start('watch');
 });
-
-// gulp.task('browserify', watchify(function(watchify) {
-//     return gulp.src(bundlePaths.src)
-//         .pipe(watchify({
-//             watch:watching
-//         }))
-//         .pipe(gulp.dest(bundlePaths.dest))
-// }));
 
 
 //-----------------------------------------------
