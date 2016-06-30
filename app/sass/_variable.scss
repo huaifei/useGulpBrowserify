@@ -1,0 +1,36 @@
+//Colors
+$dark-blue : #055e87;
+$mid-blue : #009bde;
+$mid-blue-2 : #3399CC;
+$mid-blue-3 : #6FB7DB;
+$light-blue : #53aee2;
+$white : #ffffff;
+$light-gray : #dfdfdf;
+$mid-gray : #b2b2b2;
+$mid-gray-2 : #737373;
+$mid-gray-3: #666666;
+$dark-gray : #333333;
+$orange : #f79820;
+$light-orange : #ffeca4;
+$purple : #963794;
+$red : #EB4424;
+
+//Section Sizes
+$nav-height: 54px;
+$footer-height: 60px;
+
+//font-weights
+$light: lighter;
+$regular: 500;
+$semibold: 600;
+$bold: bold;
+
+
+//importable classes
+.min-full-height-minus-header-and-footer {
+  min-height: calc(100vh - #{$nav-height + $footer-height});
+}
+
+.full-height-minus-header-and-footer {
+  height: calc(100vh - #{$nav-height + $footer-height});
+}
