@@ -429,7 +429,8 @@ module.exports = EmployeeFlyout;
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
         .directive('employeeFlyout',employeeFlyoutDirective);
 
-    
+    var a = 0;
+    console.log(a);  
 })();
 
 },{"./app/appModule.js":1,"./app/serviceModule.js":2,"./controllers/employeeFlyoutCtl.js":3,"./controllers/modalInstanceCtl.js":4,"./controllers/modelCtl.js":5,"./controllers/rootCtl.js":6,"./directives/employeeFlyout.js":7,"./route/routeConfig.js":9,"./services/localstorageItemsSvc.js":11,"./services/showLocalStorageItemsSvc.js":12}],9:[function(require,module,exports){
