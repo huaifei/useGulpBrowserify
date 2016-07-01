@@ -4,7 +4,10 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     reactify = require('reactify'),
     watchify = require('watchify'),
-    notify = require("gulp-notify");
+    notify = require("gulp-notify"),
+    sass = require("gulp-sass"),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    sourcemaps = require('gulp-sourcemaps');
 
 // gulp.task('default',function(){
 //     gulp.start('bundle');
@@ -18,6 +21,11 @@ var gulp = require('gulp'),
 // });
 
 //-----------------------------------------------
+
+gulp.task('default',function () {
+    gulp.start('watch');
+    gulp.watch('./app/sass/**/*.scss',['styles']);
+});
 
 var global = {
     isWatching: true
@@ -35,7 +43,7 @@ gulp.task('watch',function () {
     };
 
     if(global.isWatching) {
-        bundler = watchify(bundler);
+        bundler = watchify(bundler); // only watch main.js TODO:watch the whole app directory
         bundler.on('update', bundleFunc);
     }
 
@@ -43,22 +51,28 @@ gulp.task('watch',function () {
 
 });
 
+gulp.task('styles', function() {
 
-gulp.task('default',function () {
-    gulp.start('watch');
+    gutil.log($.util.colors.magenta('--SASS/CSS building...--'));
+    gulp.src('./app/sass/index.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle:'compressed'}).on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./app/css/'))
+
 });
 
 
-//-----------------------------------------------
+function handleErrors() {
 
-
-// gulp.task('build', function() {
-//     return buildScript('./app/js/main.js', false);
-// });
-//
-// gulp.task('default', ['build'], function() {
-//     return buildScript('./app/js/main.js', true);
-// });
+    var args = Array.prototype.slice.call(arguments);
+    notify.onError({
+        title: "Compile Error",
+        message: "<%= error.message %>"
+    }).apply(this, args);
+    this.emit('end');
+    // Keep gulp from hanging on this task
+}
 
 
 function buildScript(file, watch) {
@@ -80,16 +94,7 @@ function buildScript(file, watch) {
     return rebundle();
 }
 
-function handleErrors() {
 
-    var args = Array.prototype.slice.call(arguments);
-    notify.onError({
-        title: "Compile Error",
-        message: "<%= error.message %>"
-    }).apply(this, args);
-    this.emit('end');
-    // Keep gulp from hanging on this task
-}
 
 //-----------------------------------------------
 
