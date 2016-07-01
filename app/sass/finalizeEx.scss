@@ -7,7 +7,6 @@
     color: $mid-gray;
     margin-top: 100px;
     display:block;
-
   }
 
   .modal-content {
@@ -179,17 +178,6 @@
         pointer-events: all;
       }
     }
-
-
-  }
-
-  .filter-cell.form-inline select,
-  .filter-cell .filter-multi-drop {
-    width: 85%;
-    display: block;
-    margin-top: 10px;
-    border-color: transparent;
-    background: #3498CB;
   }
 
   .columns-display-section {
