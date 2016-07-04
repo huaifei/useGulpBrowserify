@@ -1,2 +1,2 @@
 # useGulpBrowserify
-a training project
+a training demo
