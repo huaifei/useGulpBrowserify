@@ -76,7 +76,7 @@ function handleErrors() {
 
 
 function buildScript(file, watch) {
-    var props = {entries: [file]};
+    var props = {entries: []};
     var bundler = watch ? watchify(props) : browserify(props);
     // bundler.transform(reactify);
 
