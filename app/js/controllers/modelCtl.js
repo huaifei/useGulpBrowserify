@@ -107,6 +107,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
             $event = $event.originalEvent;
         }
 
+        
         vm.employeeCard = getContainingEmployeeCard($event.target);
         console.log(vm.employeeCard);
         employeeFlyoutElementString = '<employee-flyout employee="employee" employeecard="vm.employeeCard"></employee-flyout>';
