@@ -108,7 +108,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         }
 
         vm.employeeCard = getContainingEmployeeCard($event.target);
-
+console.log(vm.employeeCard);
         employeeFlyoutElementString = '<employee-flyout employee="employee" employeecard="vm.employeeCard"></employee-flyout>';
 
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );

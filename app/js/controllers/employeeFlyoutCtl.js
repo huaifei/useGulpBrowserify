@@ -54,6 +54,12 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
+    vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
+        
+        
+        vm.removeFlyout(true);
+    };
+    
     // vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
     //     if ($rootScope.app.roleAccessInfo.EditModeling) {
     //         $rootScope.app.broadcastEvent('addEmployeeToGroup', {employeePeopleKey: employeePeopleKey, groupId: groupId});

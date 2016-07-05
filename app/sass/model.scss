@@ -4,6 +4,9 @@ $orange: orange;
 $light-gray: #f0f0f0;
 $mid-gray: #D6D6D6;
 
+%dib {
+  display:inline-block;
+}
 
 body {
   margin:0;
@@ -24,15 +27,15 @@ body {
     float:left;
 
     img{
-      display: inline-block;
+      @extend %dib;
       margin:7px 0 0 20px;
       width: 40px;
       height: 40px;
     }
     span {
+      @extend %dib;
       font-family: sans-serif;
       font-size: 24px;
-      display: inline-block;
       float: right;
       margin: 10px 30px 0 0;
       color: $white;
@@ -46,9 +49,9 @@ body {
     width: auto;
 
     a {
+      @extend %dib;
       width:186px;
       height:54px;
-      display: inline-block;
       text-align: center;
       line-height: 54px;
       font-size:20px;
