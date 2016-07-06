@@ -54,7 +54,11 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
-    vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
+    vm.addEmployeeToGroup = function () {
+        var employeeCard = $scope.employeecard;
+        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
+        console.log('employeeName: ' + employeeName);
+        
         
         
         vm.removeFlyout(true);

@@ -19,8 +19,6 @@ function EmployeeFlyout () {
     directive.link = function (scope, elem, attr) { //TODO: should strip elem of it's jqueryness right off the bat
       
         var vm = scope.vm;
-        console.log(attr);
-        console.log(elem);
         
         function buildEventPath (eventObject) { //TODO:  might be more efficient to incorporate this into the loop that is being done in removeIfAnyOtherElementClicked, rather than doing two loops.
             var el = eventObject.target;
@@ -75,9 +73,9 @@ function EmployeeFlyout () {
             if (vm.debinder) {
                 vm.debinder();
             }
-            if (returnFlag === true || returnFlag === 'true') { // because the acat-remove-on handler will only be able to pass it as a string
-                scope.trigger.focus();
-            }
+            // if (returnFlag === true || returnFlag === 'true') { // because the acat-remove-on handler will only be able to pass it as a string
+            //     scope.trigger.focus();
+            // }
             if (elem && elem.remove) { // this is a hack to fix bizarre behavior in IE11
                 elem.remove();
             }
