@@ -106,7 +106,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         if (jQuery && $event instanceof jQuery.Event) {
             $event = $event.originalEvent;
         }
-
+        
         
         vm.employeeCard = getContainingEmployeeCard($event.target);
         console.log(vm.employeeCard);
