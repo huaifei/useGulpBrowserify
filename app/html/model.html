@@ -95,7 +95,7 @@
 							<div class="employeeCard_name">{{man.name}}</div>
 							<div class="employeeCard_title">{{man.title}}</div>
 						</div>
-						<span class="flyOut_trigger">...</span>
+						<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
 					</div>
 					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
 						<div class="salary_table">
@@ -130,7 +130,6 @@
 					</div>
 				</div>
 
-
 			</div>
 
 	</div>
@@ -145,7 +144,7 @@
 			<div class="show_name_box">
 				<span class="every_name">{{everyName.types}}</span>
 				<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove" style="margin-left:30px;cursor:pointer"></span>
-				<span>{{everyName.contents}}</span>
+				<span>{{everyName.content}}</span>
 			</div>
 		</div>
 

@@ -33,33 +33,37 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     vm.names = ['employees','planners'];
     $scope.the = { type: 'employees' };
     
-    vm.show_name = [];
+    vm.show_name = localStorageItemsSvc.toGet();
     
-    var showLocalStorageItem = function () {
-        if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-            for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
-                var single = {
-                    types: null,
-                    contents : []
-                };
-                single.types=localStorageItemsSvc.toGet()[k];
-                vm.show_name.push(single);
-            }
-        }
-    };
-    showLocalStorageItem();
+    // var showLocalStorageItem = function () {
+    //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
+    //         for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
+    //             var single = {
+    //                 types: null,
+    //                 contents : []
+    //             };
+    //             single.types=localStorageItemsSvc.toGet()[k];
+    //             vm.show_name.push(single);
+    //         }
+    //     }
+    // };
+    // showLocalStorageItem();
 
-    vm.moveToRightList = function(index,parentIndex){
-        vm.show_name[index].contents.push(vm.employees[parentIndex].name);
-    };
+    // vm.moveToRightList = function(index,parentIndex){
+    //     vm.show_name[index].contents.push(vm.employees[parentIndex].name);
+    // };
 
     vm.addNames = function(){
         var name_list = localStorageItemsSvc.toGet() || [];
         if(vm.add_name != null && vm.add_name != undefined){
-            name_list.push(vm.add_name);
+            var single = {
+                types: vm.add_name,
+                contents : []
+            };
+            name_list.push(single);
             vm.add_name = null;
             localStorageItemsSvc.toSet(name_list);
-            vm.show_name.types = localStorageItemsSvc.toGet();
+            vm.show_name = localStorageItemsSvc.toGet();
         }
     };
 

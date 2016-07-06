@@ -3,7 +3,7 @@
     <div class="flyout-item flyout-header" ng-style="vm.showOrHide()">Move to</div>
 
     <ul class="flyout-item group-list" ng-style="vm.showOrHide()">
-        <li ng-repeat="group in vm.groups" class="flyout-item group-item" ng-click="vm.addEmployeeToGroup(employeeCard)">
+        <li ng-repeat="group in vm.groups" class="flyout-item group-item" ng-click="vm.addEmployeeToGroup($index)">
             <label class="group-name">{{group.types}}</label>
         </li>
     </ul>

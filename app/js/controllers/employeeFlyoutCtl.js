@@ -3,8 +3,28 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
 
     "ngInject";
     var vm = this;
-    var modelGroupsLoadedDebinder;
+    vm.groups = localStorageItemsSvc.toGet();
 
+    vm.addEmployeeToGroup = function (index) {
+        var employeeCard = $scope.employeecard;
+        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
+        var localStore = localStorageItemsSvc.toGet();
+        // console.log('employeeName: ' + employeeName + ' , index: ' + index);
+        localStore[index].content = employeeName;
+        localStorageItemsSvc.toSet(localStore);
+
+        vm.removeFlyout(true);
+    };
+
+    vm.showOrHide = function () {
+        var styleObject = {};
+        // if(){
+        //     styleObject = {display:'none'};
+        // }
+        return styleObject;
+        
+    };
+    
     function doesFlyoutClearBottomOfScreen() {
         var employeeCard = $scope.employeecard;
         var employeeCardDimensions = employeeCard.getBoundingClientRect();
@@ -12,21 +32,6 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         var employeeCardDistFromBottom = window.innerHeight - employeeCardDimensions.top; //the distance from the top of the employeeCard to the bottom of the window
         return (employeeCardDistFromBottom > 200);
     }
-
-    vm.groups = [];
-    var showLocalStorageItem = function () {
-        if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-            for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
-                var single = {
-                    types: null,
-                    contents : []
-                };
-                single.types=localStorageItemsSvc.toGet()[k];
-                vm.groups.push(single);
-            }
-        }
-    };
-    showLocalStorageItem();
 
     vm.positionFlyout = function () { //TODO - This may allow the flyout to scroll with the employeecard.... //TODO-- refactor? this was a rush job
         var employeeCard = $scope.employeecard;
@@ -54,15 +59,6 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
-    vm.addEmployeeToGroup = function () {
-        var employeeCard = $scope.employeecard;
-        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
-        console.log('employeeName: ' + employeeName);
-        
-        
-        
-        vm.removeFlyout(true);
-    };
     
     // vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
     //     if ($rootScope.app.roleAccessInfo.EditModeling) {
