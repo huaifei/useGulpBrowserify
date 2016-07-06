@@ -24,21 +24,6 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return (employeeCardDistFromBottom > 200);
     }
 
-    vm.groups = [];
-    var showLocalStorageItem = function () {
-        if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-            for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
-                var single = {
-                    types: null,
-                    contents : []
-                };
-                single.types=localStorageItemsSvc.toGet()[k];
-                vm.groups.push(single);
-            }
-        }
-    };
-    showLocalStorageItem();
-
     vm.positionFlyout = function () { //TODO - This may allow the flyout to scroll with the employeecard.... //TODO-- refactor? this was a rush job
         var employeeCard = $scope.employeecard;
         
@@ -65,8 +50,16 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
-    vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
+    vm.groups = localStorageItemsSvc.toGet();
+    
+    vm.addEmployeeToGroup = function (index) {
+        var employeeCard = $scope.employeecard;
+        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
+        var localStore = localStorageItemsSvc.toGet();
+        console.log('employeeName: ' + employeeName + ' , index: ' + index);
         
+        localStore[index].content = employeeName;
+        localStorageItemsSvc.toSet(localStore);
         
         vm.removeFlyout(true);
     };
@@ -151,33 +144,37 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     vm.names = ['employees','planners'];
     $scope.the = { type: 'employees' };
     
-    vm.show_name = [];
+    vm.show_name = localStorageItemsSvc.toGet();
     
-    var showLocalStorageItem = function () {
-        if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-            for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
-                var single = {
-                    types: null,
-                    contents : []
-                };
-                single.types=localStorageItemsSvc.toGet()[k];
-                vm.show_name.push(single);
-            }
-        }
-    };
-    showLocalStorageItem();
+    // var showLocalStorageItem = function () {
+    //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
+    //         for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
+    //             var single = {
+    //                 types: null,
+    //                 contents : []
+    //             };
+    //             single.types=localStorageItemsSvc.toGet()[k];
+    //             vm.show_name.push(single);
+    //         }
+    //     }
+    // };
+    // showLocalStorageItem();
 
-    vm.moveToRightList = function(index,parentIndex){
-        vm.show_name[index].contents.push(vm.employees[parentIndex].name);
-    };
+    // vm.moveToRightList = function(index,parentIndex){
+    //     vm.show_name[index].contents.push(vm.employees[parentIndex].name);
+    // };
 
     vm.addNames = function(){
         var name_list = localStorageItemsSvc.toGet() || [];
         if(vm.add_name != null && vm.add_name != undefined){
-            name_list.push(vm.add_name);
+            var single = {
+                types: vm.add_name,
+                contents : []
+            };
+            name_list.push(single);
             vm.add_name = null;
             localStorageItemsSvc.toSet(name_list);
-            vm.show_name.types = localStorageItemsSvc.toGet();
+            vm.show_name = localStorageItemsSvc.toGet();
         }
     };
 
@@ -224,9 +221,10 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         if (jQuery && $event instanceof jQuery.Event) {
             $event = $event.originalEvent;
         }
-
+        
+        
         vm.employeeCard = getContainingEmployeeCard($event.target);
-console.log(vm.employeeCard);
+        
         employeeFlyoutElementString = '<employee-flyout employee="employee" employeecard="vm.employeeCard"></employee-flyout>';
 
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
@@ -297,8 +295,6 @@ function EmployeeFlyout () {
     directive.link = function (scope, elem, attr) { //TODO: should strip elem of it's jqueryness right off the bat
       
         var vm = scope.vm;
-        console.log(attr);
-        console.log(elem);
         
         function buildEventPath (eventObject) { //TODO:  might be more efficient to incorporate this into the loop that is being done in removeIfAnyOtherElementClicked, rather than doing two loops.
             var el = eventObject.target;
@@ -353,9 +349,9 @@ function EmployeeFlyout () {
             if (vm.debinder) {
                 vm.debinder();
             }
-            if (returnFlag === true || returnFlag === 'true') { // because the acat-remove-on handler will only be able to pass it as a string
-                scope.trigger.focus();
-            }
+            // if (returnFlag === true || returnFlag === 'true') { // because the acat-remove-on handler will only be able to pass it as a string
+            //     scope.trigger.focus();
+            // }
             if (elem && elem.remove) { // this is a hack to fix bizarre behavior in IE11
                 elem.remove();
             }
@@ -434,9 +430,9 @@ module.exports = EmployeeFlyout;
 
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
         .directive('employeeFlyout',employeeFlyoutDirective);
-
-    var a = 0;
-    console.log(a);  
+    
+    
+    
 })();
 
 },{"./app/appModule.js":1,"./app/serviceModule.js":2,"./controllers/employeeFlyoutCtl.js":3,"./controllers/modalInstanceCtl.js":4,"./controllers/modelCtl.js":5,"./controllers/rootCtl.js":6,"./directives/employeeFlyout.js":7,"./route/routeConfig.js":9,"./services/localstorageItemsSvc.js":11,"./services/showLocalStorageItemsSvc.js":12}],9:[function(require,module,exports){
