@@ -13,12 +13,12 @@ var gulp = require('gulp'),
 //     gulp.start('bundle');
 // });
 
-// gulp.task('bundle', function() {
-//     return browserify('./app/js/main.js')
-//         .bundle()
-//         .pipe(source('bundle.js'))
-//         .pipe(gulp.dest('./'));
-// });
+gulp.task('bundle', function() {
+    return browserify('./app/js/main.js')
+        .bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('./'));
+});
 
 //-----------------------------------------------
 
