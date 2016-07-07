@@ -113,13 +113,15 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         
         
         vm.employeeCard = getContainingEmployeeCard($event.target);
+        vm.employeeName = vm.employeeCard.querySelector('.employeeCard_name').innerHTML;
         
-        employeeFlyoutElementString = '<employee-flyout employee="employee" employeecard="vm.employeeCard"></employee-flyout>';
-
+        employeeFlyoutElementString = '<employee-flyout employee="vm.employeeName" employeecard="vm.employeeCard"></employee-flyout>';
+    
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
-    }
-
+    };
+    
+    
 };
 
 module.exports = modelCtl;

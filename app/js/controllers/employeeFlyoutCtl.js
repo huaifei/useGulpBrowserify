@@ -6,19 +6,22 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     vm.groups = localStorageItemsSvc.toGet();
 
     vm.addEmployeeToGroup = function (index) {
-        var employeeCard = $scope.employeecard;
-        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
+
+        var employeeName = $scope.employee;
         var localStore = localStorageItemsSvc.toGet();
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
+        // localStore[index].content.push(employeeName);  // TODO-- use this when it's formal
         localStore[index].content = employeeName;
         localStorageItemsSvc.toSet(localStore);
+        
+        console.log(employeeName);
 
         vm.removeFlyout(true);
     };
 
     vm.showOrHide = function () {
         var styleObject = {};
-        // if(){
+        // if(false){
         //     styleObject = {display:'none'};
         // }
         return styleObject;
