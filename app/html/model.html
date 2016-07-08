@@ -136,15 +136,15 @@
 
 	<div class="right_pane">
 		<!--<span ng-click="vm.clickShowName($event)" ng-show="vm.inputName" class="every_name">Click to input name here.</span>-->
-		<!--<input type="text" value="vm.add_name" ng-blur="vm.clickToHideName()"  ng-model="vm.add_name" ng-show="!vm.inputName" style="width:170px;">-->
-		<input type="text" value="vm.add_name" ng-model="vm.add_name" style="width:170px;">
+		<!--<input type="text" value="vm.add_GroupName" ng-blur="vm.clickToHideName()"  ng-model="vm.add_GroupName" ng-show="!vm.inputName" style="width:170px;">-->
+		<input type="text" value="vm.add_GroupName" ng-model="vm.add_GroupName" style="width:170px;">
 		<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
 		<br>
 		<div ng-repeat="everyName in vm.show_name">
 			<div class="show_name_box">
 				<span class="every_name">{{everyName.types}}</span>
 				<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove" style="margin-left:30px;cursor:pointer"></span>
-				<span>{{everyName.content}}</span>
+				<span ng-repeat="addedPeopleName in everyName.addedPeople">{{addedPeopleName}}</span>
 			</div>
 		</div>
 

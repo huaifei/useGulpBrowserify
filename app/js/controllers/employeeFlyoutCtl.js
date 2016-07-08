@@ -24,11 +24,14 @@ debugger
         console.log(re);
         
         var localStore = localStorageItemsSvc.toGet('local_list');
+        if(localStore[index].addedPeople == null){
+            localStore[index].addedPeople = [];
+        }
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
-        // localStore[index].content.push(employeeName);  // TODO-- use this when it's formal
-        localStore[index].content = employeeName;
+        localStore[index].addedPeople.push(employeeName);  // TODO-- use this when it's formal
+        // localStore[index].addedPeople = employeeName;   // convenient to debugger
         localStorageItemsSvc.toSet('local_list',localStore);
-        
+
         vm.removeFlyout(true);
     };
 

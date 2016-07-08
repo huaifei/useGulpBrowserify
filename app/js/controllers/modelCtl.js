@@ -34,7 +34,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     $scope.the = { type: 'employees' };
     
     vm.show_name = localStorageItemsSvc.toGet('local_list');
-    
+    console.log('vm.show_name : '+vm.show_name);
     // var showLocalStorageItem = function () {
     //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
     //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
@@ -55,13 +55,13 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
 
     vm.addNames = function(){
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
-        if(vm.add_name != null && vm.add_name != undefined){
+        if(vm.add_GroupName != null && vm.add_GroupName != undefined){
             var single = {
-                types: vm.add_name,
-                contents : []
+                types: vm.add_GroupName,
+                addedPeople : []
             };
             name_list.push(single);
-            vm.add_name = null;
+            vm.add_GroupName = null;
             localStorageItemsSvc.toSet('local_list',name_list);
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
