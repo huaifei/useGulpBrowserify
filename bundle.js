@@ -14,8 +14,46 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
 
     "ngInject";
     var vm = this;
-    var modelGroupsLoadedDebinder;
+    var employeeName = $scope.employee;
+    var compareResult = localStorageItemsSvc.toCompare(employeeName);
+    console.log('compareResult:'+compareResult);
+    vm.groups = localStorageItemsSvc.toGet('local_list');
+    vm.showOrHideFlag = false;
 
+    // console.log(employeeName);
+
+    vm.addEmployeeToGroup = function (index) {
+debugger
+        if(!compareResult){
+            var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
+            console.log(storeAdded);
+            storeAdded.push(employeeName);
+            
+            localStorageItemsSvc.toSet('storeAddedPeople',storeAdded);
+        }
+        var re = localStorageItemsSvc.toCompare(employeeName);
+        console.log(re);
+        
+        var localStore = localStorageItemsSvc.toGet('local_list');
+        // console.log('employeeName: ' + employeeName + ' , index: ' + index);
+        // localStore[index].content.push(employeeName);  // TODO-- use this when it's formal
+        localStore[index].content = employeeName;
+        localStorageItemsSvc.toSet('local_list',localStore);
+        
+        vm.removeFlyout(true);
+    };
+
+    vm.showOrHide = function () {
+        var styleObject = {};
+        if(compareResult){
+            vm.showOrHideFlag = true;
+        }
+        if(vm.showOrHideFlag){
+            styleObject = {display:'none'};
+        }
+        return styleObject;
+    };
+    
     function doesFlyoutClearBottomOfScreen() {
         var employeeCard = $scope.employeecard;
         var employeeCardDimensions = employeeCard.getBoundingClientRect();
@@ -50,19 +88,6 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
-    vm.groups = localStorageItemsSvc.toGet();
-    
-    vm.addEmployeeToGroup = function (index) {
-        var employeeCard = $scope.employeecard;
-        var employeeName = employeeCard.querySelector('.employeeCard_name').innerHTML;
-        var localStore = localStorageItemsSvc.toGet();
-        console.log('employeeName: ' + employeeName + ' , index: ' + index);
-        
-        localStore[index].content = employeeName;
-        localStorageItemsSvc.toSet(localStore);
-        
-        vm.removeFlyout(true);
-    };
     
     // vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
     //     if ($rootScope.app.roleAccessInfo.EditModeling) {
@@ -144,16 +169,16 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     vm.names = ['employees','planners'];
     $scope.the = { type: 'employees' };
     
-    vm.show_name = localStorageItemsSvc.toGet();
+    vm.show_name = localStorageItemsSvc.toGet('local_list');
     
     // var showLocalStorageItem = function () {
     //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-    //         for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
+    //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
     //             var single = {
     //                 types: null,
     //                 contents : []
     //             };
-    //             single.types=localStorageItemsSvc.toGet()[k];
+    //             single.types=localStorageItemsSvc.toGet('local_list')[k];
     //             vm.show_name.push(single);
     //         }
     //     }
@@ -165,7 +190,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     // };
 
     vm.addNames = function(){
-        var name_list = localStorageItemsSvc.toGet() || [];
+        var name_list = localStorageItemsSvc.toGet('local_list') || [];
         if(vm.add_name != null && vm.add_name != undefined){
             var single = {
                 types: vm.add_name,
@@ -173,8 +198,8 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
             };
             name_list.push(single);
             vm.add_name = null;
-            localStorageItemsSvc.toSet(name_list);
-            vm.show_name = localStorageItemsSvc.toGet();
+            localStorageItemsSvc.toSet('local_list',name_list);
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
     };
 
@@ -184,7 +209,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         for(var p = 0;p<vm.show_name.length;p++){
             arrayTemp.push(vm.show_name[p].types);
         }
-        localStorageItemsSvc.toSet(arrayTemp);
+        localStorageItemsSvc.toSet('local_list',arrayTemp);
         arrayTemp = null;
     };
 
@@ -224,13 +249,15 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         
         
         vm.employeeCard = getContainingEmployeeCard($event.target);
+        vm.employeeName = vm.employeeCard.querySelector('.employeeCard_name').innerHTML;
         
-        employeeFlyoutElementString = '<employee-flyout employee="employee" employeecard="vm.employeeCard"></employee-flyout>';
-
+        employeeFlyoutElementString = '<employee-flyout employee="vm.employeeName" employeecard="vm.employeeCard"></employee-flyout>';
+    
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
-    }
-
+    };
+    
+    
 };
 
 module.exports = modelCtl;
@@ -469,24 +496,53 @@ module.exports = config;
 },{"./../controllers/modelCtl.js":5}],10:[function(require,module,exports){
 var localStorageItemsSvc = function(){
 
-    var toSet = function(item){
+    var toSet = function(whichStorage,item){
         var temp = JSON.stringify(item);
-        window.localStorage.setItem('local_list',temp);
+        window.localStorage.setItem(whichStorage,temp);
     };
 
-    var toGet = function(){
-        var temp = window.localStorage.getItem("local_list");
+    var toGet = function(str){
+        var temp = window.localStorage.getItem(str); // to store groups information , including types and people in the group
         if(temp != null && temp != 'undefined'){
             return JSON.parse(temp);
         }
     };
 
+    var toCompare = function (str) {
+        var temp = window.localStorage.getItem("storeAddedPeople"); // it's made to store people added to groups
+        var flag = false;
+        debugger
+        if(temp != null && temp != 'undefined'){
+            var arr = JSON.parse(temp);
+            for (var i = 0;i < arr.length;i++){
+                if(str == arr[i]){
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        return flag;
+    };
+    
+    var toStorePerson = function (item) {
+        var temp = JSON.stringify(item);
+        window.localStorage.setItem('storeAddedPeople',temp);
+
+        var va = window.localStorage.getItem("storeAddedPeople");
+        var vaa = JSON.parse(va);
+        console.log(vaa);
+    };
+
     return {
-        toSet:toSet,
-        toGet:toGet
+        toSet: toSet,
+        toGet: toGet,
+        toCompare: toCompare,
+        toStorePerson: toStorePerson
     }
 
 };
+
+
 
 module.exports = localStorageItemsSvc;
 
