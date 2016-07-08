@@ -62,7 +62,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
             };
             name_list.push(single);
             vm.add_name = null;
-            localStorageItemsSvc.toSet(name_list,'local_list');
+            localStorageItemsSvc.toSet('local_list',name_list);
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
     };
@@ -73,7 +73,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         for(var p = 0;p<vm.show_name.length;p++){
             arrayTemp.push(vm.show_name[p].types);
         }
-        localStorageItemsSvc.toSet(arrayTemp,'local_list');
+        localStorageItemsSvc.toSet('local_list',arrayTemp);
         arrayTemp = null;
     };
 

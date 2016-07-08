@@ -1,6 +1,6 @@
 var localStorageItemsSvc = function(){
 
-    var toSet = function(item,whichStorage){
+    var toSet = function(whichStorage,item){
         var temp = JSON.stringify(item);
         window.localStorage.setItem(whichStorage,temp);
     };

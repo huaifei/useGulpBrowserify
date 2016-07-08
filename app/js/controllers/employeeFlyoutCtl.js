@@ -14,11 +14,11 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     vm.addEmployeeToGroup = function (index) {
 debugger
         if(!compareResult){
-            var storeAddedPeople = localStorageItemsSvc.toGet('storeAddedPeople') || [];
-            console.log(storeAddedPeople);
-            storeAddedPeople.push(employeeName);
+            var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
+            console.log(storeAdded);
+            storeAdded.push(employeeName);
             
-            localStorageItemsSvc.toSet(storeAddedPeople,'storeAddedPeople');
+            localStorageItemsSvc.toSet('storeAddedPeople',storeAdded);
         }
         var re = localStorageItemsSvc.toCompare(employeeName);
         console.log(re);
@@ -27,7 +27,7 @@ debugger
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
         // localStore[index].content.push(employeeName);  // TODO-- use this when it's formal
         localStore[index].content = employeeName;
-        localStorageItemsSvc.toSet(localStore,'local_list');
+        localStorageItemsSvc.toSet('local_list',localStore);
         
         vm.removeFlyout(true);
     };
