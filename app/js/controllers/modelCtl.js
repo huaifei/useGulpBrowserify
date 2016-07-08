@@ -33,16 +33,16 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     vm.names = ['employees','planners'];
     $scope.the = { type: 'employees' };
     
-    vm.show_name = localStorageItemsSvc.toGet();
+    vm.show_name = localStorageItemsSvc.toGet('local_list');
     
     // var showLocalStorageItem = function () {
     //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-    //         for(var k = 0;k < localStorageItemsSvc.toGet().length;k++){
+    //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
     //             var single = {
     //                 types: null,
     //                 contents : []
     //             };
-    //             single.types=localStorageItemsSvc.toGet()[k];
+    //             single.types=localStorageItemsSvc.toGet('local_list')[k];
     //             vm.show_name.push(single);
     //         }
     //     }
@@ -54,7 +54,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     // };
 
     vm.addNames = function(){
-        var name_list = localStorageItemsSvc.toGet() || [];
+        var name_list = localStorageItemsSvc.toGet('local_list') || [];
         if(vm.add_name != null && vm.add_name != undefined){
             var single = {
                 types: vm.add_name,
@@ -62,8 +62,8 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
             };
             name_list.push(single);
             vm.add_name = null;
-            localStorageItemsSvc.toSet(name_list);
-            vm.show_name = localStorageItemsSvc.toGet();
+            localStorageItemsSvc.toSet(name_list,'local_list');
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
     };
 
@@ -73,7 +73,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         for(var p = 0;p<vm.show_name.length;p++){
             arrayTemp.push(vm.show_name[p].types);
         }
-        localStorageItemsSvc.toSet(arrayTemp);
+        localStorageItemsSvc.toSet(arrayTemp,'local_list');
         arrayTemp = null;
     };
 

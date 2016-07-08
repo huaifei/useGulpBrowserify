@@ -3,29 +3,44 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
 
     "ngInject";
     var vm = this;
-    vm.groups = localStorageItemsSvc.toGet();
+    var employeeName = $scope.employee;
+    var compareResult = localStorageItemsSvc.toCompare(employeeName);
+    console.log('compareResult:'+compareResult);
+    vm.groups = localStorageItemsSvc.toGet('local_list');
+    vm.showOrHideFlag = false;
+
+    // console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
-
-        var employeeName = $scope.employee;
-        var localStore = localStorageItemsSvc.toGet();
+debugger
+        if(!compareResult){
+            var storeAddedPeople = localStorageItemsSvc.toGet('storeAddedPeople') || [];
+            console.log(storeAddedPeople);
+            storeAddedPeople.push(employeeName);
+            
+            localStorageItemsSvc.toSet(storeAddedPeople,'storeAddedPeople');
+        }
+        var re = localStorageItemsSvc.toCompare(employeeName);
+        console.log(re);
+        
+        var localStore = localStorageItemsSvc.toGet('local_list');
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
         // localStore[index].content.push(employeeName);  // TODO-- use this when it's formal
         localStore[index].content = employeeName;
-        localStorageItemsSvc.toSet(localStore);
+        localStorageItemsSvc.toSet(localStore,'local_list');
         
-        console.log(employeeName);
-
         vm.removeFlyout(true);
     };
 
     vm.showOrHide = function () {
         var styleObject = {};
-        // if(false){
-        //     styleObject = {display:'none'};
-        // }
+        if(compareResult){
+            vm.showOrHideFlag = true;
+        }
+        if(vm.showOrHideFlag){
+            styleObject = {display:'none'};
+        }
         return styleObject;
-        
     };
     
     function doesFlyoutClearBottomOfScreen() {
