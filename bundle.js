@@ -276,7 +276,6 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
                 }
             }
         }
-        
         localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
 
         var GroupContent = localStorageItemsSvc.toGet('local_list');
@@ -294,10 +293,12 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         
     };
 
+    
 };
 
-module.exports = modelCtl;
 
+
+module.exports = modelCtl;
 },{"./../services/showLocalStorageItemsSvc.js":12}],6:[function(require,module,exports){
 
 var toolNameCtl = function($scope, $rootScope, $location, $uibModal, $log){
