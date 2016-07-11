@@ -79,29 +79,6 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
 
         return styleObject;
     };
-
-    
-    // vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
-    //     if ($rootScope.app.roleAccessInfo.EditModeling) {
-    //         $rootScope.app.broadcastEvent('addEmployeeToGroup', {employeePeopleKey: employeePeopleKey, groupId: groupId});
-    //         vm.removeFlyout(true);
-    //     }
-    // };
-    //
-    // vm.openIndividualView = function (employee) {
-    //     $rootScope.app.showEmployeedetailsModal(employee.FirstName, employee.LastName, employee.PeopleKey, employee.EnterpriseId);
-    //     vm.removeFlyout();
-    // };
-
-    // modelGroupsLoadedDebinder = $rootScope.$on('modelGroupsLoaded', function(event, data) {
-    // $rootScope.$on('modelGroupsLoadedProcessed', function(event, data) {
-    //     vm.groups = data.modelGroups;
-    // });
-    //
-    //
-    // if (PlanningGroupSvc.getModelGroups() !== null) {
-    //     vm.groups = PlanningGroupSvc.getModelGroups();
-    // }
     
 };
 
