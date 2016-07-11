@@ -13,18 +13,37 @@ var gulp = require('gulp'),
 //     gulp.start('bundle');
 // });
 
+gulp.task('default',function () {
+
+    gulp.start('watch'); // maybe it's redundant
+
+    gulp.watch('./app/sass/**/*.scss',['scssBuild']);
+    gulp.watch('./app/**/**.*',['bundle']);
+
+});
+
+
 gulp.task('bundle', function() {
+
+    gutil.log($.util.colors.magenta('--app building...--'));
+    
     return browserify('./app/js/main.js')
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('./'));
+
 });
 
-//-----------------------------------------------
+gulp.task('scssBuild', function() {
 
-gulp.task('default',function () {
-    gulp.start('watch');
-    gulp.watch('./app/sass/**/*.scss',['styles']);
+    gutil.log($.util.colors.magenta('--SASS/CSS building...--'));
+
+    gulp.src('./app/sass/index.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle:'compressed'}).on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./app/css/'))
+
 });
 
 var global = {
@@ -43,25 +62,13 @@ gulp.task('watch',function () {
     };
 
     if(global.isWatching) {
-        bundler = watchify(bundler); // only watch main.js TODO:watch the whole app directory
+        bundler = watchify(bundler); // only watch main.js TODO:watch the whole app directory(done)
         bundler.on('update', bundleFunc);
     }
 
     return bundleFunc();
 
 });
-
-gulp.task('styles', function() {
-
-    gutil.log($.util.colors.magenta('--SASS/CSS building...--'));
-    gulp.src('./app/sass/index.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass({outputStyle:'compressed'}).on('error', sass.logError))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./app/css/'))
-
-});
-
 
 function handleErrors() {
 
@@ -75,37 +82,22 @@ function handleErrors() {
 }
 
 
-function buildScript(file, watch) {
-    var props = {entries: []};
-    var bundler = watch ? watchify(props) : browserify(props);
-    // bundler.transform(reactify);
-
-    function rebundle() {
-        var stream = bundler.bundle();
-        return stream.on('error', handleErrors)
-            .pipe(source('bundle.js'))
-            .pipe(gulp.dest('./'));
-    }
-
-    bundler.on('update', function() {
-        rebundle();
-        gutil.log('Rebundle...');
-    });
-    return rebundle();
-}
-
-
-
-//-----------------------------------------------
-
-// gulp.task('stream', function (){
-//     return watch('./app/**/*.*',bundle);
-// });
-
-// function bundle(){
-//     return browserify('./app/js/main.js')
-//         .bundle()
-//         .pipe(source('bundle.js'))
-//         .pipe(gulp.dest('./'));
+// function buildScript(file, watch) {
+//     var props = {entries: []};
+//     var bundler = watch ? watchify(props) : browserify(props);
+//     // bundler.transform(reactify);
+//
+//     function rebundle() {
+//         var stream = bundler.bundle();
+//         return stream.on('error', handleErrors)
+//             .pipe(source('bundle.js'))
+//             .pipe(gulp.dest('./'));
+//     }
+//
+//     bundler.on('update', function() {
+//         rebundle();
+//         gutil.log('Rebundle...');
+//     })
+//     return rebundle();
 // }
 
