@@ -16,14 +16,14 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     var vm = this;
     var employeeName = $scope.employee;
     var compareResult = localStorageItemsSvc.toCompare(employeeName);
-    console.log('compareResult:'+compareResult);
     vm.groups = localStorageItemsSvc.toGet('local_list');
     vm.showOrHideFlag = false;
+    console.log('compareResult: ' + compareResult);
 
     // console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
-debugger
+
         if(!compareResult){
             var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
             console.log(storeAdded);
@@ -113,6 +113,7 @@ debugger
     // if (PlanningGroupSvc.getModelGroups() !== null) {
     //     vm.groups = PlanningGroupSvc.getModelGroups();
     // }
+    
 };
 
 module.exports = employeeFlyoutCtl;
@@ -174,6 +175,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     
     vm.show_name = localStorageItemsSvc.toGet('local_list');
     console.log('vm.show_name : '+vm.show_name);
+    
     // var showLocalStorageItem = function () {
     //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
     //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
@@ -187,11 +189,7 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
     //     }
     // };
     // showLocalStorageItem();
-
-    // vm.moveToRightList = function(index,parentIndex){
-    //     vm.show_name[index].contents.push(vm.employees[parentIndex].name);
-    // };
-
+    
     vm.addNames = function(){
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
         if(vm.add_GroupName != null && vm.add_GroupName != undefined){
@@ -259,8 +257,43 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
     };
-    
-    
+
+    vm.removeFromGroup =function (parent,index) {
+
+        //console.log(vm.show_name[parent].addedPeople[index]);
+        //console.log(JSON.parse(window.localStorage.getItem("storeAddedPeople")));
+
+        var currentName = vm.show_name[parent].addedPeople[index];
+        var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
+        var currentIndexInStored;
+
+        if(stored != null && stored != 'undefined' && stored != []){
+            for (var i = 0;i < stored.length;i++){
+                if (currentName == stored[i]){
+                    currentIndexInStored = i;
+                    stored.splice(currentIndexInStored,1);
+                    break;
+                }
+            }
+        }
+        
+        localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
+
+        var GroupContent = localStorageItemsSvc.toGet('local_list');
+        if(GroupContent != null && GroupContent != 'undefined'){
+            for(var j = 0;j < GroupContent.length;j++){
+                for (var k = 0;k < GroupContent[j].addedPeople.length; k++){
+                    if (currentName == GroupContent[j].addedPeople[k]){
+                        GroupContent[j].addedPeople.splice(k,1);
+                        localStorageItemsSvc.toSet("local_list",GroupContent);
+                    }
+                }
+            }
+        }
+        vm.show_name = GroupContent; // handle right part shows in the page
+        
+    };
+
 };
 
 module.exports = modelCtl;
@@ -514,7 +547,7 @@ var localStorageItemsSvc = function(){
     var toCompare = function (str) {
         var temp = window.localStorage.getItem("storeAddedPeople"); // it's made to store people added to groups
         var flag = false;
-        debugger
+       
         if(temp != null && temp != 'undefined'){
             var arr = JSON.parse(temp);
             for (var i = 0;i < arr.length;i++){
@@ -531,16 +564,22 @@ var localStorageItemsSvc = function(){
         var temp = JSON.stringify(item);
         window.localStorage.setItem('storeAddedPeople',temp);
 
-        var va = window.localStorage.getItem("storeAddedPeople");
+        var va = window.localStorage.getItem("storeAddedPeople");  
         var vaa = JSON.parse(va);
         console.log(vaa);
+    };
+    
+    var restorePersonAfterRemoved = function () {
+        var stored = window.localStorage.getItem("storeAddedPeople");
+        
     };
 
     return {
         toSet: toSet,
         toGet: toGet,
         toCompare: toCompare,
-        toStorePerson: toStorePerson
+        toStorePerson: toStorePerson,
+        restorePersonAfterRemoved: restorePersonAfterRemoved
     }
 
 };
