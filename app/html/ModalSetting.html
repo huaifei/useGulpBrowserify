@@ -7,6 +7,7 @@
         <!--<option value="">&#45;&#45; to choose &#45;&#45;</option>-->
     <!--</select>-->
     <select ng-model="selectedOption" class="modalSelected">
+        <option value="" selected hidden></option>
         <option ng-repeat="method in items" value="{{method}}">{{method}}</option>
     </select>
     <br>

@@ -141,20 +141,22 @@
 		<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
 		<br>
 		<div ng-repeat="everyName in vm.show_name">
-			<div class="show_name_box">
-				<span class="every_name">{{everyName.types}}</span>
+			<div class="show_name_box" ng-init="p_index=$index">
+				<span class="every_name">{{everyName.types}}  </span>
 				<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove" style="margin-left:30px;cursor:pointer"></span>
-				<span ng-repeat="addedPeopleName in everyName.addedPeople">{{addedPeopleName}}</span>
+
+				<span ng-repeat="addedPeopleName in everyName.addedPeople">{{addedPeopleName}}
+					<span ng-click="vm.removeFromGroup(p_index,$index)" style="cursor:pointer;">× </span>
+				</span>
 			</div>
 		</div>
-
 
 		<!--<div class="wrapperDIV">-->
 				<!--<a>contents</a>-->
 				<!--<a>contents</a>-->
 				<!--<a>contents</a>-->
 		<!--</div>-->
-<br>
+		<br>
 		<!--<ul ng-repeat="name in vm.arr" style="margin-top:100px;">-->
 			<!--<li>{{name}}</li>-->
 		<!--</ul>-->

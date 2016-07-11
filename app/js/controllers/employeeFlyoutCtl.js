@@ -5,14 +5,14 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     var vm = this;
     var employeeName = $scope.employee;
     var compareResult = localStorageItemsSvc.toCompare(employeeName);
-    console.log('compareResult:'+compareResult);
     vm.groups = localStorageItemsSvc.toGet('local_list');
     vm.showOrHideFlag = false;
+    console.log('compareResult: ' + compareResult);
 
     // console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
-debugger
+
         if(!compareResult){
             var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
             console.log(storeAdded);
@@ -102,6 +102,7 @@ debugger
     // if (PlanningGroupSvc.getModelGroups() !== null) {
     //     vm.groups = PlanningGroupSvc.getModelGroups();
     // }
+    
 };
 
 module.exports = employeeFlyoutCtl;

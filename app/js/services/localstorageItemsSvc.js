@@ -15,7 +15,7 @@ var localStorageItemsSvc = function(){
     var toCompare = function (str) {
         var temp = window.localStorage.getItem("storeAddedPeople"); // it's made to store people added to groups
         var flag = false;
-        debugger
+       
         if(temp != null && temp != 'undefined'){
             var arr = JSON.parse(temp);
             for (var i = 0;i < arr.length;i++){
@@ -32,16 +32,22 @@ var localStorageItemsSvc = function(){
         var temp = JSON.stringify(item);
         window.localStorage.setItem('storeAddedPeople',temp);
 
-        var va = window.localStorage.getItem("storeAddedPeople");
+        var va = window.localStorage.getItem("storeAddedPeople");  
         var vaa = JSON.parse(va);
         console.log(vaa);
+    };
+    
+    var restorePersonAfterRemoved = function () {
+        var stored = window.localStorage.getItem("storeAddedPeople");
+        
     };
 
     return {
         toSet: toSet,
         toGet: toGet,
         toCompare: toCompare,
-        toStorePerson: toStorePerson
+        toStorePerson: toStorePerson,
+        restorePersonAfterRemoved: restorePersonAfterRemoved
     }
 
 };
