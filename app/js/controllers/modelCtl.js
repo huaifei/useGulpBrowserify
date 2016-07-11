@@ -153,6 +153,9 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         
     };
 
+    
 };
+
+
 
 module.exports = modelCtl;
