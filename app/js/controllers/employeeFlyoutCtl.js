@@ -1,5 +1,5 @@
 
-var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
+var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
 
     "ngInject";
     var vm = this;
@@ -9,7 +9,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     vm.showOrHideFlag = false;
     console.log('compareResult: ' + compareResult);
 
-    // console.log(employeeName);
+    console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
 
@@ -79,7 +79,26 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
 
         return styleObject;
     };
-    
+
+    vm.openIndividualView = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl : 'profileDetails.html',
+            controller: 'profileDetailsCtl',
+            resolve: {
+                employeeName: function () {
+                    return $scope.employee;
+                }
+            }
+        });
+        modalInstance.result.then(function(){
+        },function(){
+            $log.info('Modal dismissed at: '+ new Date());
+        });
+
+        vm.removeFlyout();
+    };
+
 };
 
 module.exports = employeeFlyoutCtl;

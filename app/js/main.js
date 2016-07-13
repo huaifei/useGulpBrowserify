@@ -5,6 +5,7 @@
 
     var rootCtl = require('./controllers/rootCtl.js');
     var modalInstanceCtl = require('./controllers/modalInstanceCtl.js');
+    var profileDetailsCtl = require('./controllers/profileDetailsCtl.js');
     var modelCtl = require('./controllers/modelCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
 
@@ -25,6 +26,7 @@
         .controller('rootCtl',rootCtl)
         .controller('modelCtl',modelCtl)
         .controller('modalInstanceCtl',modalInstanceCtl)
+        .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
 
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)

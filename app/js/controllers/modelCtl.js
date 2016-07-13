@@ -1,7 +1,7 @@
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
 
-var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
+var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
@@ -151,6 +151,76 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         }
         vm.show_name = GroupContent; // handle right part shows in the page
         
+    };
+
+
+    vm.createGroupClicked = function () {
+        vm.showCreateGroupInput = true;
+        $timeout(function () {
+            document.querySelector('.create-planning-group-name-input').focus();
+        }, 1);
+    };
+    
+    vm.createGroupCanceled = function () {
+        vm.showCreateGroupInput = false;
+        // vm.add_GroupName = null;
+    };
+    
+    
+    vm.validateKeyInput = function($event) {
+        var regex = /^[a-zA-Z0-9 ]*$/gm;
+
+        var key = String.fromCharCode(!$event.charCode ? $event.which : $event.charCode);
+
+        if (!regex.test(key)) {
+            $event.preventDefault();
+            return false;
+        }
+    };
+
+    vm.handleKeyInput = function ($event) { 
+        // TODO-- ideally, this uses the "acat click to edit" directive, but at the time of coding this portion it was not ready for wide use.
+        var pressedKey;
+        var evt = $event;
+
+        if (evt instanceof jQuery.Event) {
+            evt = evt.originalEvent;
+        }
+
+        //although deprecated, the below have far greater browser support than the recommended evt.key. 
+        //until .key is better supported, this implementation is far easier, and ought not be disappearing any time soon
+        pressedKey = evt.keyCode || evt.charCode || evt.which;
+        pressedKey = parseInt(pressedKey, 10);
+
+        if (pressedKey === 13) {
+            vm.createGroup();
+        }
+
+        if (pressedKey === 27) {
+            vm.createGroupCanceled();
+        }
+
+    };
+    
+    vm.validatePaste = function (evt) {
+        var pastedText;
+        var regex = /^[a-zA-Z0-9 ]*$/gm;
+
+        if (evt instanceof jQuery.Event) {
+            evt = evt.originalEvent;
+        }
+
+        // http://stackoverflow.com/questions/6035071/intercept-paste-event-in-javascript
+        if (window.clipboardData && window.clipboardData.getData) { // IE
+            pastedText = window.clipboardData.getData('Text');
+        } else if (evt.clipboardData && evt.clipboardData.getData) {
+            pastedText = evt.clipboardData.getData('text/plain');
+        }
+
+        if (!regex.test(pastedText)) {
+            evt.preventDefault();
+            return false;
+        }
     };
 
     

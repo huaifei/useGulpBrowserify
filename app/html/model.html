@@ -135,10 +135,18 @@
 	</div>
 
 	<div class="right_pane">
-		<!--<span ng-click="vm.clickShowName($event)" ng-show="vm.inputName" class="every_name">Click to input name here.</span>-->
+		<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name">Click to input name here.</span>
 		<!--<input type="text" value="vm.add_GroupName" ng-blur="vm.clickToHideName()"  ng-model="vm.add_GroupName" ng-show="!vm.inputName" style="width:170px;">-->
-		<input type="text" value="vm.add_GroupName" ng-model="vm.add_GroupName" style="width:170px;">
+		<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
+				ng-model="vm.add_GroupName"
+				style="width:170px;"
+				ng-blur="vm.createGroupCanceled()"
+				ng-show="vm.showCreateGroupInput"
+			   ng-keyup="vm.handleKeyInput($event)"
+			   ng-keypress="vm.validateKeyInput($event)"
+			   ng-paste="vm.validatePaste($event)">
 		<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
+		<br>
 		<br>
 		<div ng-repeat="everyName in vm.show_name">
 			<div class="show_name_box" ng-init="p_index=$index">
