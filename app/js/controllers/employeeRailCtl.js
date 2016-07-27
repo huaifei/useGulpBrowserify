@@ -25,7 +25,7 @@ var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageIte
     vm.clickToHideName = function(){
         vm.inputName = true;
     };
-
+    
     vm.sortOptions = [
         {key:'Name a-to-z',value:'name'},
         {key:'Name z-to-a',value:'-name'}
