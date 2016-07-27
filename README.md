@@ -1,2 +1,2 @@
-# useGulpBrowserify
-a training demo
+# angular
+A demo wrote to practice angularjs
