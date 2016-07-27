@@ -1,12 +1,14 @@
 {
   "name": "use-browserify-gulp",
   "version": "1.0.0",
-  "description": "a demo",
+  "description": "just a demo",
   "main": "index.js",
+
   "dependencies": {
     "bower": "^1.7.9",
     "gulp": "^3.9.1"
   },
+
   "devDependencies": {
     "browserify": "^12.0.1",
     "gulp": "^3.8.10",
@@ -81,9 +83,11 @@
     "plato": "^1.2.0",
     "q": "^1.0.1"
   },
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
   "author": "huaifei",
   "license": "ISC"
 }
