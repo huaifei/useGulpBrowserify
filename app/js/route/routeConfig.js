@@ -1,18 +1,19 @@
 
-var modelCtl = require('./../controllers/modelCtl.js');
+var employeeRailCtl = require('./../controllers/employeeRailCtl.js');
 
 // angular.module('angular.route',[])
 	
 function config($stateProvider,$urlRouterProvider){
 
 	// $urlRouterProvider.when("", "/model");
+	
 	$urlRouterProvider.otherwise('/model');
 	$stateProvider
 		.state('model',{
 			url:'/model',
 			// view:{
 				templateUrl:'model.html',
-				controller:modelCtl,
+				controller:employeeRailCtl,
 				controllerAs: 'vm'
 			// }
 		})

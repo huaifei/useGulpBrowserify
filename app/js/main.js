@@ -6,7 +6,7 @@
     var rootCtl = require('./controllers/rootCtl.js');
     var modalInstanceCtl = require('./controllers/modalInstanceCtl.js');
     var profileDetailsCtl = require('./controllers/profileDetailsCtl.js');
-    var modelCtl = require('./controllers/modelCtl.js');
+    var employeeRailCtl = require('./controllers/employeeRailCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
 
     var employeeFlyoutDirective = require('./directives/employeeFlyout.js');
@@ -24,7 +24,7 @@
 
     appModule
         .controller('rootCtl',rootCtl)
-        .controller('modelCtl',modelCtl)
+        .controller('employeeRailCtl',employeeRailCtl)
         .controller('modalInstanceCtl',modalInstanceCtl)
         .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
