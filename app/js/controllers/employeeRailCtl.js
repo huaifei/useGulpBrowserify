@@ -1,7 +1,6 @@
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
-
-var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
+var employeeRailCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
@@ -228,4 +227,4 @@ var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageIte
 
 
 
-module.exports = modelCtl;
+module.exports = employeeRailCtl;
