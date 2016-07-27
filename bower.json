@@ -11,7 +11,6 @@
     "bower",
     "browserify"
   ],
-  "license": "MIT",
   "homepage": "",
   "ignore": [
     "**/.*",
@@ -28,5 +27,6 @@
     "bootstrap": "",
     "jquery": "",
     "angular-ui-bootstrap": "1.3.3"
-  }
+  },
+  "license": "MIT"
 }
