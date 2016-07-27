@@ -10,7 +10,7 @@ var serviceModule = angular.module('Services',[]);
 module.exports = serviceModule;
 },{}],3:[function(require,module,exports){
 
-var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
+var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
 
     "ngInject";
     var vm = this;
@@ -20,7 +20,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
     vm.showOrHideFlag = false;
     console.log('compareResult: ' + compareResult);
 
-    // console.log(employeeName);
+    console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
 
@@ -91,57 +91,33 @@ var employeeFlyoutCtl = function ($rootScope, $scope ,localStorageItemsSvc) { //
         return styleObject;
     };
 
-    
-    // vm.addEmployeeToGroup = function (employeePeopleKey, groupId) {
-    //     if ($rootScope.app.roleAccessInfo.EditModeling) {
-    //         $rootScope.app.broadcastEvent('addEmployeeToGroup', {employeePeopleKey: employeePeopleKey, groupId: groupId});
-    //         vm.removeFlyout(true);
-    //     }
-    // };
-    //
-    // vm.openIndividualView = function (employee) {
-    //     $rootScope.app.showEmployeedetailsModal(employee.FirstName, employee.LastName, employee.PeopleKey, employee.EnterpriseId);
-    //     vm.removeFlyout();
-    // };
+    vm.openIndividualView = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl : 'profileDetails.html',
+            controller: 'profileDetailsCtl',
+            resolve: {
+                employeeName: function () {
+                    return $scope.employee;
+                }
+            }
+        });
+        modalInstance.result.then(function(){
+        },function(){
+            $log.info('Modal dismissed at: '+ new Date());
+        });
 
-    // modelGroupsLoadedDebinder = $rootScope.$on('modelGroupsLoaded', function(event, data) {
-    // $rootScope.$on('modelGroupsLoadedProcessed', function(event, data) {
-    //     vm.groups = data.modelGroups;
-    // });
-    //
-    //
-    // if (PlanningGroupSvc.getModelGroups() !== null) {
-    //     vm.groups = PlanningGroupSvc.getModelGroups();
-    // }
-    
+        vm.removeFlyout();
+    };
+
 };
 
 module.exports = employeeFlyoutCtl;
 },{}],4:[function(require,module,exports){
-var modalInstanceCtl = function($scope, $uibModalInstance ,items){
-    console.log(items);
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-    $scope.ok = function(){
-        $uibModalInstance.close($scope.selectedOption);
-    };
-
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-};
-
-
-
-module.exports = modalInstanceCtl;
-
-},{}],5:[function(require,module,exports){
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
 
-var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
+var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
@@ -293,13 +269,123 @@ var modelCtl = function($scope,$interval,$http,$compile,localStorageItemsSvc){
         
     };
 
+
+    vm.createGroupClicked = function () {
+        vm.showCreateGroupInput = true;
+        $timeout(function () {
+            document.querySelector('.create-planning-group-name-input').focus();
+        }, 1);
+    };
+    
+    vm.createGroupCanceled = function () {
+        vm.showCreateGroupInput = false;
+        // vm.add_GroupName = null;
+    };
+    
+    
+    vm.validateKeyInput = function($event) {
+        var regex = /^[a-zA-Z0-9 ]*$/gm;
+
+        var key = String.fromCharCode(!$event.charCode ? $event.which : $event.charCode);
+
+        if (!regex.test(key)) {
+            $event.preventDefault();
+            return false;
+        }
+    };
+
+    vm.handleKeyInput = function ($event) { 
+        // TODO-- ideally, this uses the "acat click to edit" directive, but at the time of coding this portion it was not ready for wide use.
+        var pressedKey;
+        var evt = $event;
+
+        if (evt instanceof jQuery.Event) {
+            evt = evt.originalEvent;
+        }
+
+        //although deprecated, the below have far greater browser support than the recommended evt.key. 
+        //until .key is better supported, this implementation is far easier, and ought not be disappearing any time soon
+        pressedKey = evt.keyCode || evt.charCode || evt.which;
+        pressedKey = parseInt(pressedKey, 10);
+
+        if (pressedKey === 13) {
+            vm.createGroup();
+        }
+
+        if (pressedKey === 27) {
+            vm.createGroupCanceled();
+        }
+
+    };
+    
+    vm.validatePaste = function (evt) {
+        var pastedText;
+        var regex = /^[a-zA-Z0-9 ]*$/gm;
+
+        if (evt instanceof jQuery.Event) {
+            evt = evt.originalEvent;
+        }
+
+        // http://stackoverflow.com/questions/6035071/intercept-paste-event-in-javascript
+        if (window.clipboardData && window.clipboardData.getData) { // IE
+            pastedText = window.clipboardData.getData('Text');
+        } else if (evt.clipboardData && evt.clipboardData.getData) {
+            pastedText = evt.clipboardData.getData('text/plain');
+        }
+
+        if (!regex.test(pastedText)) {
+            evt.preventDefault();
+            return false;
+        }
+    };
+
     
 };
 
 
 
 module.exports = modelCtl;
-},{"./../services/showLocalStorageItemsSvc.js":12}],6:[function(require,module,exports){
+},{"./../services/showLocalStorageItemsSvc.js":13}],5:[function(require,module,exports){
+var modalInstanceCtl = function($scope, $uibModalInstance ,items){
+    console.log(items);
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+    $scope.ok = function(){
+        $uibModalInstance.close($scope.selectedOption);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+};
+
+
+
+module.exports = modalInstanceCtl;
+
+},{}],6:[function(require,module,exports){
+
+var profileDetailsCtl = function($scope, $uibModalInstance ,employeeName){
+
+    console.log(employeeName);
+
+    $scope.items = employeeName;
+   
+    $scope.ok = function(){
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+};
+
+
+module.exports = profileDetailsCtl;
+},{}],7:[function(require,module,exports){
 
 var toolNameCtl = function($scope, $rootScope, $location, $uibModal, $log){
 	$rootScope.appRoute = $location;
@@ -337,7 +423,7 @@ var toolNameCtl = function($scope, $rootScope, $location, $uibModal, $log){
 
 module.exports = toolNameCtl;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 function EmployeeFlyout () {
 
@@ -462,7 +548,7 @@ function EmployeeFlyout () {
 }
 
 module.exports = EmployeeFlyout;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function () {
 
     var appModule = require('./app/appModule.js');
@@ -470,7 +556,8 @@ module.exports = EmployeeFlyout;
 
     var rootCtl = require('./controllers/rootCtl.js');
     var modalInstanceCtl = require('./controllers/modalInstanceCtl.js');
-    var modelCtl = require('./controllers/modelCtl.js');
+    var profileDetailsCtl = require('./controllers/profileDetailsCtl.js');
+    var employeeRailCtl = require('./controllers/employeeRailCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
 
     var employeeFlyoutDirective = require('./directives/employeeFlyout.js');
@@ -488,8 +575,9 @@ module.exports = EmployeeFlyout;
 
     appModule
         .controller('rootCtl',rootCtl)
-        .controller('modelCtl',modelCtl)
+        .controller('employeeRailCtl',employeeRailCtl)
         .controller('modalInstanceCtl',modalInstanceCtl)
+        .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
 
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
@@ -499,22 +587,23 @@ module.exports = EmployeeFlyout;
     
 })();
 
-},{"./app/appModule.js":1,"./app/serviceModule.js":2,"./controllers/employeeFlyoutCtl.js":3,"./controllers/modalInstanceCtl.js":4,"./controllers/modelCtl.js":5,"./controllers/rootCtl.js":6,"./directives/employeeFlyout.js":7,"./route/routeConfig.js":9,"./services/localstorageItemsSvc.js":11,"./services/showLocalStorageItemsSvc.js":12}],9:[function(require,module,exports){
+},{"./app/appModule.js":1,"./app/serviceModule.js":2,"./controllers/employeeFlyoutCtl.js":3,"./controllers/employeeRailCtl.js":4,"./controllers/modalInstanceCtl.js":5,"./controllers/profileDetailsCtl.js":6,"./controllers/rootCtl.js":7,"./directives/employeeFlyout.js":8,"./route/routeConfig.js":10,"./services/localstorageItemsSvc.js":12,"./services/showLocalStorageItemsSvc.js":13}],10:[function(require,module,exports){
 
-var modelCtl = require('./../controllers/modelCtl.js');
+var employeeRailCtl = require('./../controllers/employeeRailCtl.js');
 
 // angular.module('angular.route',[])
 	
 function config($stateProvider,$urlRouterProvider){
 
 	// $urlRouterProvider.when("", "/model");
+	
 	$urlRouterProvider.otherwise('/model');
 	$stateProvider
 		.state('model',{
 			url:'/model',
 			// view:{
 				templateUrl:'model.html',
-				controller:modelCtl,
+				controller:employeeRailCtl,
 				controllerAs: 'vm'
 			// }
 		})
@@ -530,7 +619,7 @@ function config($stateProvider,$urlRouterProvider){
 
 module.exports = config;
 
-},{"./../controllers/modelCtl.js":5}],10:[function(require,module,exports){
+},{"./../controllers/employeeRailCtl.js":4}],11:[function(require,module,exports){
 var localStorageItemsSvc = function(){
 
     var toSet = function(whichStorage,item){
@@ -589,9 +678,9 @@ var localStorageItemsSvc = function(){
 
 module.exports = localStorageItemsSvc;
 
-},{}],11:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"dup":10}],12:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],13:[function(require,module,exports){
 
 var localStorageItemsSvc = require('./localStorageItemsSvc.js');
 
@@ -621,4 +710,4 @@ var showLocalStorageItems = function () {
 
 module.exports = showLocalStorageItems;
 
-},{"./localStorageItemsSvc.js":10}]},{},[8]);
+},{"./localStorageItemsSvc.js":11}]},{},[9]);
