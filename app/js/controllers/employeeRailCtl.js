@@ -34,22 +34,9 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     
     vm.show_name = localStorageItemsSvc.toGet('local_list');
     console.log('vm.show_name : '+vm.show_name);
-    
-    // var showLocalStorageItem = function () {
-    //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-    //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
-    //             var single = {
-    //                 types: null,
-    //                 contents : []
-    //             };
-    //             single.types=localStorageItemsSvc.toGet('local_list')[k];
-    //             vm.show_name.push(single);
-    //         }
-    //     }
-    // };
-    // showLocalStorageItem();
-    
-    vm.addNames = function(){
+
+
+    vm.addGroup = function(){
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
         if(vm.add_GroupName != null && vm.add_GroupName != undefined){
             var single = {
@@ -62,8 +49,9 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
     };
-
-    vm.removeNames = function(index){
+    
+    //TODO: remove group function calls several bugs
+    vm.removeGroup = function(index){
         vm.show_name.splice(index,1);
         var arrayTemp = [];
         for(var p = 0;p<vm.show_name.length;p++){
@@ -185,16 +173,13 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
-
         //although deprecated, the below have far greater browser support than the recommended evt.key. 
         //until .key is better supported, this implementation is far easier, and ought not be disappearing any time soon
         pressedKey = evt.keyCode || evt.charCode || evt.which;
         pressedKey = parseInt(pressedKey, 10);
-
         if (pressedKey === 13) {
-            vm.createGroup();
+            vm.addGroup();
         }
-
         if (pressedKey === 27) {
             vm.createGroupCanceled();
         }
@@ -208,21 +193,18 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
-
         // http://stackoverflow.com/questions/6035071/intercept-paste-event-in-javascript
         if (window.clipboardData && window.clipboardData.getData) { // IE
             pastedText = window.clipboardData.getData('Text');
         } else if (evt.clipboardData && evt.clipboardData.getData) {
             pastedText = evt.clipboardData.getData('text/plain');
         }
-
         if (!regex.test(pastedText)) {
             evt.preventDefault();
             return false;
         }
     };
 
-    //console.log('Groups : ' + vm.show_name);
 
     function initShowNameIndex() {
         vm.ifShowAddedName = [];

@@ -5,10 +5,6 @@
 			<!--<button ng-click="vm.showPaneContent()">click</button>-->
 		<!--</div>-->
 			<div class="left_pane_content">
-				<!--<label ng-repeat="name in vm.names" for="{{name}}" style="margin-right:10px;">-->
-					<!--<input type="radio" ng-model="the.type" ng-value="name" id="{{name}}" name="type">-->
-					<!--{{name}}-->
-				<!--</label>-->
 				<br>
 				<form>
 					<label ng-if="selected=='employees'">
@@ -17,7 +13,6 @@
 								ng-options="options.key for options in vm.sortOptions">
 							<option value="">-- to choose --</option>
 						</select>
-
 					</label>
 					<label ng-if="selected=='planners'">
 						<h2>Planners</h2>
@@ -119,32 +114,32 @@
 				</div>
 
 			</div>
-
 	</div>
 
 	<div class="right_pane">
-		<h3>Model different base pay scenarios for your team below using predefined or custom created groups.</h3>
+		<h2>Model different base pay scenarios for your team below using predefined or custom created groups.</h2>
 		<div class="right_pane_wrapper">
-			<ul>
+			<ul style="list-style-type: none;">
 				<li style="height:28px;">
-					<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name" style="width: 170px;display: inline-block;">Click to input name here.</span>
+					<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name every_name_only">Click to input name here.</span>
 					<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
 						   ng-model="vm.add_GroupName"
-						   style="width:170px;outline:none;border:none;"
 						   ng-blur="vm.createGroupCanceled()"
 						   ng-show="vm.showCreateGroupInput"
 						   ng-keyup="vm.handleKeyInput($event)"
 						   ng-keypress="vm.validateKeyInput($event)"
 						   ng-paste="vm.validatePaste($event)">
-					<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
+					<div style="line-height:24px;display:inline-block;">
+						<span ng-click="vm.addGroup()" class="glyphicon glyphicon-plus-sign add-group-names-button"></span>
+					</div>
 				</li>
 
-				<li ng-repeat="everyName in vm.show_name">
+				<li ng-repeat="everyName in vm.show_name" class="second-li">
 					<div class="show_name_box" ng-init="p_index=$index">
 						<span class="every_name">{{everyName.types}}  </span>
-						<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove remove_GroupName"></span>
+						<span ng-click="vm.removeGroup($index)" class="glyphicon glyphicon-remove-circle remove_GroupName"></span>
 
-						<span ng-click="vm.showGroupPeople($index)" class="glyphicon glyphicon-chevron-down showGroupPeople"></span>
+						<span ng-click="vm.showGroupPeople($index)" class="glyphicon glyphicon-chevron-down showGroupPeopleButton"></span>
 
 						<br>
 						<div ng-if="vm.ifShowAddedName[$index]">
@@ -155,6 +150,7 @@
 
 					</div>
 				</li>
+
 			</ul>
 
 

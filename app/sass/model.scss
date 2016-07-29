@@ -335,6 +335,10 @@ body {
   float:left;
   width:79.4%;
 
+  h2 {
+    margin: 20px;
+  }
+
   .right_pane_wrapper {
     width:100%;
 
@@ -343,32 +347,64 @@ body {
       padding:0;
 
       li{
-        width:100%;
+        //width:100%;
         margin:8px 18px;
         border:1px solid $blue;
 
-        .show_name_box {
+        .every_name_only {
+          margin-left:8px;
+          width:170px;
+          height:24px;
+          display:inline-block;
+        }
 
+        .add-group-names-button {
+          margin-left:30px;
+          cursor:pointer;
+          color:#666;
+          font-size: 15px;
+        }
+
+        .create-planning-group-name-input {
+          width:170px;
+          outline:none;
+          border:none;
+          margin-left:8px;
+        }
+
+        .show_name_box {
+          margin:8px;
 
           .every_name {
             width:170px;
             height:24px;
             display:inline-block;
+            //margin-left:8px;
           }
 
           .remove_GroupName {
             margin-left:30px;
-            cursor:pointer
+            cursor:pointer;
+            color:#8ea9af;
+            font-size: 15px;
           }
 
-          .showGroupPeople {
-            margin-left:130px;
+          .showGroupPeopleButton {
+            //margin-left:130px;
             cursor:pointer;
+            float:right;
+            margin-top:4px;
+            font-size: 15px;
           }
 
         }
 
       }
+
+      .second-li:first-child {
+        border-top:solid 1px $blue;
+      }
+
     }
   }
 
