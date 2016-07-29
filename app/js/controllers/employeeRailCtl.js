@@ -33,8 +33,17 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     $scope.the = { type: 'employees' };
     
     vm.show_name = localStorageItemsSvc.toGet('local_list');
-    console.log('vm.show_name : '+vm.show_name);
-
+    vm.numberOfEachGroup = [];
+    
+    function getNumberOfEachGroup(arr) {
+        if(arr != null && arr != undefined){
+            for (var num = 0;num < arr.length;num++){
+                vm.numberOfEachGroup[num] =  arr[num].addedPeople.length;
+            }
+        }
+    }
+    getNumberOfEachGroup(vm.show_name);
+    // console.log('vm.show_name : '+vm.show_name);
 
     vm.addGroup = function(){
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
@@ -47,19 +56,46 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             vm.add_GroupName = null;
             localStorageItemsSvc.toSet('local_list',name_list);
             vm.show_name = localStorageItemsSvc.toGet('local_list');
+            // vm.numberOfEachGroup[vm.show_name.length-1] = 0;
         }
     };
     
-    //TODO: remove group function calls several bugs
+    //TODO: remove-group function calls several bugs (done)
     vm.removeGroup = function(index){
-        vm.show_name.splice(index,1);
-        var arrayTemp = [];
-        for(var p = 0;p<vm.show_name.length;p++){
-            arrayTemp.push(vm.show_name[p].types);
+        if(vm.show_name[index].addedPeople[0] == undefined){
+            removeGroupKeySteps(vm.show_name,index);
+        } else { //should release all the added people
+            var currentName = vm.show_name[index].addedPeople;
+            console.log(currentName);
+            var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
+            var currentIndexInStored;
+            for(var c = 0;c < currentName.length;c++){
+                if(stored != null && stored != 'undefined' && stored != []){ // maybe 'if' judgement sentence it's unnecessary
+                    for (var i = 0;i < stored.length;i++){
+                        if (currentName[c] == stored[i]){
+                            currentIndexInStored = i;
+                            stored.splice(currentIndexInStored,1);
+                            break;
+                        }
+                    }
+                }
+            }
+            localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
+            removeGroupKeySteps(vm.show_name,index);
+            currentIndexInStored = null;
+            stored = null;
+            currentName = null;
         }
-        localStorageItemsSvc.toSet('local_list',arrayTemp);
-        arrayTemp = null;
     };
+    function removeGroupKeySteps(arr,idx) {
+        arr.splice(idx,1);
+        var arrayTemps = [];
+        for(var p = 0;p < arr.length;p++){
+            arrayTemps.push(arr[p]);
+        }
+        localStorageItemsSvc.toSet('local_list',arrayTemps);
+        arrayTemps = null;
+    }
 
     vm.showPaneContent = function(){
         vm.if_left_pane_content = (vm.if_left_pane_content == false);
@@ -153,7 +189,6 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         // vm.add_GroupName = null;
     };
     
-    
     vm.validateKeyInput = function($event) {
         var regex = /^[a-zA-Z0-9 ]*$/gm;
 
@@ -204,7 +239,6 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             return false;
         }
     };
-
 
     function initShowNameIndex() {
         vm.ifShowAddedName = [];

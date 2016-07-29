@@ -136,7 +136,7 @@
 
 				<li ng-repeat="everyName in vm.show_name" class="second-li">
 					<div class="show_name_box" ng-init="p_index=$index">
-						<span class="every_name">{{everyName.types}}  </span>
+						<span class="every_name">{{everyName.types}} ({{vm.numberOfEachGroup[$index]}})  </span>
 						<span ng-click="vm.removeGroup($index)" class="glyphicon glyphicon-remove-circle remove_GroupName"></span>
 
 						<span ng-click="vm.showGroupPeople($index)" class="glyphicon glyphicon-chevron-down showGroupPeopleButton"></span>
