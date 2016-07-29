@@ -116,8 +116,7 @@ module.exports = employeeFlyoutCtl;
 },{}],4:[function(require,module,exports){
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
-
-var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
+var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
@@ -141,7 +140,7 @@ var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageIte
     vm.clickToHideName = function(){
         vm.inputName = true;
     };
-
+    
     vm.sortOptions = [
         {key:'Name a-to-z',value:'name'},
         {key:'Name z-to-a',value:'-name'}
@@ -339,12 +338,34 @@ var modelCtl = function($scope,$interval,$http,$compile,$timeout,localStorageIte
         }
     };
 
+    //console.log('Groups : ' + vm.show_name);
+
+    function initShowNameIndex() {
+        vm.ifShowAddedName = [];
+        if(!vm.show_name){}
+        else{
+            for(var p = 0;p < vm.show_name.length;p++){
+                vm.ifShowAddedName[p] = false;
+            }
+        }
+    }
+    initShowNameIndex();
+    
+    vm.showGroupPeople = function (index) {
+        var groupContent = vm.show_name;
+        if(groupContent !== localStorageItemsSvc.toGet('local_list')){
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
+        }
+        vm.ifShowAddedName[index] = (vm.ifShowAddedName[index] == false);
+    };
+
     
 };
 
 
 
-module.exports = modelCtl;
+module.exports = employeeRailCtl;
+
 },{"./../services/showLocalStorageItemsSvc.js":13}],5:[function(require,module,exports){
 var modalInstanceCtl = function($scope, $uibModalInstance ,items){
     console.log(items);
@@ -602,7 +623,7 @@ function config($stateProvider,$urlRouterProvider){
 		.state('model',{
 			url:'/model',
 			// view:{
-				templateUrl:'model.html',
+				templateUrl:'employeeRail.html',
 				controller:employeeRailCtl,
 				controllerAs: 'vm'
 			// }
