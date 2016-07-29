@@ -1,6 +1,6 @@
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
-var employeeRailCtl = function($scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
+var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
@@ -220,6 +220,27 @@ var employeeRailCtl = function($scope,$interval,$http,$compile,$timeout,localSto
             evt.preventDefault();
             return false;
         }
+    };
+
+    //console.log('Groups : ' + vm.show_name);
+
+    function initShowNameIndex() {
+        vm.ifShowAddedName = [];
+        if(!vm.show_name){}
+        else{
+            for(var p = 0;p < vm.show_name.length;p++){
+                vm.ifShowAddedName[p] = false;
+            }
+        }
+    }
+    initShowNameIndex();
+    
+    vm.showGroupPeople = function (index) {
+        var groupContent = vm.show_name;
+        if(groupContent !== localStorageItemsSvc.toGet('local_list')){
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
+        }
+        vm.ifShowAddedName[index] = (vm.ifShowAddedName[index] == false);
     };
 
     

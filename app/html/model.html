@@ -135,39 +135,44 @@
 	</div>
 
 	<div class="right_pane">
-		<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name">Click to input name here.</span>
-		<!--<input type="text" value="vm.add_GroupName" ng-blur="vm.clickToHideName()"  ng-model="vm.add_GroupName" ng-show="!vm.inputName" style="width:170px;">-->
-		<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
-				ng-model="vm.add_GroupName"
-				style="width:170px;"
-				ng-blur="vm.createGroupCanceled()"
-				ng-show="vm.showCreateGroupInput"
-			   ng-keyup="vm.handleKeyInput($event)"
-			   ng-keypress="vm.validateKeyInput($event)"
-			   ng-paste="vm.validatePaste($event)">
-		<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
-		<br>
-		<br>
-		<div ng-repeat="everyName in vm.show_name">
-			<div class="show_name_box" ng-init="p_index=$index">
-				<span class="every_name">{{everyName.types}}  </span>
-				<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove" style="margin-left:30px;cursor:pointer"></span>
+		<div class="right_pane_wrapper">
+			<ul>
+				<li style="height:28px;">
+					<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name" style="width: 170px;display: inline-block;">Click to input name here.</span>
+					<!--<input type="text" value="vm.add_GroupName" ng-blur="vm.clickToHideName()"  ng-model="vm.add_GroupName" ng-show="!vm.inputName" style="width:170px;">-->
+					<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
+						   ng-model="vm.add_GroupName"
+						   style="width:170px;outline:none;border:none;"
+						   ng-blur="vm.createGroupCanceled()"
+						   ng-show="vm.showCreateGroupInput"
+						   ng-keyup="vm.handleKeyInput($event)"
+						   ng-keypress="vm.validateKeyInput($event)"
+						   ng-paste="vm.validatePaste($event)">
+					<span ng-click="vm.addNames()" class="glyphicon glyphicon-plus" style="margin-left:30px;cursor:pointer"></span>
+				</li>
 
-				<span ng-repeat="addedPeopleName in everyName.addedPeople">{{addedPeopleName}}
-					<span ng-click="vm.removeFromGroup(p_index,$index)" style="cursor:pointer;">× </span>
-				</span>
-			</div>
+				<li ng-repeat="everyName in vm.show_name">
+					<div class="show_name_box" ng-init="p_index=$index">
+						<span class="every_name">{{everyName.types}}  </span>
+						<span ng-click="vm.removeNames($index)" class="glyphicon glyphicon-remove remove_GroupName"></span>
+
+						<span ng-click="vm.showGroupPeople($index)" class="glyphicon glyphicon-chevron-down showGroupPeople"></span>
+
+						<br>
+						<div ng-if="vm.ifShowAddedName[$index]">
+							<span ng-repeat="addedPeopleName in everyName.addedPeople" style="display: block;">{{addedPeopleName}}
+								<span ng-click="vm.removeFromGroup(p_index,$index)" style="cursor: pointer;">× </span>
+							</span>
+						</div>
+
+					</div>
+				</li>
+			</ul>
+
+
+			<div class="wrapperDIV" style="display:none;"><a>contents</a><a>contents</a><a>contents</a></div>
+
 		</div>
-
-		<!--<div class="wrapperDIV">-->
-				<!--<a>contents</a>-->
-				<!--<a>contents</a>-->
-				<!--<a>contents</a>-->
-		<!--</div>-->
-		<br>
-		<!--<ul ng-repeat="name in vm.arr" style="margin-top:100px;">-->
-			<!--<li>{{name}}</li>-->
-		<!--</ul>-->
 
 	</div>
 </div>

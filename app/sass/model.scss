@@ -82,7 +82,7 @@ body {
 }
 
 .left_pane {
-  width:260px;
+  width:20.6%;
   height:auto;
   float:left;
 
@@ -333,17 +333,49 @@ body {
 
 .right_pane {
   float:left;
-  margin:50px;
+  width:79.4%;
+
+  .right_pane_wrapper {
+    width:100%;
+
+    ul {
+      width:100%;
+      padding:0;
+
+      li{
+        width:100%;
+        margin:8px 18px;
+        border:1px solid $blue;
+
+        .show_name_box {
+
+
+          .every_name {
+            width:170px;
+            height:24px;
+            display:inline-block;
+          }
+
+          .remove_GroupName {
+            margin-left:30px;
+            cursor:pointer
+          }
+
+          .showGroupPeople {
+            margin-left:130px;
+            cursor:pointer;
+          }
+
+        }
+
+      }
+    }
+  }
+
 }
 
-.every_name {
-  width:170px;
-  display:inline-block;
-}
 
-.show_name_box {
-  /*margin-left:22px;*/
-}
+
 
 .modalSelected {
   height: 30px;
