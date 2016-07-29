@@ -12,7 +12,7 @@ function config($stateProvider,$urlRouterProvider){
 		.state('model',{
 			url:'/model',
 			// view:{
-				templateUrl:'model.html',
+				templateUrl:'employeeRail.html',
 				controller:employeeRailCtl,
 				controllerAs: 'vm'
 			// }

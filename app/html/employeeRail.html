@@ -38,18 +38,6 @@
 							<div class="employeeCard_title">{{man.title}}</div>
 						</div>
 						<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
-						<!--<div class="btn-group flyOut_trigger" style="z-index: 10000;" uib-dropdown>-->
-							<!--<button type="button" class="btn btn-danger" uib-dropdown-toggle>-->
-								<!--<span class="caret"></span>-->
-								<!--<span class="sr-only">Split button!</span>-->
-							<!--</button>-->
-							<!--<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">-->
-								<!--<li role="menuitem">Action</li>-->
-								<!--<li role="menuitem">Anothe</li>-->
-								<!--<li role="menuitem">Something</li>-->
-								<!--<li role="menuitem">Separ</li>-->
-							<!--</ul>-->
-						<!--</div>-->
 
 					</div>
 					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
@@ -135,11 +123,11 @@
 	</div>
 
 	<div class="right_pane">
+		<h3>Model different base pay scenarios for your team below using predefined or custom created groups.</h3>
 		<div class="right_pane_wrapper">
 			<ul>
 				<li style="height:28px;">
 					<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name" style="width: 170px;display: inline-block;">Click to input name here.</span>
-					<!--<input type="text" value="vm.add_GroupName" ng-blur="vm.clickToHideName()"  ng-model="vm.add_GroupName" ng-show="!vm.inputName" style="width:170px;">-->
 					<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
 						   ng-model="vm.add_GroupName"
 						   style="width:170px;outline:none;border:none;"
