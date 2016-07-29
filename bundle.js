@@ -149,23 +149,19 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     $scope.the = { type: 'employees' };
     
     vm.show_name = localStorageItemsSvc.toGet('local_list');
-    console.log('vm.show_name : '+vm.show_name);
+    vm.numberOfEachGroup = [];
     
-    // var showLocalStorageItem = function () {
-    //     if ( window.localStorage.local_list != null && window.localStorage.local_list !== 'undefined' ) {
-    //         for(var k = 0;k < localStorageItemsSvc.toGet('local_list').length;k++){
-    //             var single = {
-    //                 types: null,
-    //                 contents : []
-    //             };
-    //             single.types=localStorageItemsSvc.toGet('local_list')[k];
-    //             vm.show_name.push(single);
-    //         }
-    //     }
-    // };
-    // showLocalStorageItem();
-    
-    vm.addNames = function(){
+    function getNumberOfEachGroup(arr) {
+        if(arr != null && arr != undefined){
+            for (var num = 0;num < arr.length;num++){
+                vm.numberOfEachGroup[num] =  arr[num].addedPeople.length;
+            }
+        }
+    }
+    getNumberOfEachGroup(vm.show_name);
+    // console.log('vm.show_name : '+vm.show_name);
+
+    vm.addGroup = function(){
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
         if(vm.add_GroupName != null && vm.add_GroupName != undefined){
             var single = {
@@ -178,16 +174,43 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
     };
-
-    vm.removeNames = function(index){
-        vm.show_name.splice(index,1);
-        var arrayTemp = [];
-        for(var p = 0;p<vm.show_name.length;p++){
-            arrayTemp.push(vm.show_name[p].types);
+    
+    //TODO: remove-group function calls several bugs (done)
+    vm.removeGroup = function(index){
+        if(vm.show_name[index].addedPeople[0] == undefined){
+            removeGroupKeySteps(vm.show_name,index);
+        } else { //should release all the added people
+            var currentName = vm.show_name[index].addedPeople;
+            console.log(currentName);
+            var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
+            var currentIndexInStored;
+            for(var c = 0;c < currentName.length;c++){
+                if(stored != null && stored != 'undefined' && stored != []){ // maybe 'if' judgement sentence it's unnecessary
+                    for (var i = 0;i < stored.length;i++){
+                        if (currentName[c] == stored[i]){
+                            currentIndexInStored = i;
+                            stored.splice(currentIndexInStored,1);
+                            break;
+                        }
+                    }
+                }
+            }
+            localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
+            removeGroupKeySteps(vm.show_name,index);
+            currentIndexInStored = null;
+            stored = null;
+            currentName = null;
         }
-        localStorageItemsSvc.toSet('local_list',arrayTemp);
-        arrayTemp = null;
     };
+    function removeGroupKeySteps(arr,idx) {
+        arr.splice(idx,1);
+        var arrayTemps = [];
+        for(var p = 0;p < arr.length;p++){
+            arrayTemps.push(arr[p]);
+        }
+        localStorageItemsSvc.toSet('local_list',arrayTemps);
+        arrayTemps = null;
+    }
 
     vm.showPaneContent = function(){
         vm.if_left_pane_content = (vm.if_left_pane_content == false);
@@ -281,7 +304,6 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         // vm.add_GroupName = null;
     };
     
-    
     vm.validateKeyInput = function($event) {
         var regex = /^[a-zA-Z0-9 ]*$/gm;
 
@@ -301,16 +323,13 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
-
         //although deprecated, the below have far greater browser support than the recommended evt.key. 
         //until .key is better supported, this implementation is far easier, and ought not be disappearing any time soon
         pressedKey = evt.keyCode || evt.charCode || evt.which;
         pressedKey = parseInt(pressedKey, 10);
-
         if (pressedKey === 13) {
-            vm.createGroup();
+            vm.addGroup();
         }
-
         if (pressedKey === 27) {
             vm.createGroupCanceled();
         }
@@ -324,21 +343,17 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
-
         // http://stackoverflow.com/questions/6035071/intercept-paste-event-in-javascript
         if (window.clipboardData && window.clipboardData.getData) { // IE
             pastedText = window.clipboardData.getData('Text');
         } else if (evt.clipboardData && evt.clipboardData.getData) {
             pastedText = evt.clipboardData.getData('text/plain');
         }
-
         if (!regex.test(pastedText)) {
             evt.preventDefault();
             return false;
         }
     };
-
-    //console.log('Groups : ' + vm.show_name);
 
     function initShowNameIndex() {
         vm.ifShowAddedName = [];
