@@ -1,2 +1,2 @@
 # angular
-A demo wrote to practice angularjs
+A demo wrote to practice angularjs.
