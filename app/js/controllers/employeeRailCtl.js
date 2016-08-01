@@ -266,6 +266,8 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     $scope.$on('addToGroup',function (event,date) {
         // console.log('index : '+ date);
         vm.numberOfEachGroup[date] += 1;
+        vm.show_name = localStorageItemsSvc.toGet('local_list');
+
     });
     
 };
