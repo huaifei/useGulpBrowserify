@@ -32,14 +32,14 @@ var localStorageItemsSvc = function(){
         var temp = JSON.stringify(item);
         window.localStorage.setItem('storeAddedPeople',temp);
 
-        var va = window.localStorage.getItem("storeAddedPeople");  
+        var va = window.localStorage.getItem("storeAddedPeople");
         var vaa = JSON.parse(va);
         console.log(vaa);
     };
     
     var restorePersonAfterRemoved = function () {
         var stored = window.localStorage.getItem("storeAddedPeople");
-        
+        console.log(stored);
     };
 
     return {

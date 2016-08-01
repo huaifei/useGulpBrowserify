@@ -8,7 +8,8 @@
       "location":"Chicago-USA",
       "NewLevel":10,
       "CurrentLevel":11,
-      "CurrentZone":3
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Yemidsi Alude",
@@ -18,7 +19,8 @@
       "location":"Chicago-USA",
       "NewLevel":8,
       "CurrentLevel":9,
-      "CurrentZone":1
+      "CurrentZone":1,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Hussein Fabela",
@@ -28,7 +30,8 @@
       "location":"Chicago-USA",
       "NewLevel":9,
       "CurrentLevel":10,
-      "CurrentZone":3
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Ajay Mahajan",
@@ -38,7 +41,8 @@
       "location":"Chicago-USA",
       "NewLevel":10,
       "CurrentLevel":11,
-      "CurrentZone":3
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Quinn Patterson",
@@ -48,7 +52,8 @@
       "location":"Chicago-USA",
       "NewLevel":8,
       "CurrentLevel":9,
-      "CurrentZone":4
+      "CurrentZone":4,
+      "backgroundStyle":{"background-color":"black"}
     }
   ],
 
@@ -61,7 +66,8 @@
       "location":"Chicago-USA",
       "NewLevel":11,
       "CurrentLevel":12,
-      "CurrentZone":2
+      "CurrentZone":2,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Gamie Fevet",
@@ -71,7 +77,8 @@
       "location":"Chicago-USA",
       "NewLevel":6,
       "CurrentLevel":7,
-      "CurrentZone":8
+      "CurrentZone":8,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Salako Kooio",
@@ -81,7 +88,8 @@
       "location":"Chicago-USA",
       "NewLevel":8,
       "CurrentLevel":9,
-      "CurrentZone":1
+      "CurrentZone":1,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Ban Jamie",
@@ -91,7 +99,8 @@
       "location":"Chicago-USA",
       "NewLevel":10,
       "CurrentLevel":11,
-      "CurrentZone":3
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
     },
     {
       "name":"Niny Sopie",
@@ -101,7 +110,8 @@
       "location":"Chicago-USA",
       "NewLevel":9,
       "CurrentLevel":10,
-      "CurrentZone":3
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
     }
   ]
 }

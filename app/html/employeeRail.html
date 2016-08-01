@@ -25,6 +25,8 @@
 
 				<div class="employeeCard" ng-repeat="man in vm.employees | orderBy:vm.options.value" ng-if="selected=='employees'">
 					<div class="top_table">
+						<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
+						<!--<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>-->
 						<div class="top_table_cell user_cell">
 							<img ng-src="../img/anouser2.jpg">
 						</div>
@@ -71,6 +73,7 @@
 				<div class="employeeCard" ng-repeat="man in vm.planner | orderBy:vm.options.value" ng-if="selected=='planners'">
 
 					<div class="top_table">
+						<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
 						<div class="top_table_cell user_cell">
 							<img ng-src="../img/anouser2.jpg">
 						</div>
@@ -121,6 +124,9 @@
 		<div class="right_pane_wrapper">
 			<ul style="list-style-type: none;">
 				<li style="height:28px;">
+					<div style="line-height:24px;display:inline-block;position:relative;">
+						<span ng-click="vm.addGroup()" class="glyphicon glyphicon-plus-sign add-group-names-button"></span>
+					</div>
 					<span ng-click="vm.createGroupClicked()" ng-show="!vm.showCreateGroupInput" class="every_name every_name_only">Click to input name here.</span>
 					<input class="create-planning-group-name-input" type="text" value="vm.add_GroupName"
 						   ng-model="vm.add_GroupName"
@@ -129,17 +135,18 @@
 						   ng-keyup="vm.handleKeyInput($event)"
 						   ng-keypress="vm.validateKeyInput($event)"
 						   ng-paste="vm.validatePaste($event)">
-					<div style="line-height:24px;display:inline-block;">
-						<span ng-click="vm.addGroup()" class="glyphicon glyphicon-plus-sign add-group-names-button"></span>
-					</div>
 				</li>
 
-				<li ng-repeat="everyName in vm.show_name" class="second-li">
+				<li class="second-li" ng-repeat="everyName in vm.show_name">
 					<div class="show_name_box" ng-init="p_index=$index">
+						<div class="colorCircles" ng-style="{{everyName.backgroundColor}}"></div>
 						<span class="every_name">{{everyName.types}} ({{vm.numberOfEachGroup[$index]}})  </span>
-						<span ng-click="vm.removeGroup($index)" class="glyphicon glyphicon-remove-circle remove_GroupName"></span>
+						<span class="glyphicon glyphicon-remove-circle remove_GroupName" ng-click="vm.removeGroup($index)"></span>
 
-						<span ng-click="vm.showGroupPeople($index)" class="glyphicon glyphicon-chevron-down showGroupPeopleButton"></span>
+						<span class="glyphicon showGroupPeopleButton"
+							  ng-click="vm.showGroupPeople($index)"
+							  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
+						</span>
 
 						<br>
 						<div ng-if="vm.ifShowAddedName[$index]">
@@ -147,10 +154,8 @@
 								<span ng-click="vm.removeFromGroup(p_index,$index)" style="cursor: pointer;">× </span>
 							</span>
 						</div>
-
 					</div>
 				</li>
-
 			</ul>
 
 

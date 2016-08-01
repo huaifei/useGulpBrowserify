@@ -1,21 +1,30 @@
 var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.js');
 
-var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeout,localStorageItemsSvc){
+var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeout,$filter,localStorageItemsSvc){
 
     var vm = this;
     vm.showFront = [];
-    var url="../data/PeopleInformation.json";
+    vm.defaultGroups = [];
+    var url = "../data/PeopleInformation.json";
+    var defaultGroupUrl = "../data/defaultGroup.json";
+
     $http.get(url).success(
         function(response) {
             vm.employees = response.employees;
             vm.planner = response.planner;
-
             for(var j = 0; j < vm.employees.length; j++){
                 vm.showFront[j] = true;
             }
         }
     );
-    
+    $http.get(defaultGroupUrl).success(
+        function(response) {
+            vm.defaultGroups = response.defaultGroups;
+            // console.log(vm.defaultGroups);
+        }
+    );
+
+    var defaultColors = ['turquoise','blue','violet','orange','purple','red','green'];
     vm.inputName = true;
     vm.clickShowName = function(){
         vm.inputName = (vm.inputName == false);
@@ -46,21 +55,25 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     // console.log('vm.show_name : '+vm.show_name);
 
     vm.addGroup = function(){
+        // debugger
         var name_list = localStorageItemsSvc.toGet('local_list') || [];
+        var randomNumber = Math.floor(Math.random()*7);
         if(vm.add_GroupName != null && vm.add_GroupName != undefined){
             var single = {
                 types: vm.add_GroupName,
-                addedPeople : []
+                addedPeople : [],
+                backgroundColor: {'background-color':defaultColors[randomNumber]}
             };
             name_list.push(single);
             vm.add_GroupName = null;
             localStorageItemsSvc.toSet('local_list',name_list);
-
+            
             var tempShowName = localStorageItemsSvc.toGet('local_list');
             vm.numberOfEachGroup[tempShowName.length-1] = 0;
             vm.show_name = tempShowName;
             tempShowName = null;
         }
+        initShowNameIndex();
     };
     
     //TODO: remove-group function calls several bugs (done)
@@ -176,10 +189,15 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
                 }
             }
         }
-        debugger
+
         vm.show_name = GroupContent; // handle right part shows in the page
         vm.numberOfEachGroup[parent] -= 1;
-        
+
+        // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
+
+        var theindex = filterIndexFromName(vm.employees,currentName);
+        vm.employees[theindex].backgroundStyle = {"background-color":"black"};
+
     };
 
     vm.createGroupClicked = function () {
@@ -255,22 +273,40 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
     }
     initShowNameIndex();
-    
+
     vm.showGroupPeople = function (index) {
         var groupContent = vm.show_name;
         if(groupContent !== localStorageItemsSvc.toGet('local_list')){
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         }
         vm.ifShowAddedName[index] = (vm.ifShowAddedName[index] == false);
+        console.log(vm.ifShowAddedName[index] );
     };
 
-    $scope.$on('addToGroup',function (event,date) {
+    $scope.$on('addToGroup',function (event,data) {
+
         // console.log('index : '+ date);
-        vm.numberOfEachGroup[date] += 1;
+        vm.numberOfEachGroup[data[0]] += 1;
         vm.show_name = localStorageItemsSvc.toGet('local_list');
 
+        var theIndex = filterIndexFromName(vm.employees,data[1]);
+        vm.employees[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+
     });
-    
+
+    function filterIndexFromName(arr,dataName) {
+        var theIndex = null;
+        for(var th = 0;th < arr.length;th++){
+            if(arr[th].name == dataName){
+                theIndex = th;
+                break;
+            }
+        }
+        return theIndex;
+    }
+
+
+
 };
 
 

@@ -9,3 +9,7 @@
 1.TODO:the error vm.show_name's duplicate value ,to check the value.
 2.done:(16.7.29,4).
 3.add:when adding a employee to model group,it can broadcast from leftPane to rightPane.
+
+4.fixed:show employee in model group immediately when I click to add it. 
+5.add:use a random color to mark a group
+6.add:when adding a employee to a model group,the marked color will show on the avatar.(not use localStorage,to be modified)

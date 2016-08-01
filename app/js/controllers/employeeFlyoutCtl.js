@@ -1,5 +1,5 @@
 
-var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
+var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
 
     "ngInject";
     var vm = this;
@@ -32,7 +32,9 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageIte
         // localStore[index].addedPeople = employeeName;   // convenient to debugger
         localStorageItemsSvc.toSet('local_list',localStore);
 
-        $scope.$emit('addToGroup',index);
+        // var theFilter = $filter('filter')(vm.employees,{"name":employeeName});
+        var dateThings = [index,employeeName];
+        $scope.$emit('addToGroup',dateThings);
         vm.removeFlyout(true);
     };
 

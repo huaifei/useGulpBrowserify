@@ -1,0 +1,26 @@
+{
+  "defaultGroups": [
+    {
+      "types": "Promotion",
+      "addedPeople": [],
+      "backgroundColor": "orange"
+    },
+    {
+      "types": "Talent Priority",
+      "addedPeople": [],
+      "backgroundColor": "blue"
+    },
+    {
+      "types": "Others Below Target Salary",
+      "addedPeople": [],
+      "backgroundColor": "green"
+    },
+    {
+      "types": "Others Above Target Salary",
+      "addedPeople": [],
+      "backgroundColor": "red"
+    }
+  ]
+
+
+}
