@@ -15,7 +15,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageIte
 
         if(!compareResult){
             var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
-            console.log(storeAdded);
+            // console.log(storeAdded);
             storeAdded.push(employeeName);
             
             localStorageItemsSvc.toSet('storeAddedPeople',storeAdded);
@@ -32,6 +32,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, localStorageIte
         // localStore[index].addedPeople = employeeName;   // convenient to debugger
         localStorageItemsSvc.toSet('local_list',localStore);
 
+        $scope.$emit('addToGroup',index);
         vm.removeFlyout(true);
     };
 

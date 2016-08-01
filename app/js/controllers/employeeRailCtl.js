@@ -15,7 +15,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             }
         }
     );
-
+    
     vm.inputName = true;
     vm.clickShowName = function(){
         vm.inputName = (vm.inputName == false);
@@ -55,8 +55,11 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             name_list.push(single);
             vm.add_GroupName = null;
             localStorageItemsSvc.toSet('local_list',name_list);
-            vm.show_name = localStorageItemsSvc.toGet('local_list');
-            // vm.numberOfEachGroup[vm.show_name.length-1] = 0;
+
+            var tempShowName = localStorageItemsSvc.toGet('local_list');
+            vm.numberOfEachGroup[tempShowName.length-1] = 0;
+            vm.show_name = tempShowName;
+            tempShowName = null;
         }
     };
     
@@ -86,6 +89,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             stored = null;
             currentName = null;
         }
+        vm.numberOfEachGroup.splice(index,1);
     };
     function removeGroupKeySteps(arr,idx) {
         arr.splice(idx,1);
@@ -136,7 +140,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         vm.employeeName = vm.employeeCard.querySelector('.employeeCard_name').innerHTML;
         
         employeeFlyoutElementString = '<employee-flyout employee="vm.employeeName" employeecard="vm.employeeCard"></employee-flyout>';
-    
+        
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
     };
@@ -173,9 +177,9 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             }
         }
         vm.show_name = GroupContent; // handle right part shows in the page
+        vm.numberOfEachGroup[parent] -= 1;
         
     };
-
 
     vm.createGroupClicked = function () {
         vm.showCreateGroupInput = true;
@@ -259,9 +263,12 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         vm.ifShowAddedName[index] = (vm.ifShowAddedName[index] == false);
     };
 
+    $scope.$on('addToGroup',function (event,date) {
+        // console.log('index : '+ date);
+        vm.numberOfEachGroup[date] += 1;
+    });
     
 };
-
 
 
 module.exports = employeeRailCtl;
