@@ -176,6 +176,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
                 }
             }
         }
+        debugger
         vm.show_name = GroupContent; // handle right part shows in the page
         vm.numberOfEachGroup[parent] -= 1;
         
