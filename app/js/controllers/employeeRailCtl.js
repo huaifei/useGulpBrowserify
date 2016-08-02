@@ -80,6 +80,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     vm.removeGroup = function(index){
         if(vm.show_name[index].addedPeople[0] == undefined){
             removeGroupKeySteps(vm.show_name,index);
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
         } else { //should release all the added people
             var currentName = vm.show_name[index].addedPeople;
             console.log(currentName);
@@ -98,6 +99,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             }
             localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
             removeGroupKeySteps(vm.show_name,index);
+            vm.show_name = localStorageItemsSvc.toGet('local_list');
             currentIndexInStored = null;
             stored = null;
             currentName = null;
@@ -304,7 +306,6 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
         return theIndex;
     }
-
 
 
 };

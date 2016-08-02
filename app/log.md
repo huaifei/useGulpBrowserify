@@ -13,3 +13,6 @@
 4.fixed:show employee in model group immediately when I click to add it. 
 5.add:use a random color to mark a group
 6.add:when adding a employee to a model group,the marked color will show on the avatar.(not use localStorage,to be modified)
+
+#16.8.2
+1. 

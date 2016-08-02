@@ -138,7 +138,8 @@
 				</li>
 
 				<li class="second-li" ng-repeat="everyName in vm.show_name">
-					<div class="show_name_box" ng-init="p_index=$index">
+					<!--<div class="show_name_box" ng-init="p_index=$index">-->
+					<div class="show_name_box">
 						<div class="colorCircles" ng-style="{{everyName.backgroundColor}}"></div>
 						<span class="every_name">{{everyName.types}} ({{vm.numberOfEachGroup[$index]}})  </span>
 						<span class="glyphicon glyphicon-remove-circle remove_GroupName" ng-click="vm.removeGroup($index)"></span>
@@ -151,7 +152,7 @@
 						<br>
 						<div ng-if="vm.ifShowAddedName[$index]">
 							<span ng-repeat="addedPeopleName in everyName.addedPeople" style="display: block;">{{addedPeopleName}}
-								<span ng-click="vm.removeFromGroup(p_index,$index)" style="cursor: pointer;">× </span>
+								<span ng-click="vm.removeFromGroup($parent.$index,$index)" style="cursor: pointer;">× </span>
 							</span>
 						</div>
 					</div>
