@@ -1,10 +1,18 @@
 
-var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
+var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $filter, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
 
     "ngInject";
     var vm = this;
+    var employees,planners;
     var employeeName = $scope.employee;
     var compareResult = localStorageItemsSvc.toCompare(employeeName);
+    var url = "../data/PeopleInformation.json";
+    $http.get(url).success(
+        function(response) {
+            employees = response.employees;
+            planners = response.planner;
+        }
+    );
     vm.groups = localStorageItemsSvc.toGet('local_list');
     vm.showOrHideFlag = false;
     console.log('compareResult: ' + compareResult);
@@ -27,9 +35,10 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, 
         if(localStore[index].addedPeople == null){
             localStore[index].addedPeople = [];
         }
+        
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
-        localStore[index].addedPeople.push(employeeName);  // TODO-- use this when it's formal
-        // localStore[index].addedPeople = employeeName;   // convenient to debugger
+        var theResult = findPersonByName(employeeName);
+        localStore[index].addedPeople.push(theResult);  // TODO-- use this when it's formal
         localStorageItemsSvc.toSet('local_list',localStore);
 
         // var theFilter = $filter('filter')(vm.employees,{"name":employeeName});
@@ -37,6 +46,17 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, 
         $scope.$emit('addToGroup',dateThings);
         vm.removeFlyout(true);
     };
+
+    function findPersonByName(theName) {
+        var result;
+        var theFilter = $filter('filter')(planners,{"name":theName});
+        if (theFilter[0] == undefined){
+            result = $filter('filter')(employees,{"name":theName});
+        } else {
+           result = theFilter;
+        }
+        return result;
+    }
 
     vm.showOrHide = function () {
         var styleObject = {};
@@ -52,9 +72,9 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, 
     function doesFlyoutClearBottomOfScreen() {
         var employeeCard = $scope.employeecard;
         var employeeCardDimensions = employeeCard.getBoundingClientRect();
-        // var flyoutHeight = vm.getFlyoutHeight();
+        var flyoutHeight = vm.getFlyoutHeight();
         var employeeCardDistFromBottom = window.innerHeight - employeeCardDimensions.top; //the distance from the top of the employeeCard to the bottom of the window
-        return (employeeCardDistFromBottom > 200);
+        return (employeeCardDistFromBottom > flyoutHeight);
     }
 
     vm.positionFlyout = function () { //TODO - This may allow the flyout to scroll with the employeecard.... //TODO-- refactor? this was a rush job
@@ -75,7 +95,8 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $filter, 
         } else {
             styleObject = {
                 left: (employeeCardBounds.right + 5) + 'px',
-                top: ((employeeCardBounds.top + scrollY) - (200-37)) +'px',
+                // top: ((employeeCardBounds.top + scrollY) - (200-37)) +'px', //200px is the height of flyout , 37px maybe is a suitable number
+                top: ((employeeCardBounds.top + scrollY) - (vm.getFlyoutHeight()-111)) +'px',
                 position: 'absolute'
             };
         }

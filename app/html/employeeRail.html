@@ -151,9 +151,20 @@
 
 						<br>
 						<div ng-if="vm.ifShowAddedName[$index]">
-							<span ng-repeat="addedPeopleName in everyName.addedPeople" style="display: block;">{{addedPeopleName}}
-								<span ng-click="vm.removeFromGroup($parent.$index,$index)" style="cursor: pointer;">× </span>
-							</span>
+							<div class="peoplePropertyTitle">
+								<span>Name</span>
+								<span>Location</span>
+								<span>Salary</span>
+							</div>
+
+							<div class="peoplePropertyTitle" ng-repeat="addedName in everyName.addedPeople">
+								<span>{{addedName[0].name}}</span>
+								<span>{{addedName[0].location}}</span>
+								<span>{{addedName[0].salary}}</span>
+
+								<i ng-click="vm.removeFromGroup($parent.$index,$index)" style="cursor: pointer;">× </i>
+							</div>
+
 						</div>
 					</div>
 				</li>

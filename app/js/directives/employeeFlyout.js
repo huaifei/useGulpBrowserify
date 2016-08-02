@@ -31,7 +31,8 @@ function EmployeeFlyout () {
         }
 
         vm.getFlyoutHeight = function () {
-            var element = elem;
+            // var element = elem;   //tip;: There are some difference between elem and elem[0] when I borrow it from the Project.
+            var element = elem[0];
             if (element instanceof jQuery) {
                 element = element[0];
             }

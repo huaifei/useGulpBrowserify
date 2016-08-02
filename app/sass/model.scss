@@ -427,6 +427,18 @@ body {
             font-size: 15px;
           }
 
+          .peoplePropertyTitle {
+            //border:1px solid red;
+            height: 18px;
+            line-height: 18px;
+
+            span {
+              float:left;
+              width:30%;
+              //border:1px solid blue;
+            }
+          }
+
         }
 
       }

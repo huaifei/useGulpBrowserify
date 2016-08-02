@@ -82,16 +82,20 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             removeGroupKeySteps(vm.show_name,index);
             vm.show_name = localStorageItemsSvc.toGet('local_list');
         } else { //should release all the added people
+            debugger
             var currentName = vm.show_name[index].addedPeople;
-            console.log(currentName);
+            // console.log(currentName);
             var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
             var currentIndexInStored;
             for(var c = 0;c < currentName.length;c++){
                 if(stored != null && stored != 'undefined' && stored != []){ // maybe 'if' judgement sentence it's unnecessary
                     for (var i = 0;i < stored.length;i++){
-                        if (currentName[c] == stored[i]){
+                        if (currentName[c][0].name == stored[i]){
                             currentIndexInStored = i;
                             stored.splice(currentIndexInStored,1);
+                            var idx = filterIndexFromName(vm.employees,currentName[c][0].name);
+                            vm.employees[idx].backgroundStyle = {"background-color":"black"};
+                            idx = null;
                             break;
                         }
                     }
@@ -100,13 +104,14 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
             removeGroupKeySteps(vm.show_name,index);
             vm.show_name = localStorageItemsSvc.toGet('local_list');
+
             currentIndexInStored = null;
             stored = null;
             currentName = null;
         }
         vm.numberOfEachGroup.splice(index,1);
     };
-    function removeGroupKeySteps(arr,idx) {
+    function removeGroupKeySteps(arr,idx) { //remove the current group,and restore the local_list
         arr.splice(idx,1);
         var arrayTemps = [];
         for(var p = 0;p < arr.length;p++){
@@ -171,7 +176,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
         if(stored != null && stored != 'undefined' && stored != []){
             for (var i = 0;i < stored.length;i++){
-                if (currentName == stored[i]){
+                if (currentName[0].name == stored[i]){
                     currentIndexInStored = i;
                     stored.splice(currentIndexInStored,1);
                     break;
@@ -184,7 +189,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         if(GroupContent != null && GroupContent != 'undefined'){
             for(var j = 0;j < GroupContent.length;j++){
                 for (var k = 0;k < GroupContent[j].addedPeople.length; k++){
-                    if (currentName == GroupContent[j].addedPeople[k]){
+                    if (currentName[0].name == GroupContent[j].addedPeople[k][0].name){
                         GroupContent[j].addedPeople.splice(k,1);
                         localStorageItemsSvc.toSet("local_list",GroupContent);
                     }
@@ -197,7 +202,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
         // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
 
-        var theindex = filterIndexFromName(vm.employees,currentName);
+        var theindex = filterIndexFromName(vm.employees,currentName[0].name);
         vm.employees[theindex].backgroundStyle = {"background-color":"black"};
 
     };
