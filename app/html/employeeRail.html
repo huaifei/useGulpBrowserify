@@ -145,6 +145,12 @@
 						<span class="glyphicon glyphicon-remove-circle remove_GroupName" ng-click="vm.removeGroup($index)"></span>
 
 						<span class="glyphicon showGroupPeopleButton"
+							  ng-show="vm.currentType"
+							  ng-click="vm.showGroupPeople($index)"
+							  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
+						</span>
+						<span class="glyphicon showGroupPeopleButton"
+							  ng-show="!vm.currentType"
 							  ng-click="vm.showGroupPeople($index)"
 							  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
 						</span>

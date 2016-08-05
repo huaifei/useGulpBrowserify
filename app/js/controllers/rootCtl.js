@@ -25,6 +25,9 @@ var toolNameCtl = function($scope, $rootScope, $location, $uibModal, $log){
 
 		modalInstance.result.then(function(selectedItem){
 			$scope.selected =selectedItem;
+
+			$scope.$broadcast('selectedHasChanged',selectedItem);
+			
 		},function(){
 			$log.info('Modal dismissed at : '+ new Date());
 		});

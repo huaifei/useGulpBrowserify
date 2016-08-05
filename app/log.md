@@ -19,3 +19,10 @@
 3.add: displaying other information of an employee in the model group.
 4.other: refactor the position of fly-out cards.
 5.TODO: assign planner to model group and refactor codes.
+
+#16.8.3
+1.refactor the code
+2.TODO: (16.8.2)half done.
+
+#16.8.5
+1:toFind: a bug occurs when I remove an employee from model-group.

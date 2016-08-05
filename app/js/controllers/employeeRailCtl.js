@@ -2,11 +2,16 @@ var showLocalStorageItemsSvc = require('./../services/showLocalStorageItemsSvc.j
 
 var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeout,$filter,localStorageItemsSvc){
 
+    console.log("$scope.selected : " + $scope.selected); //it can get the current selected in rootCtl
     var vm = this;
+    var firstInit = true;
+    var currentStorage;
+    var defaultColors = ['turquoise','blue','violet','orange','purple','red','green'];
+    vm.currentType = true;
     vm.showFront = [];
     vm.defaultGroups = [];
     var url = "../data/PeopleInformation.json";
-    var defaultGroupUrl = "../data/defaultGroup.json";
+    var defaultGroupUrl = "../data/defaultGroup.json"; //it's not been used
 
     $http.get(url).success(
         function(response) {
@@ -24,7 +29,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
     );
 
-    var defaultColors = ['turquoise','blue','violet','orange','purple','red','green'];
+
     vm.inputName = true;
     vm.clickShowName = function(){
         vm.inputName = (vm.inputName == false);
@@ -33,7 +38,8 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     vm.clickToHideName = function(){
         vm.inputName = true;
     };
-    
+
+
     vm.sortOptions = [
         {key:'Name a-to-z',value:'name'},
         {key:'Name z-to-a',value:'-name'}
@@ -41,9 +47,24 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     vm.names = ['employees','planners'];
     $scope.the = { type: 'employees' };
     
-    vm.show_name = localStorageItemsSvc.toGet('local_list');
+    function getCurrentSelectedResult() {
+        if ($scope.selected == 'planners'){
+            currentStorage = 'local_list_2';
+            vm.show_name = localStorageItemsSvc.toGet(currentStorage);
+        } else {
+            currentStorage = 'local_list';
+            vm.show_name = localStorageItemsSvc.toGet(currentStorage);
+        }
+    }
+    getCurrentSelectedResult();  // to get current selected first.
+    // vm.show_name = localStorageItemsSvc.toGet(cu);
+    $scope.$on('selectedHasChanged', function (data) {
+        getCurrentSelectedResult();
+        getNumberOfEachGroup(vm.show_name);
+        vm.currentType = false;
+    });
+
     vm.numberOfEachGroup = [];
-    
     function getNumberOfEachGroup(arr) {
         if(arr != null && arr != undefined){
             for (var num = 0;num < arr.length;num++){
@@ -56,7 +77,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
     vm.addGroup = function(){
         // debugger
-        var name_list = localStorageItemsSvc.toGet('local_list') || [];
+        var name_list = localStorageItemsSvc.toGet(currentStorage) || [];
         var randomNumber = Math.floor(Math.random()*7);
         if(vm.add_GroupName != null && vm.add_GroupName != undefined){
             var single = {
@@ -66,9 +87,9 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             };
             name_list.push(single);
             vm.add_GroupName = null;
-            localStorageItemsSvc.toSet('local_list',name_list);
+            localStorageItemsSvc.toSet(currentStorage,name_list);
             
-            var tempShowName = localStorageItemsSvc.toGet('local_list');
+            var tempShowName = localStorageItemsSvc.toGet(currentStorage);
             vm.numberOfEachGroup[tempShowName.length-1] = 0;
             vm.show_name = tempShowName;
             tempShowName = null;
@@ -78,11 +99,12 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     
     //TODO: remove-group function calls several bugs (done)
     vm.removeGroup = function(index){
+        var idx;
         if(vm.show_name[index].addedPeople[0] == undefined){
             removeGroupKeySteps(vm.show_name,index);
-            vm.show_name = localStorageItemsSvc.toGet('local_list');
+            vm.show_name = localStorageItemsSvc.toGet(currentStorage);
         } else { //should release all the added people
-            debugger
+
             var currentName = vm.show_name[index].addedPeople;
             // console.log(currentName);
             var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
@@ -93,8 +115,13 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
                         if (currentName[c][0].name == stored[i]){
                             currentIndexInStored = i;
                             stored.splice(currentIndexInStored,1);
-                            var idx = filterIndexFromName(vm.employees,currentName[c][0].name);
-                            vm.employees[idx].backgroundStyle = {"background-color":"black"};
+                            if($scope.selected == 'planners'){
+                                idx = filterIndexFromName(vm.planner,currentName[c][0].name);
+                                vm.planner[idx].backgroundStyle = {"background-color":"black"};
+                            } else {
+                                idx = filterIndexFromName(vm.employees,currentName[c][0].name);
+                                vm.employees[idx].backgroundStyle = {"background-color":"black"};
+                            }
                             idx = null;
                             break;
                         }
@@ -103,7 +130,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             }
             localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
             removeGroupKeySteps(vm.show_name,index);
-            vm.show_name = localStorageItemsSvc.toGet('local_list');
+            vm.show_name = localStorageItemsSvc.toGet(currentStorage);
 
             currentIndexInStored = null;
             stored = null;
@@ -111,13 +138,13 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
         vm.numberOfEachGroup.splice(index,1);
     };
-    function removeGroupKeySteps(arr,idx) { //remove the current group,and restore the local_list
+    function removeGroupKeySteps(arr,idx) { //remove the current group,and restore the local_list (currentStorage)
         arr.splice(idx,1);
         var arrayTemps = [];
         for(var p = 0;p < arr.length;p++){
             arrayTemps.push(arr[p]);
         }
-        localStorageItemsSvc.toSet('local_list',arrayTemps);
+        localStorageItemsSvc.toSet(currentStorage,arrayTemps);
         arrayTemps = null;
     }
 
@@ -135,6 +162,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     
     vm.flyoutFunction =function (index,$event) {
         var employeeFlyoutElementString;
+        vm.selectIcon = $scope.selected;
 
         function getContainingEmployeeCard(nodeToCheck) {
             var el = nodeToCheck;
@@ -159,7 +187,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         vm.employeeCard = getContainingEmployeeCard($event.target);
         vm.employeeName = vm.employeeCard.querySelector('.employeeCard_name').innerHTML;
         
-        employeeFlyoutElementString = '<employee-flyout employee="vm.employeeName" employeecard="vm.employeeCard"></employee-flyout>';
+        employeeFlyoutElementString = '<employee-flyout employee="vm.employeeName" employeecard="vm.employeeCard" selected="vm.selectIcon"></employee-flyout>';
         
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
@@ -169,10 +197,10 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
         //console.log(vm.show_name[parent].addedPeople[index]);
         //console.log(JSON.parse(window.localStorage.getItem("storeAddedPeople")));
-
+// debugger
         var currentName = vm.show_name[parent].addedPeople[index];
         var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
-        var currentIndexInStored;
+        var currentIndexInStored, thisIndex;
 
         if(stored != null && stored != 'undefined' && stored != []){
             for (var i = 0;i < stored.length;i++){
@@ -185,13 +213,14 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
         localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
 
-        var GroupContent = localStorageItemsSvc.toGet('local_list');
+        console.log('log - currentStorage is : '+currentStorage);
+        var GroupContent = localStorageItemsSvc.toGet(currentStorage);
         if(GroupContent != null && GroupContent != 'undefined'){
             for(var j = 0;j < GroupContent.length;j++){
                 for (var k = 0;k < GroupContent[j].addedPeople.length; k++){
                     if (currentName[0].name == GroupContent[j].addedPeople[k][0].name){
                         GroupContent[j].addedPeople.splice(k,1);
-                        localStorageItemsSvc.toSet("local_list",GroupContent);
+                        localStorageItemsSvc.toSet(currentStorage,GroupContent);
                     }
                 }
             }
@@ -202,8 +231,13 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
         // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
 
-        var theindex = filterIndexFromName(vm.employees,currentName[0].name);
-        vm.employees[theindex].backgroundStyle = {"background-color":"black"};
+        if($scope.selected == 'planners'){
+            thisIndex = filterIndexFromName(vm.planner,currentName[0].name);
+            vm.planner[thisIndex].backgroundStyle = {"background-color":"black"};
+        } else {
+            thisIndex = filterIndexFromName(vm.employees,currentName[0].name);
+            vm.employees[thisIndex].backgroundStyle = {"background-color":"black"};
+        }
 
     };
 
@@ -272,10 +306,23 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
     function initShowNameIndex() {
         vm.ifShowAddedName = [];
+        vm.ifShowEmployeesAddedName = [];
+        vm.ifShowPlannersAddedName = [];
+
         if(!vm.show_name){}
         else{
-            for(var p = 0;p < vm.show_name.length;p++){
-                vm.ifShowAddedName[p] = false;
+            if($scope.selected == 'planner'){
+                var store1 = localStorageItemsSvc.toGet(currentStorage);
+                for(var p1 = 0;p1 < store1.length;p1++){
+                    vm.ifShowPlannersAddedName[p1] = false;
+                }
+                vm.ifShowAddedName =  vm.ifShowPlannersAddedName;
+            } else {
+                var store2 = localStorageItemsSvc.toGet(currentStorage);
+                for(var p2 = 0;p2 < store2.length;p2++){
+                    vm.ifShowEmployeesAddedName[p2] = false;
+                }
+                vm.ifShowAddedName =  vm.ifShowEmployeesAddedName;
             }
         }
     }
@@ -283,21 +330,33 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
 
     vm.showGroupPeople = function (index) {
         var groupContent = vm.show_name;
-        if(groupContent !== localStorageItemsSvc.toGet('local_list')){
-            vm.show_name = localStorageItemsSvc.toGet('local_list');
+
+        if(groupContent !== localStorageItemsSvc.toGet(currentStorage)){
+            vm.show_name = localStorageItemsSvc.toGet(currentStorage);
         }
-        vm.ifShowAddedName[index] = (vm.ifShowAddedName[index] == false);
-        console.log(vm.ifShowAddedName[index] );
+        if($scope.selected == 'planner'){
+            vm.ifShowPlannersAddedName[index] = (vm.ifShowPlannersAddedName[index] == false);
+            vm.ifShowAddedName[index] = vm.ifShowPlannersAddedName[index];
+        } else {
+            vm.ifShowEmployeesAddedName[index] = (vm.ifShowEmployeesAddedName[index] == false);
+            vm.ifShowAddedName[index] = vm.ifShowEmployeesAddedName[index];
+        }
+
     };
 
     $scope.$on('addToGroup',function (event,data) {
-
+        var theIndex;
         // console.log('index : '+ date);
         vm.numberOfEachGroup[data[0]] += 1;
-        vm.show_name = localStorageItemsSvc.toGet('local_list');
+        vm.show_name = localStorageItemsSvc.toGet(currentStorage);
 
-        var theIndex = filterIndexFromName(vm.employees,data[1]);
-        vm.employees[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+        if($scope.selected == 'planners'){
+            theIndex = filterIndexFromName(vm.planner,data[1]);
+            vm.planner[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+        } else {
+            theIndex = filterIndexFromName(vm.employees,data[1]);
+            vm.employees[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+        }
 
     });
 

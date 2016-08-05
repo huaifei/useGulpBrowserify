@@ -3,7 +3,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
 
     "ngInject";
     var vm = this;
-    var employees,planners;
+    var employees, planners, currentStorage;
     var employeeName = $scope.employee;
     var compareResult = localStorageItemsSvc.toCompare(employeeName);
     var url = "../data/PeopleInformation.json";
@@ -13,25 +13,36 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
             planners = response.planner;
         }
     );
-    vm.groups = localStorageItemsSvc.toGet('local_list');
-    vm.showOrHideFlag = false;
-    console.log('compareResult: ' + compareResult);
+    function getCurrentSelectedResult() {
+        if ($scope.selected == 'planners'){
+            currentStorage = 'local_list_2';
+            vm.groups = localStorageItemsSvc.toGet(currentStorage);
+        } else {
+            currentStorage = 'local_list';
+            vm.groups = localStorageItemsSvc.toGet(currentStorage);
+        }
+    }
+    getCurrentSelectedResult();  // to get current selected first.
 
+    vm.showOrHideFlag = false;
+
+    console.log('compareResult: ' + compareResult);
     console.log(employeeName);
 
     vm.addEmployeeToGroup = function (index) {
+        // console.log($scope.selected);
 
         if(!compareResult){
             var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
             // console.log(storeAdded);
             storeAdded.push(employeeName);
-            
+
             localStorageItemsSvc.toSet('storeAddedPeople',storeAdded);
         }
         var re = localStorageItemsSvc.toCompare(employeeName);
         console.log(re);
         
-        var localStore = localStorageItemsSvc.toGet('local_list');
+        var localStore = localStorageItemsSvc.toGet(currentStorage);
         if(localStore[index].addedPeople == null){
             localStore[index].addedPeople = [];
         }
@@ -39,7 +50,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
         // console.log('employeeName: ' + employeeName + ' , index: ' + index);
         var theResult = findPersonByName(employeeName);
         localStore[index].addedPeople.push(theResult);  // TODO-- use this when it's formal
-        localStorageItemsSvc.toSet('local_list',localStore);
+        localStorageItemsSvc.toSet(currentStorage,localStore);
 
         // var theFilter = $filter('filter')(vm.employees,{"name":employeeName});
         var dateThings = [index,employeeName];
@@ -122,6 +133,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
 
         vm.removeFlyout();
     };
+
 
 };
 

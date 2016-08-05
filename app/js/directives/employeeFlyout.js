@@ -11,7 +11,8 @@ function EmployeeFlyout () {
 
     directive.scope = {
         employee: '=',
-        employeecard: '='
+        employeecard: '=',
+        selected: '='
     };
 
     directive.controller = 'employeeFlyoutCtl as vm';
