@@ -1,5 +1,6 @@
 $white: #ffffff;
 $blue: #259AD4;
+$light-blue:#58AFE0;
 $orange: orange;
 $light-gray: #f0f0f0;
 $mid-gray: #D6D6D6;
@@ -81,8 +82,16 @@ body {
   height: auto;
 }
 
+.bottomBackground {
+  position: absolute;
+  z-index: -100;
+  background-color:$light-blue;
+  width:260px;
+  height: 845px; //the innerHeight, better to control the value in JS code.
+}
+
 .left_pane {
-  width:20.6%;
+  width:260px;
   height:auto;
   float:left;
 
@@ -110,7 +119,7 @@ body {
 
   .left_pane_content {
     text-align: center;
-    background-color:#58AFE0;
+    background-color:$light-blue;
     color: #ffffff;
     height:100%;
     font-family: sans-serif;
@@ -199,6 +208,13 @@ body {
       line-height:18px;
     }
 
+    .employeeCard_name_extended {
+      text-align: left;
+      font-size: 18px;
+      padding: 12px 0 3px 10px;
+      line-height:18px;
+    }
+
     .employeeCard_title {
       text-align: left;
       font-size: 14px;
@@ -225,6 +241,10 @@ body {
 
   }
 
+}
+
+.extendedTeam {
+  @extend .employeeCard;
 }
 
 .employeeCard_front {
@@ -390,47 +410,54 @@ body {
         }
 
         .show_name_box {
-          margin:8px;
+          margin:0 8px;
           position:relative;
 
-          .colorCircles {
-            width:12px;
-            height:12px;
-            border-radius:50%;
-            display:inline-block;
-            position:absolute;
-            top:5px;
-            left:0;
-            //background-color:red;
-          }
+          .show_name_box_title {
+            margin:8px 0;
 
-          .every_name {
-            width:170px;
-            height:24px;
-            margin-left:20px;
-            display:inline-block;
-            //margin-left:8px;
-          }
+            .colorCircles {
+              width:12px;
+              height:12px;
+              border-radius:50%;
+              display:inline-block;
+              position:absolute;
+              top:5px;
+              left:0;
+              //background-color:red;
+            }
 
-          .remove_GroupName {
-            margin-left:30px;
-            cursor:pointer;
-            color:#8ea9af;
-            font-size: 15px;
-          }
+            .every_name {
+              width:170px;
+              height:24px;
+              margin-left:20px;
+              display:inline-block;
+              //margin-left:8px;
+            }
 
-          .showGroupPeopleButton {
-            //margin-left:130px;
-            cursor:pointer;
-            float:right;
-            margin-top:4px;
-            font-size: 15px;
+            .remove_GroupName {
+              margin-left:30px;
+              cursor:pointer;
+              color:#8ea9af;
+              font-size: 15px;
+            }
+
+            .showGroupPeopleButton {
+              //margin-left:130px;
+              cursor:pointer;
+              float:right;
+              margin-top:4px;
+              font-size: 15px;
+            }
+
           }
 
           .peoplePropertyTitle {
             //border:1px solid red;
-            height: 18px;
+            height: 34px;
             line-height: 18px;
+            padding:8px;
+            background-color:#eee;
 
             span {
               float:left;
@@ -438,6 +465,15 @@ body {
               //border:1px solid blue;
             }
           }
+          .titleRow {
+            background-color:#ccc;
+            border-top:1px solid $blue;
+          }
+          .modelAddedPeopleRow {
+            //height:50px;
+            //line-height: 50px;
+          }
+
 
         }
 

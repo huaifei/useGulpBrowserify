@@ -25,7 +25,7 @@ var localStorageItemsSvc = function(){
                 }
             }
         }
-        return flag;
+        return flag;          // when flag is true,that means str exist in storeAddedPeople.
     };
     
     var toStorePerson = function (item) {

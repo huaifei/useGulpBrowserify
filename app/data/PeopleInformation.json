@@ -113,5 +113,63 @@
       "CurrentZone":3,
       "backgroundStyle":{"background-color":"black"}
     }
+  ],
+
+  "extended": [
+    {
+      "name":"Sunday Numui",
+      "title":"Software Engineering",
+      "salary":"1,551,320",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Phoenix-USA",
+      "NewLevel":11,
+      "CurrentLevel":12,
+      "CurrentZone":2,
+      "backgroundStyle":{"background-color":"black"}
+    },
+    {
+      "name":"Monday Fevet",
+      "title":"System Developer",
+      "salary":"1,780,009",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Detroit-USA",
+      "NewLevel":6,
+      "CurrentLevel":7,
+      "CurrentZone":8,
+      "backgroundStyle":{"background-color":"black"}
+    },
+    {
+      "name":"Tuesday Kooio",
+      "title":"Tester Analyst",
+      "salary":"1,237,764",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Miami-USA",
+      "NewLevel":8,
+      "CurrentLevel":9,
+      "CurrentZone":1,
+      "backgroundStyle":{"background-color":"black"}
+    },
+    {
+      "name":"Wednesday Jamie",
+      "title":"Management Consulting Analyst",
+      "salary":"1,783,454",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"Seattle-USA",
+      "NewLevel":10,
+      "CurrentLevel":11,
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
+    },
+    {
+      "name":"Thursday Sopie",
+      "title":"Management Consulting",
+      "salary":"1,355,666",
+      "salaryTitle":"Current FTE Annual Salary",
+      "location":"San Diego-USA",
+      "NewLevel":9,
+      "CurrentLevel":10,
+      "CurrentZone":3,
+      "backgroundStyle":{"background-color":"black"}
+    }
   ]
 }

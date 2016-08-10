@@ -8,117 +8,184 @@
 				<br>
 				<form>
 					<label ng-if="selected=='employees'">
-						<h2>Employees</h2>
+						<h3 style="cursor:pointer;">Employees List
+							<span class="glyphicon glyphicon-chevron-down" ng-click="vm.controlTheEmployee()"></span>
+						</h3>
 						<select ng-model="vm.options"
-								ng-options="options.key for options in vm.sortOptions">
+								ng-options="options.key for options in vm.sortOptions"
+								ng-if="vm.upperPartOfLeftPane">
 							<option value="">-- to choose --</option>
 						</select>
 					</label>
 					<label ng-if="selected=='planners'">
-						<h2>Planners</h2>
+						<h3 style="cursor:pointer;">Planners List
+							<span class="glyphicon glyphicon-chevron-down" ng-click="vm.controlTheEmployee()"></span>
+						</h3>
 						<select ng-model="vm.options"
-								ng-options="options.key for options in vm.sortOptions">
+								ng-options="options.key for options in vm.sortOptions"
+								ng-if="vm.upperPartOfLeftPane">
 							<option value="">-- to choose --</option>
 						</select>
 					</label>
 				</form>
 
 				<div class="employeeCard" ng-repeat="man in vm.employees | orderBy:vm.options.value" ng-if="selected=='employees'">
-					<div class="top_table">
-						<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
-						<!--<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>-->
-						<div class="top_table_cell user_cell">
-							<img ng-src="../img/anouser2.jpg">
-						</div>
-						<div class="top_table_cell">
-							<div class="employeeCard_name">{{man.name}}</div>
-							<div class="employeeCard_title">{{man.title}}</div>
-						</div>
-						<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
-
-					</div>
-					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
-						<div class="salary_table">
-							<div class="salary_table_cell">
-								<p class="employeeCard_salary">Salary</p>
+					<div ng-if="vm.upperPartOfLeftPane">
+						<div class="top_table">
+							<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
+							<!--<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>-->
+							<div class="top_table_cell user_cell">
+								<img ng-src="../img/anouser2.jpg">
 							</div>
-							<div class="salary_table_cell">
-								<div class="salary_slider_cell">
-									<div class="emp_scale_line"></div>
+							<div class="top_table_cell">
+								<div class="employeeCard_name">{{man.name}}</div>
+								<div class="employeeCard_title">{{man.title}}</div>
+							</div>
+							<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
+
+						</div>
+						<div class="employeeCard_front" ng-show="vm.showFront[$index]">
+							<div class="salary_table">
+								<div class="salary_table_cell">
+									<p class="employeeCard_salary">Salary</p>
+								</div>
+								<div class="salary_table_cell">
+									<div class="salary_slider_cell">
+										<div class="emp_scale_line"></div>
+									</div>
+								</div>
+								<div class="salary_table_cell" ng-click="vm.flip($index)">
+									<span class="front_flip_cell">></span>
 								</div>
 							</div>
-							<div class="salary_table_cell" ng-click="vm.flip($index)">
-								<span class="front_flip_cell">></span>
+							<div class="employeeCard_feedback">Extraordinary Achievement</div>
+						</div>
+						<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
+							<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
+								<span><</span>
 							</div>
-						</div>
-						<div class="employeeCard_feedback">Extraordinary Achievement</div>
-					</div>
-					<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
-						<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
-							<span><</span>
-						</div>
-						<div class="salary_table_cell salary_and_location">
-							<span>{{man.salary}}</span>
-							<span>{{man.salaryTitle}}</span>
-							<span>{{man.location}}</span>
-						</div>
-						<div class="salary_table_cell levels_and_zone">
-							<span>New Level:{{man.NewLevel}}</span>
-							<span>Current Level:{{man.CurrentLevel}}</span>
-							<span>Current Zone:{{man.CurrentZone}}</span>
+							<div class="salary_table_cell salary_and_location">
+								<span>{{man.salary}}</span>
+								<span>{{man.salaryTitle}}</span>
+								<span>{{man.location}}</span>
+							</div>
+							<div class="salary_table_cell levels_and_zone">
+								<span>New Level:{{man.NewLevel}}</span>
+								<span>Current Level:{{man.CurrentLevel}}</span>
+								<span>Current Zone:{{man.CurrentZone}}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="employeeCard" ng-repeat="man in vm.planner | orderBy:vm.options.value" ng-if="selected=='planners'">
-
-					<div class="top_table">
-						<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
-						<div class="top_table_cell user_cell">
-							<img ng-src="../img/anouser2.jpg">
-						</div>
-						<div class="top_table_cell">
-							<div class="employeeCard_name">{{man.name}}</div>
-							<div class="employeeCard_title">{{man.title}}</div>
-						</div>
-						<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
-					</div>
-					<div class="employeeCard_front" ng-show="vm.showFront[$index]">
-						<div class="salary_table">
-							<div class="salary_table_cell">
-								<p class="employeeCard_salary">Salary</p>
+					<div ng-if="vm.upperPartOfLeftPane">
+						<div class="top_table">
+							<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
+							<div class="top_table_cell user_cell">
+								<img ng-src="../img/anouser2.jpg">
 							</div>
-							<div class="salary_table_cell">
-								<div class="salary_slider_cell">
-									<div class="emp_scale_line"></div>
+							<div class="top_table_cell">
+								<div class="employeeCard_name">{{man.name}}</div>
+								<div class="employeeCard_title">{{man.title}}</div>
+							</div>
+							<span class="flyOut_trigger" ng-click="vm.flyoutFunction($index,$event)">...</span>
+						</div>
+						<div class="employeeCard_front" ng-show="vm.showFront[$index]">
+							<div class="salary_table">
+								<div class="salary_table_cell">
+									<p class="employeeCard_salary">Salary</p>
+								</div>
+								<div class="salary_table_cell">
+									<div class="salary_slider_cell">
+										<div class="emp_scale_line"></div>
+									</div>
+								</div>
+								<div class="salary_table_cell" ng-click="vm.flip($index)">
+									<span class="front_flip_cell">></span>
 								</div>
 							</div>
-							<div class="salary_table_cell" ng-click="vm.flip($index)">
-								<span class="front_flip_cell">></span>
+							<div class="employeeCard_feedback">Extraordinary Achievement</div>
+						</div>
+						<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
+							<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
+								<span><</span>
+							</div>
+							<div class="salary_table_cell salary_and_location">
+								<span>{{man.salary}}</span>
+								<span>{{man.salaryTitle}}</span>
+								<span>{{man.location}}</span>
+							</div>
+							<div class="salary_table_cell levels_and_zone">
+								<span>New Level:{{man.NewLevel}}</span>
+								<span>Current Level:{{man.CurrentLevel}}</span>
+								<span>Current Zone:{{man.CurrentZone}}</span>
 							</div>
 						</div>
-						<div class="employeeCard_feedback">Extraordinary Achievement</div>
 					</div>
-					<div class="employeeCard_back" ng-show="!vm.showFront[$index]">
-						<div class="salary_table_cell back_flip_cell" ng-click="vm.flip($index)">
-							<span><</span>
+				</div>
+
+
+
+
+				<h4 ng-if="selected=='employees'"
+					style="cursor:pointer;margin-top:40px;"
+					ng-click="vm.turnExtendedTeam()">Extended Team Members</h4>
+				<span class="glyphicon glyphicon-chevron-down"
+					  style="cursor:pointer;margin-bottom:25px;"
+					  ng-click="vm.turnExtendedTeam()"
+					  ng-if="selected=='employees'">
+				</span>
+				<div ng-show="vm.flagOfExtendedTeam">
+					<div class="extendedTeam" ng-repeat="man in vm.extended" ng-if="selected=='employees'">
+						<div class="top_table">
+							<div class="userInWhichGroup" ng-style="man.backgroundStyle"></div>
+							<div class="top_table_cell user_cell">
+								<img ng-src="../img/anouser2.jpg">
+							</div>
+							<div class="top_table_cell">
+								<div class="employeeCard_name_extended">{{man.name}}</div>
+								<div class="employeeCard_title">{{man.title}}</div>
+							</div>
+							<span class="flyOut_trigger" ng-click="vm.ExtendedFlyOutFunction($index,$event)">...</span>
 						</div>
-						<div class="salary_table_cell salary_and_location">
-							<span>{{man.salary}}</span>
-							<span>{{man.salaryTitle}}</span>
-							<span>{{man.location}}</span>
+						<div class="employeeCard_front" ng-show="vm.showFrontExtend[$index]">
+							<div class="salary_table">
+								<div class="salary_table_cell">
+									<p class="employeeCard_salary">Salary</p>
+								</div>
+								<div class="salary_table_cell">
+									<div class="salary_slider_cell">
+										<div class="emp_scale_line"></div>
+									</div>
+								</div>
+								<div class="salary_table_cell" ng-click="vm.flipExtended($index)">
+									<span class="front_flip_cell">></span>
+								</div>
+							</div>
+							<div class="employeeCard_feedback">Extraordinary Achievement</div>
 						</div>
-						<div class="salary_table_cell levels_and_zone">
-							<span>New Level:{{man.NewLevel}}</span>
-							<span>Current Level:{{man.CurrentLevel}}</span>
-							<span>Current Zone:{{man.CurrentZone}}</span>
+						<div class="employeeCard_back" ng-show="!vm.showFrontExtend[$index]">
+							<div class="salary_table_cell back_flip_cell" ng-click="vm.flipExtended($index)">
+								<span><</span>
+							</div>
+							<div class="salary_table_cell salary_and_location">
+								<span>{{man.salary}}</span>
+								<span>{{man.salaryTitle}}</span>
+								<span>{{man.location}}</span>
+							</div>
+							<div class="salary_table_cell levels_and_zone">
+								<span>New Level:{{man.NewLevel}}</span>
+								<span>Current Level:{{man.CurrentLevel}}</span>
+								<span>Current Zone:{{man.CurrentZone}}</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
 			</div>
 	</div>
-
+	<div class="bottomBackground"></div>
 	<div class="right_pane">
 		<h2>Model different base pay scenarios for your team below using predefined or custom created groups.</h2>
 		<div class="right_pane_wrapper">
@@ -140,30 +207,31 @@
 				<li class="second-li" ng-repeat="everyName in vm.show_name">
 					<!--<div class="show_name_box" ng-init="p_index=$index">-->
 					<div class="show_name_box">
-						<div class="colorCircles" ng-style="{{everyName.backgroundColor}}"></div>
-						<span class="every_name">{{everyName.types}} ({{vm.numberOfEachGroup[$index]}})  </span>
-						<span class="glyphicon glyphicon-remove-circle remove_GroupName" ng-click="vm.removeGroup($index)"></span>
+						<div class="show_name_box_title">
+							<div class="colorCircles" ng-style="{{everyName.backgroundColor}}"></div>
+							<span class="every_name">{{everyName.types}} ({{vm.numberOfEachGroup[$index]}})  </span>
+							<span class="glyphicon glyphicon-remove-circle remove_GroupName" ng-click="vm.removeGroup($index)"></span>
 
-						<span class="glyphicon showGroupPeopleButton"
-							  ng-show="vm.currentType"
-							  ng-click="vm.showGroupPeople($index)"
-							  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
-						</span>
-						<span class="glyphicon showGroupPeopleButton"
-							  ng-show="!vm.currentType"
-							  ng-click="vm.showGroupPeople($index)"
-							  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
-						</span>
+							<span class="glyphicon showGroupPeopleButton"
+								  ng-show="vm.currentType"
+								  ng-click="vm.showGroupPeople($index)"
+								  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
+							</span>
+							<span class="glyphicon showGroupPeopleButton"
+								  ng-show="!vm.currentType"
+								  ng-click="vm.showGroupPeople($index)"
+								  ng-class="{true:'glyphicon-chevron-up',false:'glyphicon-chevron-down'}[vm.ifShowAddedName[$index]]">
+							</span>
+						</div>
 
-						<br>
-						<div ng-if="vm.ifShowAddedName[$index]">
-							<div class="peoplePropertyTitle">
+						<div ng-if="vm.ifShowAddedName[$index]" style="margin:0 -8px;">
+							<div class="peoplePropertyTitle titleRow">
 								<span>Name</span>
 								<span>Location</span>
 								<span>Salary</span>
 							</div>
 
-							<div class="peoplePropertyTitle" ng-repeat="addedName in everyName.addedPeople">
+							<div class="peoplePropertyTitle modelAddedPeopleRow" ng-repeat="addedName in everyName.addedPeople">
 								<span>{{addedName[0].name}}</span>
 								<span>{{addedName[0].location}}</span>
 								<span>{{addedName[0].salary}}</span>

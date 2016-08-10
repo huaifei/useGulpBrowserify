@@ -2,8 +2,9 @@
 var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $filter, localStorageItemsSvc) { //TODO-- this stuff is definitely being called a second time... somewhere there's a ghost or zombie....
 
     "ngInject";
+    debugger
     var vm = this;
-    var employees, planners, currentStorage;
+    var employees, planners, extended, currentStorage;
     var employeeName = $scope.employee;
     var compareResult = localStorageItemsSvc.toCompare(employeeName);
     var url = "../data/PeopleInformation.json";
@@ -11,6 +12,7 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
         function(response) {
             employees = response.employees;
             planners = response.planner;
+            extended = response.extended;
         }
     );
     function getCurrentSelectedResult() {
@@ -31,15 +33,15 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
 
     vm.addEmployeeToGroup = function (index) {
         // console.log($scope.selected);
-
-        if(!compareResult){
+debugger
+        if(!compareResult){ //not found
             var storeAdded = localStorageItemsSvc.toGet('storeAddedPeople') || [];
             // console.log(storeAdded);
             storeAdded.push(employeeName);
 
             localStorageItemsSvc.toSet('storeAddedPeople',storeAdded);
         }
-        var re = localStorageItemsSvc.toCompare(employeeName);
+        var re = localStorageItemsSvc.toCompare(employeeName); //just to verify the compared result
         console.log(re);
         
         var localStore = localStorageItemsSvc.toGet(currentStorage);
@@ -57,14 +59,17 @@ var employeeFlyoutCtl = function ($rootScope, $scope, $uibModal, $log, $http, $f
         $scope.$emit('addToGroup',dateThings);
         vm.removeFlyout(true);
     };
-
+ 
     function findPersonByName(theName) {
         var result;
-        var theFilter = $filter('filter')(planners,{"name":theName});
-        if (theFilter[0] == undefined){
-            result = $filter('filter')(employees,{"name":theName});
+        var thePlannerFilter = $filter('filter')(planners,{"name":theName});
+        var theEmployeeFilter = $filter('filter')(employees,{"name":theName});
+        if (thePlannerFilter[0] == undefined && theEmployeeFilter[0] == undefined){
+            result = $filter('filter')(extended,{"name":theName});
+        } else if (thePlannerFilter[0] == undefined) {
+            result = theEmployeeFilter;
         } else {
-           result = theFilter;
+            result = thePlannerFilter;
         }
         return result;
     }

@@ -9,16 +9,23 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     var defaultColors = ['turquoise','blue','violet','orange','purple','red','green'];
     vm.currentType = true;
     vm.showFront = [];
+    vm.showFrontExtend = [];
     vm.defaultGroups = [];
     var url = "../data/PeopleInformation.json";
     var defaultGroupUrl = "../data/defaultGroup.json"; //it's not been used
+
+    console.log(window.innerHeight);
 
     $http.get(url).success(
         function(response) {
             vm.employees = response.employees;
             vm.planner = response.planner;
+            vm.extended = response.extended;
             for(var j = 0; j < vm.employees.length; j++){
                 vm.showFront[j] = true;
+            }
+            for(var ext = 0; ext < vm.extended.length; ext++){
+                vm.showFrontExtend[ext] = true;
             }
         }
     );
@@ -120,7 +127,12 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
                                 vm.planner[idx].backgroundStyle = {"background-color":"black"};
                             } else {
                                 idx = filterIndexFromName(vm.employees,currentName[c][0].name);
-                                vm.employees[idx].backgroundStyle = {"background-color":"black"};
+                                if(idx == null){
+                                    idx = filterIndexFromName(vm.extended,currentName[c][0].name);
+                                    vm.extended[idx].backgroundStyle = {"background-color":"black"};
+                                } else {
+                                    vm.employees[idx].backgroundStyle = {"background-color":"black"};
+                                }
                             }
                             idx = null;
                             break;
@@ -152,17 +164,40 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         vm.if_left_pane_content = (vm.if_left_pane_content == false);
     };
 
-    vm.showFront = [];
+    // vm.showFront = [];
     vm.radiosEmp = [true,false];
     vm.selectOptions = [true,false];
 
     vm.flip = function(index){
         vm.showFront[index] = vm.showFront[index] ? false : true;
     };
+    vm.flipExtended = function(index){
+        vm.showFrontExtend[index] = vm.showFrontExtend[index] ? false : true;
+    };
+
+    vm.flagOfExtendedTeam = false;
+    vm.upperPartOfLeftPane = true;
+    vm.turnExtendedTeam = function () {
+        vm.flagOfExtendedTeam = vm.flagOfExtendedTeam ? false : true;
+        if(vm.upperPartOfLeftPane == true){
+            var counts = 0;
+            vm.setInterval = $interval(function () {
+                window.scrollBy(0,5);
+                counts++;
+                if(counts > 100){
+                    $interval.cancel(vm.setInterval);
+                }
+            },5);
+            counts = null;
+        } else {}
+    };
+    vm.controlTheEmployee = function () { //left pane , upper part
+        vm.upperPartOfLeftPane = vm.upperPartOfLeftPane ? false : true;
+    };
     
     vm.flyoutFunction =function (index,$event) {
         var employeeFlyoutElementString;
-        vm.selectIcon = $scope.selected;
+        vm.selectIcon = $scope.selected; // to sign the current role,planner or employee
 
         function getContainingEmployeeCard(nodeToCheck) {
             var el = nodeToCheck;
@@ -192,12 +227,44 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
         
     };
+    
+    vm.ExtendedFlyOutFunction =function (index,$event) {
+        var employeeFlyoutElementString;
+        vm.selectIcon = $scope.selected; // to sign the current role,planner or employee
+
+        function getContainingEmployeeCard(nodeToCheck) {
+            var el = nodeToCheck;
+            var extendedTeam;
+
+            while (el.parentNode) {
+                if ( angular.element(el).hasClass('extendedTeam') ) {
+                    extendedTeam = el;
+                    break;
+                }
+                el = el.parentNode;
+            }
+
+            return extendedTeam;
+        }
+
+        if (jQuery && $event instanceof jQuery.Event) {
+            $event = $event.originalEvent;
+        }
+        
+        vm.extendedTeam = getContainingEmployeeCard($event.target);
+        vm.extendedTeamMemberName = vm.extendedTeam.querySelector('.employeeCard_name_extended').innerHTML;
+        
+        employeeFlyoutElementString = '<employee-flyout employee="vm.extendedTeamMemberName" employeecard="vm.extendedTeam" selected="vm.selectIcon"></employee-flyout>';
+        
+        angular.element(document.querySelector('body')).append( $compile(employeeFlyoutElementString)($scope) );
+        
+    };
 
     vm.removeFromGroup =function (parent,index) {
 
         //console.log(vm.show_name[parent].addedPeople[index]);
         //console.log(JSON.parse(window.localStorage.getItem("storeAddedPeople")));
-// debugger
+debugger
         var currentName = vm.show_name[parent].addedPeople[index];
         var stored = JSON.parse(window.localStorage.getItem("storeAddedPeople")); //those have been added to group
         var currentIndexInStored, thisIndex;
@@ -213,7 +280,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         }
         localStorageItemsSvc.toSet("storeAddedPeople",stored); //handle flag in flyout
 
-        console.log('log - currentStorage is : '+currentStorage);
+        console.log('log - currentStorage is : ' + currentStorage);
         var GroupContent = localStorageItemsSvc.toGet(currentStorage);
         if(GroupContent != null && GroupContent != 'undefined'){
             for(var j = 0;j < GroupContent.length;j++){
@@ -236,7 +303,12 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
             vm.planner[thisIndex].backgroundStyle = {"background-color":"black"};
         } else {
             thisIndex = filterIndexFromName(vm.employees,currentName[0].name);
-            vm.employees[thisIndex].backgroundStyle = {"background-color":"black"};
+            if(thisIndex == null){
+                thisIndex = filterIndexFromName(vm.extended,currentName[0].name);
+                vm.extended[thisIndex].backgroundStyle = {"background-color":"black"};
+            }else {
+                vm.employees[thisIndex].backgroundStyle = {"background-color":"black"};
+            }
         }
 
     };
@@ -349,13 +421,18 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
         // console.log('index : '+ date);
         vm.numberOfEachGroup[data[0]] += 1;
         vm.show_name = localStorageItemsSvc.toGet(currentStorage);
-
+debugger
         if($scope.selected == 'planners'){
             theIndex = filterIndexFromName(vm.planner,data[1]);
             vm.planner[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
         } else {
             theIndex = filterIndexFromName(vm.employees,data[1]);
-            vm.employees[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+            if(theIndex == null){
+                theIndex = filterIndexFromName(vm.extended,data[1]);
+                vm.extended[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+            } else {
+                vm.employees[theIndex].backgroundStyle = vm.show_name[data[0]].backgroundColor;
+            }
         }
 
     });

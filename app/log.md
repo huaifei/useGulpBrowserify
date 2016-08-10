@@ -22,7 +22,12 @@
 
 #16.8.3
 1.refactor the code
-2.TODO: (16.8.2)half done.
+2.TODO: (16.8.2,5)half done.
 
 #16.8.5
 1:toFind: a bug occurs when I remove an employee from model-group.
+
+#16.8.10
+1.add: show and handle the extended team members.
+2.add: show or hide the employees and planners column.
+3.done: (16.8.3,2)finished.
