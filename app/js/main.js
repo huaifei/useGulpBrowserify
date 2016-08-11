@@ -8,6 +8,7 @@
     var profileDetailsCtl = require('./controllers/profileDetailsCtl.js');
     var employeeRailCtl = require('./controllers/employeeRailCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
+    var finalizeCtl = require('./controllers/finalizeCtl.js');
 
     var employeeFlyoutDirective = require('./directives/employeeFlyout.js');
     // var flyoutTriggerDirective = require('./directives/flyoutTrigger.js');
@@ -28,6 +29,7 @@
         .controller('modalInstanceCtl',modalInstanceCtl)
         .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
+        .controller('finalizeCtl',finalizeCtl)
 
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
         .directive('employeeFlyout',employeeFlyoutDirective);

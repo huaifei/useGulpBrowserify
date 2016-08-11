@@ -31,3 +31,7 @@
 1.add: show and handle the extended team members.
 2.add: show or hide the employees and planners column.
 3.done: (16.8.3,2)finished.
+
+#16.8.11
+1.add: simple basic layout of finalize page.(only up part)*;
+2.add: create finalizeCtl and add  simple methods to control html elements

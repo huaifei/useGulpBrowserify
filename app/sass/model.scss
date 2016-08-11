@@ -5,6 +5,8 @@ $orange: orange;
 $light-gray: #f0f0f0;
 $mid-gray: #D6D6D6;
 
+$finalize-gray-1:#bababa;
+
 %dib {
   display:inline-block;
 }
@@ -592,3 +594,111 @@ body {
 .group-name {
   cursor:pointer;
 }
+
+
+
+#finalizePage {
+  padding:20px;
+  width:calc(100vw);
+  //width:calc(100vw - 20px);   //include the width of right-scroll-bar
+  font-size:14px;
+  position:relative;
+
+  .finalizeWrapper {
+
+    .grid-setting-section {
+      margin:20px 0;
+      border-bottom:1px solid #8ea9af;
+      .launch-setting-modals-section {
+        padding-left:40px;
+
+        .setting-btn {
+          margin-right:50px;
+          color:$finalize-gray-1;
+          font-size:0.875em;
+          cursor:pointer;
+          i {
+            color:#399dc8;
+            margin-left:5px;
+          }
+        }
+      }
+
+      .quick-look {
+        margin:18px 0;
+        color:$finalize-gray-1;
+
+        .filter-bread-crumb-section-title {
+          margin-left: 30px;
+          font-weight: bold;
+        }
+      }
+    }
+
+
+    .salary-grid-wrapper {
+
+      .grid-jump-links {
+
+        .jump-to-section-header {
+          font-size:1.125em;
+          cursor:pointer;
+        }
+
+        .rows {
+
+          .jump-link-div {
+            font-size:0.688em;
+            margin-bottom:4px;
+            padding-left:8px;
+            border-left:2px solid #399dc8;
+
+            .jump-link-span {
+              color:#39c;
+              font-size:1em;
+              font-weight:600;
+              cursor:pointer;
+            }
+          }
+
+          @media(min-width:992px){
+            .col-md-5ths{
+              width:20%;
+              float:left;
+            }
+          }
+          @media(min-width:768px){
+            .col-sm-5ths{
+              width:20%;
+              float:left;
+            }
+          }
+          .col-xs-5ths{
+            width:20%;
+            float:left;
+          }
+
+          &:before {
+            content:" ";
+            display:table;
+          }
+          &:after {
+            content:" ";
+            display:table;
+          }
+        }
+
+      }
+    }
+
+
+  }
+}
+
+
+
+
+
+
+
+

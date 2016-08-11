@@ -1,5 +1,6 @@
 
 var employeeRailCtl = require('./../controllers/employeeRailCtl.js');
+var finalizeCtl = require('./../controllers/finalizeCtl');
 
 // angular.module('angular.route',[])
 	
@@ -19,7 +20,9 @@ function config($stateProvider,$urlRouterProvider){
 		})
 		.state('finalize',{
 			url:'/finalize',
-			templateUrl:'finalize.html'
+			templateUrl:'finalize.html',
+			controller:finalizeCtl,
+			controllerAs: 'vm'
 		})
 		.state('report',{
 			url:'/report',
