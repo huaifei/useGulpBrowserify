@@ -642,7 +642,9 @@ body {
 
         .jump-to-section-header {
           font-size:1.125em;
-          cursor:pointer;
+          i {
+            cursor:pointer;
+          }
         }
 
         .rows {

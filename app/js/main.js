@@ -9,6 +9,7 @@
     var employeeRailCtl = require('./controllers/employeeRailCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
     var finalizeCtl = require('./controllers/finalizeCtl.js');
+    var filterModalCtl = require('./controllers/filterModalCtl.js');
 
     var employeeFlyoutDirective = require('./directives/employeeFlyout.js');
     // var flyoutTriggerDirective = require('./directives/flyoutTrigger.js');
@@ -30,10 +31,10 @@
         .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
         .controller('finalizeCtl',finalizeCtl)
+        .controller('filterModalCtl',filterModalCtl)
 
         // .directive('flyoutTriggerDirective',flyoutTriggerDirective)
         .directive('employeeFlyout',employeeFlyoutDirective);
-    
     
     
 })();

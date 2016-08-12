@@ -1,0 +1,490 @@
+{
+  "@odata.context": "https://compensation.ciodev.accenture.com/Odata/CompAdmin/Planner/$metadata#FinalizeFilterResponse/$entity",
+  "PlannerPeopleKey": 1251195,
+  "PlanCd": "EMP",
+  "PlanTypes": [
+    {
+      "PlanId": "LDR",
+      "PlanName": "Leader"
+    },
+    {
+      "PlanId": "EMP",
+      "PlanName": "Employee"
+    }
+  ],
+  "Country": [
+    {
+      "CountryCode": "IN",
+      "CountryName": "India",
+      "CurrencyCode": null
+    },
+    {
+      "CountryCode": "US",
+      "CountryName": "USA",
+      "CurrencyCode": null
+    }
+  ],
+  "Currency": [
+    {
+      "CurrencyCode": "USD",
+      "DisplayName": "USD"
+    },
+    {
+      "CurrencyCode": "AED",
+      "DisplayName": "AED"
+    },
+    {
+      "CurrencyCode": "AOA",
+      "DisplayName": "AOA"
+    },
+    {
+      "CurrencyCode": "ARS",
+      "DisplayName": "ARS"
+    },
+    {
+      "CurrencyCode": "AUD",
+      "DisplayName": "AUD"
+    },
+    {
+      "CurrencyCode": "BDT",
+      "DisplayName": "BDT"
+    },
+    {
+      "CurrencyCode": "BOB",
+      "DisplayName": "BOB"
+    },
+    {
+      "CurrencyCode": "BRL",
+      "DisplayName": "BRL"
+    },
+    {
+      "CurrencyCode": "BWP",
+      "DisplayName": "BWP"
+    },
+    {
+      "CurrencyCode": "CAD",
+      "DisplayName": "CAD"
+    },
+    {
+      "CurrencyCode": "CHF",
+      "DisplayName": "CHF"
+    },
+    {
+      "CurrencyCode": "CLP",
+      "DisplayName": "CLP"
+    },
+    {
+      "CurrencyCode": "CNY",
+      "DisplayName": "CNY"
+    },
+    {
+      "CurrencyCode": "COP",
+      "DisplayName": "COP"
+    },
+    {
+      "CurrencyCode": "CZK",
+      "DisplayName": "CZK"
+    },
+    {
+      "CurrencyCode": "DKK",
+      "DisplayName": "DKK"
+    },
+    {
+      "CurrencyCode": "EUR",
+      "DisplayName": "EUR"
+    },
+    {
+      "CurrencyCode": "GBP",
+      "DisplayName": "GBP"
+    },
+    {
+      "CurrencyCode": "HKD",
+      "DisplayName": "HKD"
+    },
+    {
+      "CurrencyCode": "HUF",
+      "DisplayName": "HUF"
+    },
+    {
+      "CurrencyCode": "IDR",
+      "DisplayName": "IDR"
+    },
+    {
+      "CurrencyCode": "ILS",
+      "DisplayName": "ILS"
+    },
+    {
+      "CurrencyCode": "INR",
+      "DisplayName": "INR"
+    },
+    {
+      "CurrencyCode": "JPY",
+      "DisplayName": "JPY"
+    },
+    {
+      "CurrencyCode": "KES",
+      "DisplayName": "KES"
+    },
+    {
+      "CurrencyCode": "KRW",
+      "DisplayName": "KRW"
+    },
+    {
+      "CurrencyCode": "LVL",
+      "DisplayName": "LVL"
+    },
+    {
+      "CurrencyCode": "MAD",
+      "DisplayName": "MAD"
+    },
+    {
+      "CurrencyCode": "MUR",
+      "DisplayName": "MUR"
+    },
+    {
+      "CurrencyCode": "MXN",
+      "DisplayName": "MXN"
+    },
+    {
+      "CurrencyCode": "MYR",
+      "DisplayName": "MYR"
+    },
+    {
+      "CurrencyCode": "NGN",
+      "DisplayName": "NGN"
+    },
+    {
+      "CurrencyCode": "NOK",
+      "DisplayName": "NOK"
+    },
+    {
+      "CurrencyCode": "NZD",
+      "DisplayName": "NZD"
+    },
+    {
+      "CurrencyCode": "PEN",
+      "DisplayName": "PEN"
+    },
+    {
+      "CurrencyCode": "PHP",
+      "DisplayName": "PHP"
+    },
+    {
+      "CurrencyCode": "PLN",
+      "DisplayName": "PLN"
+    },
+    {
+      "CurrencyCode": "RON",
+      "DisplayName": "RON"
+    },
+    {
+      "CurrencyCode": "RUB",
+      "DisplayName": "RUB"
+    },
+    {
+      "CurrencyCode": "SAR",
+      "DisplayName": "SAR"
+    },
+    {
+      "CurrencyCode": "SEK",
+      "DisplayName": "SEK"
+    },
+    {
+      "CurrencyCode": "SGD",
+      "DisplayName": "SGD"
+    },
+    {
+      "CurrencyCode": "THB",
+      "DisplayName": "THB"
+    },
+    {
+      "CurrencyCode": "TRY",
+      "DisplayName": "TRY"
+    },
+    {
+      "CurrencyCode": "TWD",
+      "DisplayName": "TWD"
+    },
+    {
+      "CurrencyCode": "VEF",
+      "DisplayName": "VEF"
+    },
+    {
+      "CurrencyCode": "VND",
+      "DisplayName": "VND"
+    },
+    {
+      "CurrencyCode": "ZAR",
+      "DisplayName": "ZAR"
+    }
+  ],
+  "TalentDecision": [
+    {
+      "TalentActionId": "Extraordinary Achievement",
+      "TalentActionName": "Extraordinary Achievement"
+    }
+  ],
+  "CurrentLevel": [
+    {
+      "CurrentLevelCd": "10000070",
+      "CurrentLevelDesc": "7",
+      "Ranking": 7
+    },
+    {
+      "CurrentLevelCd": "10000080",
+      "CurrentLevelDesc": "8",
+      "Ranking": 8
+    },
+    {
+      "CurrentLevelCd": "10000090",
+      "CurrentLevelDesc": "9",
+      "Ranking": 9
+    },
+    {
+      "CurrentLevelCd": "10000110",
+      "CurrentLevelDesc": "11",
+      "Ranking": 11
+    },
+    {
+      "CurrentLevelCd": "10000120",
+      "CurrentLevelDesc": "12",
+      "Ranking": 12
+    }
+  ],
+  "NewLevel": [
+    {
+      "NewLevelCd": "10000060",
+      "NewLevelDesc": "6",
+      "Ranking": 6
+    },
+    {
+      "NewLevelCd": "10000070",
+      "NewLevelDesc": "7",
+      "Ranking": 7
+    },
+    {
+      "NewLevelCd": "10000080",
+      "NewLevelDesc": "8",
+      "Ranking": 8
+    },
+    {
+      "NewLevelCd": "10000100",
+      "NewLevelDesc": "10",
+      "Ranking": 10
+    },
+    {
+      "NewLevelCd": "10000110",
+      "NewLevelDesc": "11",
+      "Ranking": 11
+    }
+  ],
+  "NewRoleFamily": [
+    {
+      "NewRoleFamilyId": "40004043",
+      "NewRoleFamilyCd": "302 - BA - ASR"
+    }
+  ],
+  "LineManager": [
+    {
+      "LinemanagerPeopleKey": 53868,
+      "FirstName": "St'phanie",
+      "LastName": "Bronchard"
+    },
+    {
+      "LinemanagerPeopleKey": 53949,
+      "FirstName": "St'phanie",
+      "LastName": "Jandard"
+    },
+    {
+      "LinemanagerPeopleKey": 1251195,
+      "FirstName": "Josh",
+      "LastName": "Lamkin"
+    }
+  ],
+  "NewZoneNbr": [
+    {
+      "NewZoneNumberCd": 1,
+      "NewZoneNumberDesc": "1"
+    },
+    {
+      "NewZoneNumberCd": 2,
+      "NewZoneNumberDesc": "2"
+    },
+    {
+      "NewZoneNumberCd": 3,
+      "NewZoneNumberDesc": "3"
+    },
+    {
+      "NewZoneNumberCd": 4,
+      "NewZoneNumberDesc": "4"
+    },
+    {
+      "NewZoneNumberCd": 11,
+      "NewZoneNumberDesc": "ABOVE MARKET"
+    },
+    {
+      "NewZoneNumberCd": 0,
+      "NewZoneNumberDesc": "BELOW"
+    },
+    {
+      "NewZoneNumberCd": 10,
+      "NewZoneNumberDesc": "BELOW MARKET"
+    },
+    {
+      "NewZoneNumberCd": 5,
+      "NewZoneNumberDesc": "IN_RANGE"
+    },
+    {
+      "NewZoneNumberCd": 6,
+      "NewZoneNumberDesc": "TARGET"
+    },
+    {
+      "NewZoneNumberCd": 1,
+      "NewZoneNumberDesc": "1"
+    },
+    {
+      "NewZoneNumberCd": 2,
+      "NewZoneNumberDesc": "2"
+    },
+    {
+      "NewZoneNumberCd": 3,
+      "NewZoneNumberDesc": "3"
+    },
+    {
+      "NewZoneNumberCd": 4,
+      "NewZoneNumberDesc": "4"
+    },
+    {
+      "NewZoneNumberCd": 11,
+      "NewZoneNumberDesc": "ABOVE MARKET"
+    },
+    {
+      "NewZoneNumberCd": 0,
+      "NewZoneNumberDesc": "BELOW"
+    },
+    {
+      "NewZoneNumberCd": 10,
+      "NewZoneNumberDesc": "BELOW MARKET"
+    },
+    {
+      "NewZoneNumberCd": 5,
+      "NewZoneNumberDesc": "IN_RANGE"
+    },
+    {
+      "NewZoneNumberCd": 6,
+      "NewZoneNumberDesc": "TARGET"
+    },
+    {
+      "NewZoneNumberCd": 1,
+      "NewZoneNumberDesc": "1"
+    },
+    {
+      "NewZoneNumberCd": 2,
+      "NewZoneNumberDesc": "2"
+    },
+    {
+      "NewZoneNumberCd": 3,
+      "NewZoneNumberDesc": "3"
+    },
+    {
+      "NewZoneNumberCd": 4,
+      "NewZoneNumberDesc": "4"
+    },
+    {
+      "NewZoneNumberCd": 11,
+      "NewZoneNumberDesc": "ABOVE MARKET"
+    },
+    {
+      "NewZoneNumberCd": 0,
+      "NewZoneNumberDesc": "BELOW"
+    },
+    {
+      "NewZoneNumberCd": 10,
+      "NewZoneNumberDesc": "BELOW MARKET"
+    },
+    {
+      "NewZoneNumberCd": 5,
+      "NewZoneNumberDesc": "IN_RANGE"
+    },
+    {
+      "NewZoneNumberCd": 6,
+      "NewZoneNumberDesc": "TARGET"
+    },
+    {
+      "NewZoneNumberCd": 1,
+      "NewZoneNumberDesc": "1"
+    },
+    {
+      "NewZoneNumberCd": 2,
+      "NewZoneNumberDesc": "2"
+    },
+    {
+      "NewZoneNumberCd": 3,
+      "NewZoneNumberDesc": "3"
+    },
+    {
+      "NewZoneNumberCd": 4,
+      "NewZoneNumberDesc": "4"
+    },
+    {
+      "NewZoneNumberCd": 11,
+      "NewZoneNumberDesc": "ABOVE MARKET"
+    },
+    {
+      "NewZoneNumberCd": 0,
+      "NewZoneNumberDesc": "BELOW"
+    },
+    {
+      "NewZoneNumberCd": 10,
+      "NewZoneNumberDesc": "BELOW MARKET"
+    },
+    {
+      "NewZoneNumberCd": 5,
+      "NewZoneNumberDesc": "IN_RANGE"
+    },
+    {
+      "NewZoneNumberCd": 6,
+      "NewZoneNumberDesc": "TARGET"
+    }
+  ],
+  "NewSubLevel": [
+    {
+      "NewSubCd": "702",
+      "NewSubDesc": "702"
+    }
+  ],
+  "TalentPriority": [
+    {
+      "TalentPriorityType": "N",
+      "TalentPriorityDesc": "N"
+    }
+  ],
+  "Promotion": [
+    {
+      "PromotionType": true,
+      "PromotionDesc": "Yes"
+    }
+  ],
+  "Location": [
+    {
+      "LocationCd": "CI",
+      "LocationDesc": "Chicago"
+    },
+    {
+      "LocationCd": "WA",
+      "LocationDesc": "Washing DC"
+    }
+  ],
+  "Progressing": [
+    {
+      "ProgressingType": true,
+      "ProgressingDesc": "Yes"
+    }
+  ],
+  "ErrorMessage": {
+    "IsError": false,
+    "ErrorCode": "0",
+    "ErrorMessage": "",
+    "ErrorType": "None"
+  }
+}
