@@ -286,17 +286,17 @@
   ],
   "LineManager": [
     {
-      "LinemanagerPeopleKey": 53868,
+      "LineManagerPeopleKey": 53868,
       "FirstName": "St'phanie",
       "LastName": "Bronchard"
     },
     {
-      "LinemanagerPeopleKey": 53949,
+      "LineManagerPeopleKey": 53949,
       "FirstName": "St'phanie",
       "LastName": "Jandard"
     },
     {
-      "LinemanagerPeopleKey": 1251195,
+      "LineManagerPeopleKey": 1251195,
       "FirstName": "Josh",
       "LastName": "Lamkin"
     }

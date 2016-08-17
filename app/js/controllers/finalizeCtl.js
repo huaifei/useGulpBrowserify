@@ -38,7 +38,15 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal) {
     vm.launchColumnsModal = function () {
 
     };
-    
+
+
+    $scope.$on('filtersUpdated',function (data) {
+        debugger
+        alert("get the 'filtersUpdated' event");
+        alert(data);
+    });
+
+
 };
 
 module.exports = finalizeCtl;
