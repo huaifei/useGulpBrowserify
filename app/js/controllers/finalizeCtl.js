@@ -3,7 +3,7 @@ var filterModalCtl = require('./filterModalCtl.js');
 var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter) {
 
     var vm = this;
-    var currentFilters;
+    var currentFilters,tempEmployees;
     vm.displayFilters  = [];
     vm.jumpLinksShowing = true;
 
@@ -22,6 +22,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
             vm.employees = response.employees;
             vm.planners = response.planner;
             vm.extended = response.extended;
+            tempEmployees = vm.employees;
         }
     ).error(function (data) {
         alert(data);
@@ -77,7 +78,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         var filterValue;
         var displayText;
         var temp;
-        
+        vm.displayFilters = [];
         debugger
         for(filterName in currentFilters){
 
@@ -86,8 +87,9 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
                     if (filterName === 'LineManager') {
                         temp = $filter('filter')(vm.filtersData.LineManager, {LineManagerPeopleKey: currentFilters[filterName][filterValue]})[0];
                         displayText = temp.FirstName + " "  + temp.LastName;
+                        //refresh vm.displayFilters when the second time
                         vm.displayFilters.push({name:"Talent Lead", displayText: displayText, lastName:temp.LastName, filterValue: filterValue, filterName: filterName});
-                        // we use "Talent Lead" to filter in the future.
+                        // we use "Talent Lead" to filter
                     } else {
 
                     }
@@ -98,18 +100,18 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
     }
 
     function showFilterResultInPage() {
-        var dis,theFilter,temp,theFilterFinal,tempFilter=[];
+        var dis,theFilter,theFilterFinal,tempFilter=[];
         var display = vm.displayFilters;
         for(dis in display){
             debugger
-            theFilter = $filter('filter')(vm.employees,{"LineManager":display[dis].lastName});
+            theFilter = $filter('filter')(tempEmployees,{"LineManager":display[dis].lastName});
             theFilterFinal = tempFilter.concat(theFilter);
+            tempFilter = theFilterFinal;
         }
-        
-        temp = vm.employees;
+
         vm.employees = theFilterFinal;
         if(!theFilter){
-            vm.employees = temp;
+            vm.employees = tempEmployees;
         }
 
     }

@@ -22,7 +22,7 @@
 
                 <li role="menuitem" ng-repeat="option in res.LineManager" ng-keydown="bufferEscapeKeydown($event)" >
                     <div class="checkbox">
-                        <label>Country
+                        <label>LineManager
                             <input ng-if="$first && !$last"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'first', 'LineManager')" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox" />
                             <input ng-if="!($first || $last)" ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
                             <input ng-if="$last && !$first"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'last', 'LineManager')"  ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
