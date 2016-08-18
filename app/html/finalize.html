@@ -77,5 +77,15 @@
                 </div>
             </div>
         </div>
+        <div class="filter-grid-wrapper">
+            <div class="filter-grid" ng-repeat="emp in vm.employees">
+                <div class="filter-list">
+                    <span>Name: {{emp.name}}</span>
+                    <span>Country: {{emp.country}}</span>
+                    <span>LineManager: {{emp.LineManager}}</span>
+                    <span>CurrentLevel: {{emp.CurrentLevel}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

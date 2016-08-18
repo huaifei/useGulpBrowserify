@@ -6,10 +6,12 @@
       "salary":"1,924,233",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Washington, D.C.-USA",
+      "country":"USA",
       "NewLevel":10,
       "CurrentLevel":11,
       "CurrentZone":3,
-      "backgroundStyle":{"background-color":"black"}
+      "backgroundStyle":{"background-color":"black"},
+      "LineManager":"Jandard"
     },
     {
       "name":"Yemidsi Alude",
@@ -17,10 +19,12 @@
       "salary":"4,253,233",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"New York-USA",
+      "country":"India",
       "NewLevel":8,
       "CurrentLevel":9,
       "CurrentZone":1,
-      "backgroundStyle":{"background-color":"black"}
+      "backgroundStyle":{"background-color":"black"},
+      "LineManager":"Bronchard"
     },
     {
       "name":"Hussein Fabela",
@@ -28,10 +32,12 @@
       "salary":"6,964,333",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Los Angeles-USA",
+      "country":"India",
       "NewLevel":9,
       "CurrentLevel":10,
       "CurrentZone":3,
-      "backgroundStyle":{"background-color":"black"}
+      "backgroundStyle":{"background-color":"black"},
+      "LineManager":"Jandard"
     },
     {
       "name":"Ajay Mahajan",
@@ -39,10 +45,12 @@
       "salary":"724,094",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Dallas-USA",
+      "country":"USA",
       "NewLevel":10,
       "CurrentLevel":11,
       "CurrentZone":3,
-      "backgroundStyle":{"background-color":"black"}
+      "backgroundStyle":{"background-color":"black"},
+      "LineManager":"Bronchard"
     },
     {
       "name":"Quinn Patterson",
@@ -50,10 +58,12 @@
       "salary":"1,221,233",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Atlanta-USA",
+      "country":"India",
       "NewLevel":8,
       "CurrentLevel":9,
       "CurrentZone":4,
-      "backgroundStyle":{"background-color":"black"}
+      "backgroundStyle":{"background-color":"black"},
+      "LineManager":"Lamkin"
     }
   ],
 
@@ -64,6 +74,7 @@
       "salary":"1,551,320",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Phoenix-USA",
+      "country":"USA",
       "NewLevel":11,
       "CurrentLevel":12,
       "CurrentZone":2,
@@ -75,6 +86,7 @@
       "salary":"1,780,009",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Detroit-USA",
+      "country":"USA",
       "NewLevel":6,
       "CurrentLevel":7,
       "CurrentZone":8,
@@ -86,6 +98,7 @@
       "salary":"1,237,764",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Miami-USA",
+      "country":"USA",
       "NewLevel":8,
       "CurrentLevel":9,
       "CurrentZone":1,
@@ -97,6 +110,7 @@
       "salary":"1,783,454",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Seattle-USA",
+      "country":"USA",
       "NewLevel":10,
       "CurrentLevel":11,
       "CurrentZone":3,
@@ -108,6 +122,7 @@
       "salary":"1,355,666",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"San Diego-USA",
+      "country":"USA",
       "NewLevel":9,
       "CurrentLevel":10,
       "CurrentZone":3,
@@ -122,6 +137,7 @@
       "salary":"1,551,320",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Phoenix-USA",
+      "country":"USA",
       "NewLevel":11,
       "CurrentLevel":12,
       "CurrentZone":2,
@@ -133,6 +149,7 @@
       "salary":"1,780,009",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Detroit-USA",
+      "country":"USA",
       "NewLevel":6,
       "CurrentLevel":7,
       "CurrentZone":8,
@@ -144,6 +161,7 @@
       "salary":"1,237,764",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Miami-USA",
+      "country":"USA",
       "NewLevel":8,
       "CurrentLevel":9,
       "CurrentZone":1,
@@ -155,6 +173,7 @@
       "salary":"1,783,454",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"Seattle-USA",
+      "country":"USA",
       "NewLevel":10,
       "CurrentLevel":11,
       "CurrentZone":3,
@@ -166,6 +185,7 @@
       "salary":"1,355,666",
       "salaryTitle":"Current FTE Annual Salary",
       "location":"San Diego-USA",
+      "country":"USA",
       "NewLevel":9,
       "CurrentLevel":10,
       "CurrentZone":3,

@@ -17,14 +17,13 @@ var filterModalCtl = function ($rootScope, $scope, $uibModalInstance, $http, $fi
     );
 
     $scope.submit = function () {
-        debugger
         if(filtersDirty || $rootScope.firstRun){
             setFiltersCache(selectedFilters);
             processUpdatedFilters(selectedFilters);
         }
 
         $rootScope.firstRun = false;
-        $uibModalInstance.close();
+        $uibModalInstance.close();  //TODO: close first or not.
     };
 
     $scope.cancel = function () {
@@ -88,7 +87,7 @@ debugger
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
-debugger
+
         //although deprecated, the below have far greater browser support than the recommended evt.key. 
         //until .key is better supported, this implementation is far easier, and ought not be disappearing any time soon
         pressedKey = evt.keyCode || evt.charCode || evt.which;
@@ -107,7 +106,7 @@ debugger
     $scope.bufferEscapeKeydown = function (evt) {
         var pressedKey;
         var ESC = 27;
-debugger
+
         if (evt instanceof jQuery.Event) {
             evt = evt.originalEvent;
         }
@@ -146,7 +145,6 @@ debugger
 
 
     $scope.$watch('$scope.selected.filters', function (newFilters, oldFilters) {
-        debugger
         // console.log('filters watcher called');
         if (!angular.equals(newFilters, oldFilters)) {
             setFiltersDirty();
@@ -175,7 +173,7 @@ debugger
             Promotion: undefined,
             TalentDecision: undefined
         };
-debugger
+
         var key;
 
         function buildMultiSelectArray(selectionObj) {
@@ -216,8 +214,8 @@ debugger
     }
 
     function processUpdatedFilters (currentFilters) {
-        debugger
-        $scope.$emit('filtersUpdated', buildUpdatedFilters(currentFilters));
+        var results = buildUpdatedFilters(currentFilters);
+        $rootScope.$emit('filtersUpdated',results);
     }
 
 

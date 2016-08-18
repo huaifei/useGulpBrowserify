@@ -14,7 +14,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     var url = "../data/PeopleInformation.json";
     var defaultGroupUrl = "../data/defaultGroup.json"; //it's not been used
 
-    console.log(window.innerHeight);
+    // console.log(window.innerHeight);
 
     $http.get(url).success(
         function(response) {

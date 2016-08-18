@@ -23,13 +23,13 @@
                 <li role="menuitem" ng-repeat="option in res.LineManager" ng-keydown="bufferEscapeKeydown($event)" >
                     <div class="checkbox">
                         <label>Country
-                            <input ng-if="$first && !$last"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'first', 'LineManager')" type="checkbox" />
-                            <input ng-if="!($first || $last)" ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" type="checkbox"/>
-                            <input ng-if="$last && !$first"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'last', 'LineManager')"  type="checkbox"/>
-                            <input ng-if="$last && $first"    ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'both', 'LineManager')"  type="checkbox"/>
+                            <input ng-if="$first && !$last"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'first', 'LineManager')" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox" />
+                            <input ng-if="!($first || $last)" ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
+                            <input ng-if="$last && !$first"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'last', 'LineManager')"  ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
+                            <input ng-if="$last && $first"    ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'both', 'LineManager')"  ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
                             {{option.LastName}}
                         </label>
-                        {{selected.filters.LineManager[option.LineManagerPeopleKey]}}
+                        <!--{{selected.filters.LineManager[option.LineManagerPeopleKey]}}-->
                     </div>
                 </li>
             </ul>
