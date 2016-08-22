@@ -1,4 +1,5 @@
 var filterModalCtl = require('./filterModalCtl.js');
+var columnsModalCtl = require('./columnsModalCtl.js');
 
 var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter) {
 
@@ -57,7 +58,23 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
     };
 
     vm.launchColumnsModal = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'columnsModal.html',
+            controller: columnsModalCtl,
+            controllerAs: 'vm',
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
 
+        modalInstance.result.then(function (item) {
+
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
     };
 
 
@@ -151,7 +168,8 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         vm.employees = theFilterFinal; // maybe useless,just in case vm.employees is duplicate.
         if(!theFilter){ // used during coding
             vm.employees = tempEmployees;
-        }
+        } 
+        
         
         
         

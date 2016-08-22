@@ -721,6 +721,28 @@ body {
           }
         }
       }
+
+      .filter-list-outer {
+
+        width:100%;
+        overflow:hidden;
+        font-size:14px;
+        //background-color:$light-blue;
+
+        span {
+          margin-left:30px;
+          width: 160px;
+          display: inline-block;
+          overflow: hidden;
+          white-space: nowrap;
+          border-left: 2px solid magenta;
+          padding-left: 10px;
+        }
+        span:nth-child(3) {
+          width:220px;
+        }
+      }
+
     }
 
   }

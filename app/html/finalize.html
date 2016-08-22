@@ -5,7 +5,7 @@
                 <span class="setting-btn" ng-click="vm.launchFilterModal()">People
                     <i class="glyphicon glyphicon-filter"></i>
                 </span>
-                <span class="setting-btn" ng-click="vm.launchColumnsModal('lg')">Columns
+                <span class="setting-btn" ng-click="vm.launchColumnsModal()">Columns
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </span>
             </div>
@@ -78,12 +78,18 @@
             </div>
         </div>
         <div class="filter-grid-wrapper">
+            <div class="filter-list-outer">
+                <span>Name</span>
+                <span>Country</span>
+                <span>LineManager</span>
+                <span>CurrentLevel</span>
+            </div>
             <div class="filter-grid" ng-repeat="emp in vm.employees">
                 <div class="filter-list" ng-style="">
-                    <span>Name: {{emp.name}}</span>
-                    <span>Country: {{emp.country}}</span>
-                    <span>LineManager: {{emp.LineManager}}</span>
-                    <span>CurrentLevel: {{emp.CurrentLevel}}</span>
+                    <span>{{emp.name}}</span>
+                    <span>{{emp.country}}</span>
+                    <span>{{emp.LineManager}}</span>
+                    <span>{{emp.CurrentLevel}}</span>
                 </div>
             </div>
         </div>
