@@ -64,8 +64,8 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
             controller: columnsModalCtl,
             controllerAs: 'vm',
             resolve: {
-                items: function () {
-                    return $scope.items;
+                item: function () {
+                    // return $scope.items;
                 }
             }
         });
