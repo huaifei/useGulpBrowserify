@@ -67,8 +67,8 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         console.log(currentFilters);
         filterCurrentData(currentFilters);
 
-        showFilterResultInPage();
-
+        // showFilterResultInPage();
+        showFilterResultBackgroundInPage();
     });
 
     // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
@@ -90,8 +90,12 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
                         //refresh vm.displayFilters when the second time
                         vm.displayFilters.push({name:"Talent Lead", displayText: displayText, lastName:temp.LastName, filterValue: filterValue, filterName: filterName});
                         // we use "Talent Lead" to filter
-                    } else {
-
+                    } else if(filterName === 'Country'){
+                        temp = $filter('filter')(vm.filtersData.Country, {CountryName: currentFilters[filterName][filterValue]})[0];
+                        displayText = temp.CountryName;
+                        //refresh vm.displayFilters when the second time
+                        vm.displayFilters.push({name:"Talent Lead", CountryName: displayText, filterValue: filterValue, filterName: filterName});
+                        // we use "Talent Lead" to filter
                     }
                 // }
             }
@@ -114,6 +118,43 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
             vm.employees = tempEmployees;
         }
 
+    }
+
+
+    function showFilterResultBackgroundInPage() {
+        var dis,theFilter,theFilterFinal,theTempFilterFinal,tempFilter=[];
+        var display = vm.displayFilters;
+        var filterFlag = [false,false];
+        debugger
+        for(dis in display){
+            debugger
+            if(display[dis].lastName != undefined){
+                theFilter = $filter('filter')(tempEmployees,{"LineManager":display[dis].lastName});
+                theFilterFinal = tempFilter.concat(theFilter);
+                tempFilter = theFilterFinal;
+                filterFlag[0] = true;
+            }
+            if (display[dis].CountryName != undefined) {
+                tempFilter=[];
+                if(filterFlag[0] == true){
+                    theTempFilterFinal = theFilterFinal;
+                } else {
+                    theTempFilterFinal = tempEmployees;
+                }
+                theFilter = $filter('filter')(theTempFilterFinal,{"country":display[dis].CountryName});
+                theFilterFinal = tempFilter.concat(theFilter);
+                tempFilter = theFilterFinal;
+                filterFlag[1] = true;
+            }
+        }
+
+        vm.employees = theFilterFinal; // maybe useless,just in case vm.employees is duplicate.
+        if(!theFilter){ // used during coding
+            vm.employees = tempEmployees;
+        }
+        
+        
+        
     }
 
 

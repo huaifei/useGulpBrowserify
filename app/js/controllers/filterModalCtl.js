@@ -23,21 +23,23 @@ var filterModalCtl = function ($rootScope, $scope, $uibModalInstance, $http, $fi
         }
 
         $rootScope.firstRun = false;
-        $uibModalInstance.close();  //TODO: close first or not.
+        $uibModalInstance.close();
+        //TODO: close first or not.
     };
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
-    function setSelections() {
+    function setSelections() {  // it initialize when open the modal.
         var cachedFilters = getFiltersCache();
         // var planId = SettingsSvc.getCurrentPlanCode();
 debugger
-        // selectedFilters.PlanType = $filter('filter')($scope.filters.PlanTypes, {PlanId: planId })[0];  //TODO-- it is possible that the downstream submission process is already pulling the global values off of the services, rather than the passed object...  Or that that could be made to be the case....
+        // selectedFilters.PlanType = $filter('filter')($scope.filters.PlanTypes, {PlanId: planId })[0];
         // selectedFilters.Country = SettingsSvc.getCurrentCountry();
         // selectedFilters.Currency = SettingsSvc.getCurrentCurrency();
         selectedFilters.LineManager = cachedFilters ? cachedFilters.LineManager : {};
+        selectedFilters.Country = cachedFilters ? cachedFilters.Country : {};
         selectedFilters.CurrentLevel = cachedFilters ? cachedFilters.CurrentLevel : {};
         selectedFilters.NewZoneNbr = cachedFilters ? cachedFilters.NewZoneNbr : {};
         selectedFilters.TalentPriority = cachedFilters ? cachedFilters.TalentPriority : {};
@@ -49,7 +51,7 @@ debugger
         selectedFilters.Promotion = cachedFilters ? cachedFilters.Promotion : {};
         selectedFilters.TalentDecision = cachedFilters ? cachedFilters.TalentDecision : {};
         selectedFilters.nameText = cachedFilters ? cachedFilters.nameText : '';
-    }
+    }  
     
     $scope.isOpen = {
         LineManager: false,
@@ -62,7 +64,8 @@ debugger
         TalentDecision: false,
         CurrentSublevel: false,
         NewRoleFamily: false,
-        TalentPriority: false
+        TalentPriority: false,
+        Country: false
     };
     
     // $scope.isOpen = false;
@@ -162,6 +165,7 @@ debugger
     function buildUpdatedFilters (currentFilters) {
         var config = {
             LineManager: undefined,
+            Country: undefined,
             TalentPriority: undefined,
             CurrentLevel: undefined,
             CurrentSublevel: undefined,

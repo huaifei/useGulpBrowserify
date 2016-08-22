@@ -22,12 +22,43 @@
 
                 <li role="menuitem" ng-repeat="option in res.LineManager" ng-keydown="bufferEscapeKeydown($event)" >
                     <div class="checkbox">
-                        <label>LineManager
+                        <label>LineManager:
                             <input ng-if="$first && !$last"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'first', 'LineManager')" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox" />
                             <input ng-if="!($first || $last)" ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
                             <input ng-if="$last && !$first"   ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'last', 'LineManager')"  ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
                             <input ng-if="$last && $first"    ng-model="selected.filters.LineManager[option.LineManagerPeopleKey]" ng-keydown="updateDropdownOpenState($event, 'both', 'LineManager')"  ng-true-value="'{{typeOf(option.LineManagerPeopleKey)}}'" type="checkbox"/>
                             {{option.LastName}}
+                        </label>
+                        <!--{{selected.filters.LineManager[option.LineManagerPeopleKey]}}-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="filter-cell">
+        <div class="btn-group filter-multi-drop" uib-dropdown is-open="isOpen.Country" auto-close="outsideClick" style="background-color:#3498CB;">
+            <!--{{isOpen.LineManager}}-->
+            <button id="single-button2"
+                    type="button"
+                    class="btn btn-primary"
+                    uib-dropdown-toggle
+                    style="background-color:#3498CB;">
+                Select <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu"
+                uib-dropdown-menu
+                role="menu"
+                aria-labelledby="single-button2">
+
+                <li role="menuitem" ng-repeat="option in res.Country" ng-keydown="bufferEscapeKeydown($event)" >
+                    <div class="checkbox">
+                        <label>Country:
+                            <input ng-if="$first && !$last"   ng-model="selected.filters.Country[option.CountryName]" ng-keydown="updateDropdownOpenState($event, 'first', 'Country')" ng-true-value="'{{typeOf(option.CountryName)}}'" type="checkbox" />
+                            <input ng-if="!($first || $last)" ng-model="selected.filters.Country[option.CountryName]" ng-true-value="'{{typeOf(option.CountryName)}}'" type="checkbox"/>
+                            <input ng-if="$last && !$first"   ng-model="selected.filters.Country[option.CountryName]" ng-keydown="updateDropdownOpenState($event, 'last', 'Country')"  ng-true-value="'{{typeOf(option.CountryName)}}'" type="checkbox"/>
+                            <input ng-if="$last && $first"    ng-model="selected.filters.Country[option.CountryName]" ng-keydown="updateDropdownOpenState($event, 'both', 'Country')"  ng-true-value="'{{typeOf(option.CountryName)}}'" type="checkbox"/>
+                            {{option.CountryName}}
                         </label>
                         <!--{{selected.filters.LineManager[option.LineManagerPeopleKey]}}-->
                     </div>
