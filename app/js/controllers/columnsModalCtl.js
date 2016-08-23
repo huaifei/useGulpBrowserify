@@ -5,10 +5,11 @@ var columnsModalCtl = function ($rootScope, $scope, $uibModalInstance, $http, $f
     debugger;
 
     $scope.submit = function () {
-
+debugger
         setColumnsCache(selectedColumns);
         console.log(columnsCache);
-        
+        processUpdatedColumns(selectedColumns);
+
         $uibModalInstance.close();
     };
 
@@ -32,7 +33,11 @@ var columnsModalCtl = function ($rootScope, $scope, $uibModalInstance, $http, $f
     function getColumnsCache() {
         return columnsCache;
     }
-    
+
+    function processUpdatedColumns(selectedColumns) {
+        $rootScope.$emit('columnsUpdated',selectedColumns);
+    }
+
     $scope.items = ['Country','LineManager','CurrentLevel'];
     
     $scope.selected = [];
@@ -40,7 +45,6 @@ var columnsModalCtl = function ($rootScope, $scope, $uibModalInstance, $http, $f
     
     
 };
-
 
 
 module.exports = columnsModalCtl;

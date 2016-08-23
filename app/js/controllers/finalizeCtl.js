@@ -4,7 +4,7 @@ var columnsModalCtl = require('./columnsModalCtl.js');
 var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter) {
 
     var vm = this;
-    var currentFilters,tempEmployees;
+    var currentFilters,tempEmployees,currentColumns;
     vm.displayFilters  = [];
     vm.jumpLinksShowing = true;
 
@@ -79,7 +79,6 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
 
 
     $rootScope.$on('filtersUpdated',function (event,data) {
-        debugger
         currentFilters = data;
         console.log(currentFilters);
         filterCurrentData(currentFilters);
@@ -88,8 +87,15 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         showFilterResultBackgroundInPage();
     });
 
-    // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
+    $rootScope.$on('columnsUpdated',function (event,data) {
+        debugger
+        currentColumns = data;
+        console.log(currentColumns);
 
+        showColumnsResultBackgroundInPage(currentColumns);
+    });
+
+    // var theFilter = $filter('filter')(vm.employees,{"name":currentName});
     function filterCurrentData(currentFilters) {
         var filterName;
         var filterValue;
@@ -136,8 +142,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         }
 
     }
-
-
+    
     function showFilterResultBackgroundInPage() {
         var dis,theFilter,theFilterFinal,theTempFilterFinal,tempFilter=[];
         var display = vm.displayFilters;
@@ -173,6 +178,32 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         
         
         
+    }
+
+    
+    // columns part
+    var disNone = {'opacity':0};
+    vm.displayNone = [undefined,undefined,undefined];
+    vm.ifDisplay = {
+        Country : true,
+        LineManager : true,
+        CurrentLevel : true
+    };
+    function showColumnsResultBackgroundInPage(currentColumns) {
+        debugger
+        // console.log(currentColumns);
+        vm.displayNone = [undefined,undefined,undefined];
+        if(currentColumns.Country == undefined){
+            vm.displayNone[0] = disNone;
+        }
+        if(currentColumns.LineManager == undefined){
+            vm.displayNone[1] = disNone;
+        }
+        if(currentColumns.CurrentLevel == undefined){
+            vm.displayNone[2] = disNone;
+        }
+
+        $scope.$digest();
     }
 
 

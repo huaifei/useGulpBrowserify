@@ -87,11 +87,12 @@
             <div class="filter-grid" ng-repeat="emp in vm.employees">
                 <div class="filter-list" ng-style="">
                     <span>{{emp.name}}</span>
-                    <span>{{emp.country}}</span>
-                    <span>{{emp.LineManager}}</span>
-                    <span>{{emp.CurrentLevel}}</span>
+                    <span ng-style="vm.displayNone[0]">{{emp.country}}</span>
+                    <span ng-style="vm.displayNone[1]">{{emp.LineManager}}</span>
+                    <span ng-style="vm.displayNone[2]">{{emp.CurrentLevel}}</span>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
