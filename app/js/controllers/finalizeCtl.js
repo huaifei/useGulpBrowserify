@@ -80,7 +80,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
 
     $rootScope.$on('filtersUpdated',function (event,data) {
         currentFilters = data;
-        console.log(currentFilters);
+        // console.log(currentFilters);
         filterCurrentData(currentFilters);
 
         // showFilterResultInPage();
@@ -90,8 +90,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
     $rootScope.$on('columnsUpdated',function (event,data) {
         debugger
         currentColumns = data;
-        console.log(currentColumns);
-
+        // console.log(currentColumns);
         showColumnsResultBackgroundInPage(currentColumns);
     });
 
@@ -182,7 +181,7 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
 
     
     // columns part
-    var disNone = {'opacity':0};
+    var disNone = {'opacity':0.2};
     vm.displayNone = [undefined,undefined,undefined];
     vm.ifDisplay = {
         Country : true,
