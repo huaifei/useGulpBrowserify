@@ -9,6 +9,7 @@
     var employeeRailCtl = require('./controllers/employeeRailCtl.js');
     var employeeFlyoutCtl = require('./controllers/employeeFlyoutCtl.js');
     var finalizeCtl = require('./controllers/finalizeCtl.js');
+    var reportCtl = require('./controllers/reportCtl.js');
     var filterModalCtl = require('./controllers/filterModalCtl.js');
     var columnsModalCtl = require('./controllers/columnsModalCtl.js');
 
@@ -32,6 +33,7 @@
         .controller('profileDetailsCtl',profileDetailsCtl)
         .controller('employeeFlyoutCtl',employeeFlyoutCtl)
         .controller('finalizeCtl',finalizeCtl)
+        .controller('reportCtl',reportCtl)
         .controller('filterModalCtl',filterModalCtl)
         .controller('columnsModalCtl',columnsModalCtl)
 
