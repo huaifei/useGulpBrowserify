@@ -172,12 +172,11 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
         vm.employees = theFilterFinal; // maybe useless,just in case vm.employees is duplicate.
         if(!theFilter){ // used during coding
             vm.employees = tempEmployees;
-        } 
-        
-        
-        
-        
-    }
+        }
+
+        vm.gridOptions.api.setRowData(vm.employees);
+
+    } //showFilterResultBackgroundInPage
 
     
     // columns part
@@ -204,6 +203,48 @@ var finalizeCtl = function ($rootScope, $scope, $log, $uibModal, $http, $filter)
 
         $scope.$digest();
     }
+
+
+
+    //ag-grid
+    $http.get("../data/PeopleInformation.json")
+        .then(function(res){
+            debugger;
+            console.log(res);
+            vm.employees = res.data.employees;
+            // vm.gridOptions.api.setRowData(res.data.employees);
+            vm.gridOptions.api.setRowData(vm.employees);
+        });
+
+    var columnDefs = [
+        {headerName: '', width: 25, checkboxSelection: true, suppressSorting: true,
+            suppressMenu: true, pinned: false},
+        {headerName: "Name", field: "name", width: 150,cellStyle: {'margin': '0 auto'}},
+        {headerName: "Country", field: "country", width: 150},
+        {headerName: "LineManager", field: "LineManager", width: 150},
+        {headerName: "CurrentLevel", field: "CurrentLevel", width: 150},
+        {headerName: "Title", field: "title", width: 250},
+        {headerName: "Salary", field: "salary", width: 150},
+        {headerName: "Location", field: "location", width: 250}
+    ];
+    vm.gridOptions = {
+        columnDefs: columnDefs,
+        rowData: null,
+        angularCompileRows: true
+    };
+
+
+
+    function CountryClicked(age) {
+        window.alert("Country clicked: " + age);
+    }
+
+    function countryCellRendererFunc(params) {
+        params.$scope.CountryClicked = CountryClicked;
+        return '<span ng-click="CountryClicked(data.country)" ng-model="data.country"></span>';
+    }
+
+
 
 
 

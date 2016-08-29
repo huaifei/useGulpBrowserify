@@ -12,7 +12,7 @@ var employeeRailCtl = function($rootScope,$scope,$interval,$http,$compile,$timeo
     vm.showFrontExtend = [];
     vm.defaultGroups = [];
     var url = "../data/PeopleInformation.json";
-    var defaultGroupUrl = "../data/defaultGroup.json"; //it's not been used
+    var defaultGroupUrl = "../data/defaultGroup.json"; //it has not been used
 
     // console.log(window.innerHeight);
 

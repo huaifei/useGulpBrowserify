@@ -77,22 +77,38 @@
                 </div>
             </div>
         </div>
-        <div class="filter-grid-wrapper">
-            <div class="filter-list-outer">
-                <span>Name</span>
-                <span>Country</span>
-                <span>LineManager</span>
-                <span>CurrentLevel</span>
+
+
+        <!--<div class="filter-grid-wrapper">-->
+            <!--<div class="filter-list-outer">-->
+                <!--<span>Name</span>-->
+                <!--<span>Country</span>-->
+                <!--<span>LineManager</span>-->
+                <!--<span>CurrentLevel</span>-->
+            <!--</div>-->
+            <!--<div class="filter-grid" ng-repeat="emp in vm.employees">-->
+                <!--<div class="filter-list" ng-style="">-->
+                    <!--<span>{{emp.name}}</span>-->
+                    <!--<span ng-style="vm.displayNone[0]">{{emp.country}}</span>-->
+                    <!--<span ng-style="vm.displayNone[1]">{{emp.LineManager}}</span>-->
+                    <!--<span ng-style="vm.displayNone[2]">{{emp.CurrentLevel}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+
+
+        <div style="padding: 4px">
+            <div style="float: left;margin:50px 0 10px 0;">
+                <input type="text" ng-model="vm.gridOptions.quickFilterText" placeholder="Type text to filter..."/>
             </div>
-            <div class="filter-grid" ng-repeat="emp in vm.employees">
-                <div class="filter-list" ng-style="">
-                    <span>{{emp.name}}</span>
-                    <span ng-style="vm.displayNone[0]">{{emp.country}}</span>
-                    <span ng-style="vm.displayNone[1]">{{emp.LineManager}}</span>
-                    <span ng-style="vm.displayNone[2]">{{emp.CurrentLevel}}</span>
-                </div>
-            </div>
+            <div style="clear: both;"/>
         </div>
+        <div ag-grid="vm.gridOptions" class="ag-fresh" style="height: 100%;">
+        </div>
+
+
 
     </div>
 </div>

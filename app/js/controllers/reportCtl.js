@@ -162,7 +162,7 @@ var report = function ($rootScope,$scope) {
     function createRowData() {
         var rowData = [];
 
-        for (var i = 0; i < 10000; i++) {
+        for (var i = 0; i < 5; i++) {
             var countryData = countries[i % countries.length];
             rowData.push({
                 name: firstNames[i % firstNames.length] + ' ' + lastNames[i % lastNames.length],
@@ -199,7 +199,8 @@ var report = function ($rootScope,$scope) {
     }
 
     function countryCellRenderer(params) {
-        var flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='../images/flags/" + COUNTRY_CODES[params.value] + ".png'>";
+        // var flag = "<img border='0' width='15' height='10' style='margin-bottom: 2px' src='../images/flags/" + COUNTRY_CODES[params.value] + ".png'>";
+        var flag = "";
         return flag + " " + params.value;
     }
 
@@ -211,8 +212,7 @@ var report = function ($rootScope,$scope) {
                 result += ' ';
             }
         }
-        return result;
-    }
+     }
 
     function percentCellRenderer(params) {
         var value = params.value;
@@ -392,4 +392,69 @@ var report = function ($rootScope,$scope) {
 };
 
 
-module.exports = report;
+var report2 = function($scope){
+
+    var vm = this;
+    var columnDefs = [
+        {headerName: "Make", field: "make" , width: 400},
+        {headerName: "Model", field: "model", width:400},
+        {headerName: "Price", field: "price", width:400}
+    ];
+
+    var rowData = [
+        {make: "Toyota", model: "Celica", price: 35000},
+        {make: "Ford", model: "Mondeo", price: 32000},
+        {make: "Porsche", model: "Boxter", price: 72000}
+    ];
+
+    vm.gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData
+    };
+
+};
+
+
+
+var report3 = function ($scope, $http) {
+
+    var vm = this;
+    var columnDefs = [
+        {headerName: "Name", field: "name", width: 150},
+        // {headerName: "Title", field: "title", width: 90},
+        // {headerName: "Salary", field: "salary", width: 120},
+        // {headerName: "Location", field: "location", width: 110},
+        {headerName: "Country", field: "country", width: 150, cellRenderer: countryCellRendererFunc},
+        {headerName: "LineManager", field: "LineManager", width: 150},
+        {headerName: "CurrentLevel", field: "CurrentLevel", width: 150}
+    ];
+
+    vm.gridOptions = {
+        columnDefs: columnDefs,
+        rowData: null,
+        angularCompileRows: true
+    };
+
+    function ageClicked(age) {
+        window.alert("Age clicked: " + age);
+    }
+
+    function countryCellRendererFunc(params) {
+        params.$scope.ageClicked = ageClicked;
+        return '<span ng-click="ageClicked(data.country)" ng-bind="data.country"></span>';
+    }
+
+
+    $http.get("../data/PeopleInformation.json")
+        .then(function(res){
+            debugger;
+            console.log(res);
+            vm.gridOptions.api.setRowData(res.data.employees);
+        });
+
+
+
+};
+
+
+module.exports = report3;
